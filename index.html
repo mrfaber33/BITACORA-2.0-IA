@@ -1015,103 +1015,80 @@ document.querySelectorAll(".tab").forEach(btn=>{
     renderCharts();
   });
 });
+  
 
 refreshAll();
+edge33-pro/
+├── index.html          (tu HTML actual - modificado)
+├── css/
+│   └── styles.css      (estilos separados)
+├── js/
+│   ├── config.js       (configuración API)
+│   ├── trades.js       (lógica de trades)
+│   ├── metrics.js      (cálculos de métricas)
+│   ├── mentor33.js     (🔥 MOTOR DE IA)
+│   ├── charts.js       (gráficas)
+│   └── app.js          (orquestador principal)
+├── logo.png
+└── README.md
+  
+// ══════════════════════════════════════════════════════════════
+// EDGE33 PRO - CONFIGURACIÓN
+// ══════════════════════════════════════════════════════════════
+
+const CONFIG = {
+  // Configuración de IA
+  AI: {
+    // Puedes usar OpenAI, Anthropic Claude, o una implementación local
+    PROVIDER: 'MOCK', // 'OPENAI' | 'CLAUDE' | 'MOCK'
+    API_KEY: '', // Tu API key (para producción)
+    MODEL: 'gpt-4',
+    
+    // Umbrales de alerta
+    THRESHOLDS: {
+      MAX_TRADES_PER_DAY: 2,
+      HIGH_RISK_MULTIPLIER: 1.5,
+      LOW_WINRATE_THRESHOLD: 40,
+      MIN_SAMPLE_SIZE: 10
+    }
+  },
+  
+  // Sistema de trading del usuario
+  EDGE: {
+    NAME: 'Q33 System',
+    DESCRIPTION: 'Altos y bajos de H4 confirmados con Q33',
+    VALID_SETUPS: ['Q33-H4', 'Q33', 'SETUP_Q33'],
+    MAX_DAILY_TRADES: 2,
+    RECOMMENDED_RR: 2.0
+  },
+  
+  // Storage
+  STORAGE_KEY: 'edge33_trades_v3',
+  
+  // Métricas objetivo
+  TARGETS: {
+    MIN_WINRATE: 50,
+    MIN_PROFIT_FACTOR: 1.5,
+    MIN_EXPECTANCY: 0.3,
+    MAX_DRAWDOWN: 15
+  }
+};
+
+// Mensajes de Mentor33
+const MENTOR_MESSAGES = {
+  WELCOME: "Hola, soy Mentor33 🤖. Estoy aquí para ayudarte a ser un trader disciplinado y rentable.",
+  
+  GOOD_TRADE: [
+    "Excelente. Operaste tu verdadero edge. Así se hace.",
+    "Trade disciplinado. Estás respetando tu sistema.",
+    "Bien ejecutado. Mantén esta consistencia.",
+  ],
+  
+  OFF_SYSTEM: [
+    "⚠️ Esta operación está fuera de tu sistema Q33.",
+    "⚠
+
+  
 </script>
 </body>
 </html>
-
-class Mentor33 {
-  analizarTrading(trades) {
-    // Análisis inteligente de operaciones
-    const insights = {
-      winRate: this.calcularWinRate(trades),
-      mejorHorario: this.detectarMejorHorario(trades),
-      riesgoOptimo: this.calcularRiesgoOptimo(trades)
-    };
-    return insights;
-  }
-}
-edge33-mentor/
-├── index.html
-├── css/
-│   └── styles.css
-├── js/
-│   ├── app.js
-│   ├── mentor33.js
-│   └── charts.js
-├── assets/
-│   └── logo.png (tu logo)
-├── README.md
-└── .gitignore
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edge33 - Bitácora de Trading + Mentor33 IA</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <div class="wrap">
-    <!-- TOPBAR -->
-    <div class="topbar">
-      <div class="brand">
-        <img src="assets/logo.png" alt="Q33 Logo" class="logo">
-        <div>
-          <h1>Edge33</h1>
-          <small>Bitácora de trading + Mentor33 IA</small>
-        </div>
-      </div>
-      <div class="mentor-badge">
-        <span class="mentor-icon">🤖</span>
-        <span>Mentor33 IA Activo</span>
-      </div>
-      <div class="tabs">
-        <button class="tab active" data-tab="registro">Registro</button>
-        <button class="tab" data-tab="mentor">Mentor33</button>
-        <button class="tab" data-tab="graficas">Gráficas</button>
-        <button class="tab" data-tab="analisis">Análisis</button>
-      </div>
-    </div>
-
-    <!-- MÉTRICAS PRINCIPALES -->
-    <div class="grid-metrics">
-      <div class="card metric">
-        <div class="label">P&L Total</div>
-        <div class="value" id="m-pnl">$0.00</div>
-        <div class="sub" id="m-pnl-pct">0.00%</div>
-      </div>
-      <div class="card metric">
-        <div class="label">Win Rate</div>
-        <div class="value green" id="m-winrate">0.0%</div>
-        <div class="sub" id="m-wl">0W / 0L</div>
-      </div>
-      <div class="card metric">
-        <div class="label">Profit Factor</div>
-        <div class="value blue" id="m-pf">0.00</div>
-        <div class="sub">ganancia bruta / pérdida bruta</div>
-      </div>
-      <div class="card metric">
-        <div class="label">R:R Promedio</div>
-        <div class="value gold" id="m-rr">0.00R</div>
-        <div class="sub">resultado promedio por operación</div>
-      </div>
-      <div class="card metric">
-        <div class="label">Max Drawdown</div>
-        <div class="value red" id="m-dd">0.00%</div>
-        <div class="sub" id="m-dd-money">$0.00</div>
-      </div>
-      <div class="card metric">
-        <div class="label">Expectancy</div>
-        <div class="value" id="m-exp">0.00R</div>
-        <div class="sub">ventaja esperada por trade</div>
-      </div>
-    </div>
-
-    <!-- PANEL: REGISTRO -->
-    <section id="registro" class="panel active">
-      <div class="card">
-        <div class="form-section-label">Identificación del trade
-
-

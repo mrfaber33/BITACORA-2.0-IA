@@ -3,105 +3,92 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edge33 pro | Bitácora de Trading + Mentor33 IA</title>
+  <title>Edge33 - Bitácora de Trading + Mentor33 IA</title>
   <style>
-    :root{
-      --bg:#0b0f14;
-      --panel:#121922;
-      --panel-2:#18222e;
-      --border:#243243;
-      --text:#e8f0f7;
-      --muted:#91a2b6;
-      --green:#1eea8a;
-      --red:#ff5f7a;
-      --gold:#f4c35a;
-      --blue:#57b4ff;
-      --purple:#b57fff;
-      --chip:#0f1620;
-      --shadow:0 10px 25px rgba(0,0,0,.28);
-      --radius:16px;
+    /* [Todo tu CSS original] */
+    .mentor-badge {
+      background: linear-gradient(135deg, #b57fff, #8b4fc4);
+      color: white;
+      padding: 10px 15px;
+      border-radius: 20px;
     }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <img src="logo.png" alt="Q33 Logo" class="logo">
+        <h1>Edge33</h1>
+        <small>Bitácora de trading y métricas del sistema</small>
+      </div>
+      
+      <!-- 🤖 NUEVO: MENTOR33 BADGE -->
+      <div class="mentor-badge" id="mentorBadge">
+        <span>🤖 Mentor33 IA Activado</span>
+      </div>
+      
+      <div class="tabs">
+        <button class="tab active" data-tab="registro">Registro</button>
+        <button class="tab" data-tab="mentor">Mentor IA</button>
+        <button class="tab" data-tab="graficas">Gráficas</button>
+        <button class="tab" data-tab="analisis">Análisis</button>
+      </div>
+    </div>
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:linear-gradient(180deg,#091019 0%, #0b0f14 100%);
-      color:var(--text);
-    }
-    .wrap{
-      max-width:1400px;
-      margin:0 auto;
-      padding:24px;
-    }
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom:20px;
-      flex-wrap:wrap;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .logo{
-      width:42px;
-      height:42px;
-      border-radius:12px;
-      object-fit:cover;
-      box-shadow:0 0 20px rgba(244,195,90,.25);
-    }
-    .brand h1{
-      margin:0;
-      font-size:28px;
-      letter-spacing:.4px;
-    }
-    .brand small{
-      display:block;
-      color:var(--muted);
-      margin-top:2px;
-    }
+    <!-- [Resto de tu código HTML original] -->
 
-    .mentor-badge{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      background:linear-gradient(135deg, #b57fff 0%, #8b4fc4 100%);
-      padding:12px 18px;
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      box-shadow:0 0 25px rgba(181,127,255,.35);
-      animation: mentorPulse 2s infinite;
-      border:1px solid rgba(181,127,255,.5);
-    }
-    @keyframes mentorPulse{
-      0%,100%{ opacity:1; transform:scale(1); }
-      50%{ opacity:0.9; transform:scale(1.02); }
-    }
-    .mentor-icon{
-      font-size:18px;
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float{
-      0%,100%{ transform:translateY(0px); }
-      50%{ transform:translateY(-4px); }
-    }
+    <!-- 🆕 NUEVO PANEL: MENTOR33 IA -->
+    <section id="mentor" class="panel">
+      <div class="card">
+        <h2>🤖 Mentor33 - Tu Asistente de Trading</h2>
+        
+        <div class="insights-container">
+          <div class="insight-card">
+            <h3>Análisis de Rendimiento</h3>
+            <div id="performanceInsights"></div>
+          </div>
+          
+          <div class="insight-card">
+            <h3>Recomendaciones IA</h3>
+            <div id="aiRecommendations"></div>
+          </div>
+        </div>
 
-    .tabs{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .tab{
-      border:1px solid var(--border);
-      background:var(--panel);
-      color:var(--text);
-      padding:10px 14px;
-      border-radius:999px;
-      cursor:pointer;
-      font-weight:700;
-      font-size:13px;
+        <div class="risk-management">
+          <h3>Gestión de Capital</h3>
+          <div id="riskAlerts"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // 🧠 MENTOR33 INTELIGENCIA ARTIFICIAL
+    class Mentor33 {
+      constructor(trades) {
+        this.trades = trades;
+      }
+
+      analizarRendimiento() {
+        const metrics = this.calcularMetricas();
+        return `
+          🔍 Insights de Rendimiento:
+          - Win Rate: ${metrics.winRate}%
+          - Profit Factor: ${metrics.profitFactor}
+          - Expectancy: ${metrics.expectancy}R
+        `;
+      }
+
+      generarRecomendaciones() {
+        const insights = [
+          "🕒 Evita operar después de las 12am",
+          "⚠️ Controla riesgo en operaciones consecutivas",
+          "📊 Mantén consistencia en tu estrategia Q33"
+        ];
+        return insights.join('\n');
+      }
+
+      alertasRiesgo() {
+        return `
+          

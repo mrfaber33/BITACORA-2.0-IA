@@ -603,7 +603,7 @@
         </div>
         <div class="card">
           <div style="font-weight:800; margin-bottom:12px;">Lectura rápida</div>
-          <div id="quickRead" class="hint"></div>
+          <div id="mentor33" class="hint"></div>
         </div>
       </div>
     </section>
@@ -1016,8 +1016,7 @@ document.querySelectorAll(".tab").forEach(btn=>{
     renderCharts();
   });
 });
-
-refreshAll();
+let trades = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 </script>
 
 <script src="js/mentor33.js"></script>

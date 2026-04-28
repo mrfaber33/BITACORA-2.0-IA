@@ -32,9 +32,14 @@
     .topbar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; }
     .brand{ display:flex; align-items:center; gap:12px; }
     .logo{
-      width:42px;height:42px;border-radius:12px;
-      background:radial-gradient(circle at 30% 30%, #33ffd6, #16b06c 55%, #0d7a51 100%);
-      box-shadow:0 0 25px rgba(30,234,138,.25), inset 0 0 12px rgba(255,255,255,.18);
+      width:52px; height:52px; border-radius:50%;
+      overflow:hidden;
+      box-shadow:0 0 30px rgba(30,234,138,.35), 0 0 60px rgba(0,200,100,.15);
+      flex-shrink:0;
+      border: 1px solid rgba(30,234,138,.25);
+    }
+    .logo img{
+      width:100%; height:100%; object-fit:cover; display:block;
     }
     .brand h1{ margin:0; font-size:28px; letter-spacing:.4px; }
     .brand small{ display:block; color:var(--muted); margin-top:2px; }
@@ -196,7 +201,9 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
 
   <div class="topbar">
     <div class="brand">
-      <div class="logo"></div>
+      <div class="logo">
+        <img src="1B0BB1D1-403A-4FCC-A401-B63A2F007E21.png" alt="Q33 Logo" />
+      </div>
       <div>
         <h1>Edge33</h1>
         <small>Bitácora de trading y métricas del sistema</small>
@@ -415,9 +422,6 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
 <div class="alerts-wrap" id="alertsWrap"></div>
 
 <script>
-// ─────────────────────────────────────────
-// CORE
-// ─────────────────────────────────────────
 const STORAGE_KEY = "edge33_trades_v1";
 const ACCOUNT_KEY = "edge33_account_size_v1";
 let trades = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
@@ -435,14 +439,8 @@ function todayStr(){
 }
 $("date").value = todayStr();
 
-// ─────────────────────────────────────────
-// ACCOUNT SIZE — leer/guardar
-// ─────────────────────────────────────────
-function getAccountSize(){
-  return num($("accountSize").value) || 0;
-}
+function getAccountSize(){ return num($("accountSize").value) || 0; }
 
-// Cargar valor guardado
 const savedAccount = localStorage.getItem(ACCOUNT_KEY);
 if(savedAccount) $("accountSize").value = savedAccount;
 
@@ -451,9 +449,6 @@ $("accountSize").addEventListener("input", ()=>{
   refreshAll();
 });
 
-// ─────────────────────────────────────────
-// CALC TRADE
-// ─────────────────────────────────────────
 function calcTrade(trade){
   const entry = num(trade.entry), exit = num(trade.exit), stop = num(trade.stop);
   const size = num(trade.size || 1), commission = num(trade.commission || 0);
@@ -464,20 +459,14 @@ function calcTrade(trade){
   const riskPerUnit = trade.direction === "Long" ? entry - stop : stop - entry;
   const totalRisk = Math.abs(riskPerUnit * size);
   const r = totalRisk > 0 ? pnl / totalRisk : 0;
-
-  // % de la cuenta
   const accountSize = getAccountSize();
   const pnlPctAccount = accountSize > 0 ? (pnl / accountSize) * 100 : null;
   const riskPctAccount = accountSize > 0 ? (totalRisk / accountSize) * 100 : null;
-
   return { ...trade, pnl, pnlPct, pnlPctAccount, riskPctAccount, r, result: pnl > 0 ? "WIN" : pnl < 0 ? "LOSS" : "BE" };
 }
 
 function getComputedTrades(){ return trades.map(calcTrade); }
 
-// ─────────────────────────────────────────
-// COMPUTE METRICS
-// ─────────────────────────────────────────
 function computeMetrics(rows){
   const total = rows.length;
   const wins = rows.filter(t=>t.pnl>0), losses = rows.filter(t=>t.pnl<0);
@@ -489,96 +478,46 @@ function computeMetrics(rows){
   const winRate = total ? (wins.length/total)*100 : 0;
   const pf = grossLossAbs===0 ? (grossProfit>0?999:0) : grossProfit/grossLossAbs;
   const avgR = total ? rows.reduce((a,b)=>a+b.r,0)/total : 0;
-
   let equity=0, peak=0, maxDD=0;
   rows.forEach(t=>{ equity+=t.pnl; if(equity>peak)peak=equity; const dd=peak-equity; if(dd>maxDD)maxDD=dd; });
   const maxDDPct = peak>0 ? (maxDD/peak)*100 : 0;
-
   const avgWinR = wins.length ? wins.reduce((a,b)=>a+b.r,0)/wins.length : 0;
   const avgLossR = losses.length ? Math.abs(losses.reduce((a,b)=>a+b.r,0)/losses.length) : 0;
   const expectancy = (winRate/100*avgWinR) - ((100-winRate)/100*avgLossR);
-
   let bestStreak=0, worstStreak=0, curWin=0, curLoss=0;
   rows.forEach(t=>{
     if(t.pnl>0){curWin++;curLoss=0;} else if(t.pnl<0){curLoss++;curWin=0;} else{curWin=0;curLoss=0;}
     if(curWin>bestStreak)bestStreak=curWin;
     if(curLoss>worstStreak)worstStreak=curLoss;
   });
-
   const avgWin = wins.length ? grossProfit/wins.length : 0;
   const avgLoss = losses.length ? Math.abs(losses.reduce((a,b)=>a+b.pnl,0))/losses.length : 0;
-
-  // Riesgo promedio como % de cuenta
   const accountSize = getAccountSize();
-  const avgRiskPctAccount = accountSize > 0 && total > 0
-    ? rows.reduce((a,b)=>a+(b.riskPctAccount||0),0)/total
-    : null;
-
-  // Métricas relativas a cuenta
+  const avgRiskPctAccount = accountSize > 0 && total > 0 ? rows.reduce((a,b)=>a+(b.riskPctAccount||0),0)/total : null;
   const netPctAccount = accountSize > 0 ? (net / accountSize) * 100 : null;
   const maxDDPctAccount = accountSize > 0 ? (maxDD / accountSize) * 100 : null;
   const balance = accountSize > 0 ? accountSize + net : null;
-
   const byHour = {};
-  rows.forEach(t=>{
-    if(t.timeOpen){
-      const h=parseInt(t.timeOpen);
-      if(!byHour[h])byHour[h]={pnl:0,n:0,w:0};
-      byHour[h].pnl+=t.pnl; byHour[h].n++; if(t.pnl>0)byHour[h].w++;
-    }
-  });
+  rows.forEach(t=>{ if(t.timeOpen){ const h=parseInt(t.timeOpen); if(!byHour[h])byHour[h]={pnl:0,n:0,w:0}; byHour[h].pnl+=t.pnl; byHour[h].n++; if(t.pnl>0)byHour[h].w++; } });
   const byStrat = {};
-  rows.forEach(t=>{
-    if(t.strategy){
-      if(!byStrat[t.strategy])byStrat[t.strategy]={n:0,w:0,pnl:0};
-      byStrat[t.strategy].n++; if(t.pnl>0)byStrat[t.strategy].w++; byStrat[t.strategy].pnl+=t.pnl;
-    }
-  });
-
-  return {
-    total, wins:wins.length, losses:losses.length,
-    grossProfit, grossLossAbs, net, netPct,
-    winRate, pf, avgR, maxDD, maxDDPct,
-    expectancy, bestStreak, worstStreak, avgWin, avgLoss,
-    byHour, byStrat,
-    // cuenta
-    accountSize, netPctAccount, maxDDPctAccount, balance, avgRiskPctAccount
-  };
+  rows.forEach(t=>{ if(t.strategy){ if(!byStrat[t.strategy])byStrat[t.strategy]={n:0,w:0,pnl:0}; byStrat[t.strategy].n++; if(t.pnl>0)byStrat[t.strategy].w++; byStrat[t.strategy].pnl+=t.pnl; } });
+  return { total, wins:wins.length, losses:losses.length, grossProfit, grossLossAbs, net, netPct, winRate, pf, avgR, maxDD, maxDDPct, expectancy, bestStreak, worstStreak, avgWin, avgLoss, byHour, byStrat, accountSize, netPctAccount, maxDDPctAccount, balance, avgRiskPctAccount };
 }
 
-// ─────────────────────────────────────────
-// UPDATE METRICS (cards + account bar)
-// ─────────────────────────────────────────
 function updateMetrics(){
   const rows = getComputedTrades();
   const m = computeMetrics(rows);
-
-  // Cards originales
   $("m-pnl").textContent = money(m.net);
   $("m-pnl").className = `value ${m.net>=0?'green':'red'}`;
-
-  if(m.accountSize > 0){
-    $("m-pnl-pct").textContent = `${pct(m.netPctAccount)} de la cuenta`;
-  } else {
-    $("m-pnl-pct").textContent = pct(m.netPct);
-  }
-
+  if(m.accountSize > 0){ $("m-pnl-pct").textContent = `${pct(m.netPctAccount)} de la cuenta`; }
+  else { $("m-pnl-pct").textContent = pct(m.netPct); }
   $("m-winrate").textContent = `${fmt(m.winRate,1)}%`;
   $("m-wl").textContent = `${m.wins}W / ${m.losses}L`;
   $("m-pf").textContent = m.pf===999?">10":fmt(m.pf);
   $("m-rr").textContent = `${fmt(m.avgR)}R`;
-
-  if(m.accountSize > 0){
-    $("m-dd").textContent = pct(m.maxDDPctAccount);
-    $("m-dd-money").textContent = `-${money(m.maxDD)} (${pct(m.maxDDPct)} del pico)`;
-  } else {
-    $("m-dd").textContent = pct(m.maxDDPct);
-    $("m-dd-money").textContent = `-${money(m.maxDD)}`;
-  }
-
+  if(m.accountSize > 0){ $("m-dd").textContent = pct(m.maxDDPctAccount); $("m-dd-money").textContent = `-${money(m.maxDD)} (${pct(m.maxDDPct)} del pico)`; }
+  else { $("m-dd").textContent = pct(m.maxDDPct); $("m-dd-money").textContent = `-${money(m.maxDD)}`; }
   $("m-exp").textContent = `${fmt(m.expectancy)}R`;
-
-  // Account bar
   if(m.accountSize > 0){
     $("bar-pnl-pct").textContent = `${fmt(m.netPctAccount,2)}%`;
     $("bar-pnl-pct").className = `val ${m.net>=0?'green':'red'}`;
@@ -587,18 +526,12 @@ function updateMetrics(){
     $("bar-balance").textContent = money(m.balance);
     $("bar-balance").className = `val ${m.balance>=m.accountSize?'green':'red'}`;
   } else {
-    $("bar-pnl-pct").textContent = "—";
-    $("bar-pnl-pct").className = "val green";
-    $("bar-dd-pct").textContent = "—";
-    $("bar-risk-per-trade").textContent = "—";
-    $("bar-balance").textContent = "—";
-    $("bar-balance").className = "val blue";
+    $("bar-pnl-pct").textContent = "—"; $("bar-pnl-pct").className = "val green";
+    $("bar-dd-pct").textContent = "—"; $("bar-risk-per-trade").textContent = "—";
+    $("bar-balance").textContent = "—"; $("bar-balance").className = "val blue";
   }
 }
 
-// ─────────────────────────────────────────
-// RENDER TABLE
-// ─────────────────────────────────────────
 function renderTable(){
   const rows = getComputedTrades();
   const tbody = $("tbody");
@@ -629,9 +562,6 @@ function renderTable(){
   });
 }
 
-// ─────────────────────────────────────────
-// CHARTS
-// ─────────────────────────────────────────
 function drawLineChart(canvas, values){
   const ctx = canvas.getContext("2d"), W=canvas.width, H=canvas.height;
   ctx.clearRect(0,0,W,H); ctx.fillStyle="#0d141d"; ctx.fillRect(0,0,W,H);
@@ -679,13 +609,9 @@ function renderCharts(){
   drawBarChart($("pnlChart"),pnls);
 }
 
-// ─────────────────────────────────────────
-// ANÁLISIS
-// ─────────────────────────────────────────
 function renderAnalysis(){
   const rows=getComputedTrades(); const m=computeMetrics(rows);
   const accountSize = getAccountSize();
-
   const stats=[
     ["Total de operaciones", m.total],
     ["Ganancias brutas", money(m.grossProfit)],
@@ -699,41 +625,29 @@ function renderAnalysis(){
     ["Profit Factor", m.pf===999?">10":fmt(m.pf)],
     ["Max Drawdown", `${money(m.maxDD)} (${pct(m.maxDDPct)})`],
   ];
-
-  // Si hay cuenta configurada, agregar métricas relativas
   if(accountSize > 0){
     stats.push(["Tamaño de cuenta", money(accountSize)]);
     stats.push(["Balance actual", money(m.balance)]);
     stats.push(["Rentabilidad cuenta", `${fmt(m.netPctAccount,2)}%`]);
     stats.push(["DD / Cuenta", `${fmt(m.maxDDPctAccount,2)}%`]);
-    if(m.avgRiskPctAccount !== null)
-      stats.push(["Riesgo prom/trade", `${fmt(m.avgRiskPctAccount,3)}%`]);
+    if(m.avgRiskPctAccount !== null) stats.push(["Riesgo prom/trade", `${fmt(m.avgRiskPctAccount,3)}%`]);
   }
-
   $("analysisStats").innerHTML=stats.map(([k,v])=>`<div class="stat-row"><span>${k}</span><strong>${v}</strong></div>`).join("");
   $("sampleHint").textContent=m.total<30
     ?"Lectura importante: la muestra todavía es pequeña. Las métricas empiezan a ser mucho más confiables después de 30 operaciones o más."
     :"Ya tienes una muestra más útil. Ahora sí puedes empezar a leer con más confianza la consistencia del sistema.";
-
   let text="";
-  if(m.total===0){
-    text="Todavía no hay operaciones cargadas. Empieza registrando tus trades para ver la lectura automática del sistema.";
-  }else{
+  if(m.total===0){ text="Todavía no hay operaciones cargadas. Empieza registrando tus trades para ver la lectura automática del sistema."; }
+  else {
     text+=`Llevas ${m.total} operación(es). `;
     text+=m.winRate>=50?`Tu tasa de acierto va en ${fmt(m.winRate,1)}%, lo cual luce sólida por ahora. `:`Tu win rate va en ${fmt(m.winRate,1)}%, así que toca revisar si tu R promedio compensa las pérdidas. `;
     text+=m.expectancy>0?`La expectancy está positiva en ${fmt(m.expectancy)}R, así que el sistema muestra ventaja estadística en esta muestra. `:`La expectancy está en ${fmt(m.expectancy)}R; aún no hay ventaja clara o necesitas más muestra. `;
-    if(accountSize > 0){
-      text+=`Tu cuenta va en ${fmt(m.netPctAccount,2)}% de rentabilidad con un drawdown máximo del ${fmt(m.maxDDPctAccount,2)}% sobre el capital inicial. `;
-    } else {
-      text+=m.maxDD===0?`Todavía no se ve drawdown relevante.`:`El drawdown máximo actual va en ${money(m.maxDD)}.`;
-    }
+    if(accountSize > 0){ text+=`Tu cuenta va en ${fmt(m.netPctAccount,2)}% de rentabilidad con un drawdown máximo del ${fmt(m.maxDDPctAccount,2)}% sobre el capital inicial. `; }
+    else { text+=m.maxDD===0?`Todavía no se ve drawdown relevante.`:`El drawdown máximo actual va en ${money(m.maxDD)}.`; }
   }
   $("quickRead").textContent=text;
 }
 
-// ─────────────────────────────────────────
-// SAVE / FORM / REFRESH
-// ─────────────────────────────────────────
 function save(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(trades)); }
 
 function resetForm(){
@@ -743,9 +657,6 @@ function resetForm(){
 
 function refreshAll(){ updateMetrics(); renderTable(); renderCharts(); renderAnalysis(); }
 
-// ─────────────────────────────────────────
-// EVENTS
-// ─────────────────────────────────────────
 $("addBtn").addEventListener("click",()=>{
   const trade={
     date:$("date").value||todayStr(), asset:$("asset").value.trim(),
@@ -812,25 +723,17 @@ document.querySelectorAll(".tab").forEach(btn=>{
 
 refreshAll();
 
-// ─────────────────────────────────────────
-// MENTOR33
-// ─────────────────────────────────────────
 function checkSmartAlerts(t){
   const todayTrades = trades.filter(x => x.date === t.date);
   if(todayTrades.length >= 3)
-    showAlert("danger","🚨 Sobreoperación detectada",
-      `Llevas ${todayTrades.length} trades hoy. Tu historial muestra caída en rendimiento en este escenario.`);
+    showAlert("danger","🚨 Sobreoperación detectada",`Llevas ${todayTrades.length} trades hoy. Tu historial muestra caída en rendimiento en este escenario.`);
   if(!t.strategy)
-    showAlert("warning","⚠️ Sin estrategia registrada",
-      "Registrar el setup ayuda a Mentor33 a detectar tu edge real con más precisión.");
-
-  // Alerta de riesgo excesivo sobre la cuenta
+    showAlert("warning","⚠️ Sin estrategia registrada","Registrar el setup ayuda a Mentor33 a detectar tu edge real con más precisión.");
   const accountSize = getAccountSize();
   if(accountSize > 0){
     const computed = calcTrade(t);
     if(computed.riskPctAccount !== null && computed.riskPctAccount > 2){
-      showAlert("warning","⚠️ Riesgo elevado por trade",
-        `Este trade arriesga ${fmt(computed.riskPctAccount,2)}% de tu cuenta (${money(computed.riskPctAccount/100*accountSize)}). Considera mantenerlo bajo el 1-2%.`);
+      showAlert("warning","⚠️ Riesgo elevado por trade",`Este trade arriesga ${fmt(computed.riskPctAccount,2)}% de tu cuenta (${money(computed.riskPctAccount/100*accountSize)}). Considera mantenerlo bajo el 1-2%.`);
     }
   }
 }
@@ -852,7 +755,6 @@ async function runAnalysis(){
   const btn = $("analyzeBtn");
   btn.disabled=true; btn.innerHTML='<span class="spin"></span> Analizando...';
   $("insightsWrap").innerHTML="";
-
   try{
     const prompt = buildPrompt(rows, m);
     const data = await callClaude(prompt);
@@ -866,17 +768,11 @@ async function runAnalysis(){
 }
 
 function buildPrompt(rows, m){
-  const hrTxt = Object.entries(m.byHour)
-    .map(([h,v])=>`${h}:00h → ${v.n} trades, WR:${(v.w/v.n*100).toFixed(0)}%, PnL:${money(v.pnl)}`)
-    .join(" | ") || "sin datos de horario";
-  const stTxt = Object.entries(m.byStrat)
-    .map(([k,v])=>`${k}(${v.n} trades, WR:${(v.w/v.n*100).toFixed(0)}%, PnL:${money(v.pnl)})`)
-    .join(", ") || "sin datos";
-
+  const hrTxt = Object.entries(m.byHour).map(([h,v])=>`${h}:00h → ${v.n} trades, WR:${(v.w/v.n*100).toFixed(0)}%, PnL:${money(v.pnl)}`).join(" | ") || "sin datos de horario";
+  const stTxt = Object.entries(m.byStrat).map(([k,v])=>`${k}(${v.n} trades, WR:${(v.w/v.n*100).toFixed(0)}%, PnL:${money(v.pnl)})`).join(", ") || "sin datos";
   const accountCtx = m.accountSize > 0
     ? `Cuenta: ${money(m.accountSize)} | Balance actual: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount,2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount,2)}% | Riesgo prom/trade: ${m.avgRiskPctAccount!==null?fmt(m.avgRiskPctAccount,3)+'%':'N/A'}`
     : "Cuenta: no configurada";
-
   return `Eres Mentor33, mentor de trading profesional para Edge33. El sistema del trader es: "Altos y Bajos de H4 confirmados con Q33".
 
 Analiza los siguientes datos reales del trader y responde ÚNICAMENTE con un JSON válido con exactamente este formato:
@@ -939,7 +835,6 @@ function renderInsights(data){
   $("insightsWrap").innerHTML = html;
 }
 
-// ─── Chat ─────────────────────────────────
 const chatHistory = [];
 
 async function sendChat(){
@@ -948,13 +843,11 @@ async function sendChat(){
   inp.value=""; btn.disabled=true;
   addMsg("user", msg);
   const typing = addTyping();
-
   const rows = getComputedTrades();
   const m = computeMetrics(rows);
   const accountCtx = m.accountSize > 0
     ? `Cuenta: ${money(m.accountSize)} | Balance: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount,2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount,2)}%`
     : "Cuenta: no configurada";
-
   const system = `Eres Mentor33, mentor de trading para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
 
 Datos actuales del trader:
@@ -969,9 +862,7 @@ Datos actuales del trader:
 - Estrategias: ${Object.entries(m.byStrat).map(([k,v])=>`${k}(${v.n} trades)`).join(", ")||"sin datos"}
 
 Responde en español. Sé directo, claro y como mentor profesional de trading. Máximo 4-5 oraciones. No uses markdown excesivo.`;
-
   chatHistory.push({role:"user", content:msg});
-
   try{
     const res = await fetch("https://api.anthropic.com/v1/messages",{
       method:"POST",

@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Edge33 - Bitácora de Trading</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root{
       --bg:#0b0f14;
@@ -24,7 +26,7 @@
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      font-family: 'Syne', ui-sans-serif, system-ui, sans-serif;
       background:linear-gradient(180deg,#091019 0%, #0b0f14 100%);
       color:var(--text);
     }
@@ -48,10 +50,11 @@
       100% { box-shadow: 0 0 10px rgba(30,234,138,.3), 0 0 20px rgba(0,255,120,.15); }
     }
     .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
-    .brand h1{ margin:0; font-size:28px; letter-spacing:.4px; }
-    .brand small{ display:block; color:var(--muted); margin-top:2px; }
+    .brand h1{ margin:0; font-size:28px; letter-spacing:.4px; font-weight:800; }
+    .brand small{ display:block; color:var(--muted); margin-top:2px; font-size:13px; }
     .tabs{ display:flex; gap:10px; flex-wrap:wrap; }
-    .tab{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:10px 14px; border-radius:999px; cursor:pointer; font-size:14px; }
+    .tab{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:10px 14px; border-radius:999px; cursor:pointer; font-size:14px; font-family:inherit; font-weight:600; transition:all .18s; }
+    .tab:hover{ border-color:#3c536c; }
     .tab.active{ background:linear-gradient(180deg,#1b2735,#111b26); border-color:#3c536c; box-shadow:var(--shadow); }
     .tab.mentor-tab{
       background:linear-gradient(180deg,rgba(30,234,138,.15),rgba(30,234,138,.08));
@@ -65,7 +68,6 @@
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
 ```
-/* ── ACCOUNT SIZE BAR ── */
 .account-bar{
   display:flex; align-items:center; gap:14px; margin-bottom:18px;
   background:linear-gradient(180deg,var(--panel),var(--panel-2));
@@ -81,7 +83,7 @@
 }
 .account-size-input{
   width:160px; background:#0d141d; color:var(--text); border:1px solid var(--border);
-  border-radius:0 10px 10px 0; padding:10px 12px; outline:none; font-size:15px; font-weight:700;
+  border-radius:0 10px 10px 0; padding:10px 12px; outline:none; font-size:15px; font-weight:700; font-family:inherit;
 }
 .account-size-input:focus{ border-color:#3a5d80; box-shadow:0 0 0 3px rgba(87,180,255,.12); }
 .account-bar-divider{ width:1px; height:36px; background:var(--border); margin:0 6px; }
@@ -103,18 +105,18 @@
 .form-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:16px; }
 .field{ display:flex; flex-direction:column; gap:7px; }
 label{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; }
-input, select, textarea{ width:100%; background:#0d141d; color:var(--text); border:1px solid var(--border); border-radius:12px; padding:12px 12px; outline:none; font-family:inherit; }
+input, select, textarea{ width:100%; background:#0d141d; color:var(--text); border:1px solid var(--border); border-radius:12px; padding:12px 12px; outline:none; font-family:inherit; font-size:14px; }
 textarea{ min-height:92px; resize:vertical; }
 input:focus, select:focus, textarea:focus{ border-color:#3a5d80; box-shadow:0 0 0 3px rgba(87,180,255,.12); }
 .actions{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 4px; }
-button{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:11px 14px; border-radius:12px; cursor:pointer; font-weight:700; font-family:inherit; }
+button{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:11px 14px; border-radius:12px; cursor:pointer; font-weight:700; font-family:inherit; transition:all .16s; }
 .primary{ background:linear-gradient(180deg,#18d77d,#11b86a); color:#05140d; border-color:#17c774; }
 .danger{ background:linear-gradient(180deg,#ff758b,#ff5470); color:#24050c; border-color:#ff657d; }
 .ghost{ background:#0d141d; }
 .table-wrap{ overflow:auto; border-radius:16px; border:1px solid var(--border); background:linear-gradient(180deg,var(--panel),var(--panel-2)); box-shadow:var(--shadow); }
 table{ width:100%; border-collapse:collapse; min-width:1200px; }
 th, td{ padding:12px 10px; border-bottom:1px solid rgba(255,255,255,.06); text-align:left; font-size:14px; white-space:nowrap; }
-th{ color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.65px; position:sticky; top:0; background:#141d27; }
+th{ color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.65px; position:sticky; top:0; background:#141d27; font-family:'IBM Plex Mono',monospace; }
 .pill{ padding:5px 9px; border-radius:999px; font-size:12px; font-weight:700; display:inline-block; }
 .pill.green{background:rgba(30,234,138,.12)} .pill.red{background:rgba(255,95,122,.12)} .pill.blue{background:rgba(87,180,255,.12)}
 .two-col{ display:grid; grid-template-columns:2fr 1fr; gap:16px; }
@@ -126,69 +128,317 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
 .footer-note{ margin-top:10px; color:var(--muted); font-size:13px; }
 .empty{ color:var(--muted); padding:16px 0; }
 
-/* ── MENTOR33 ── */
+/* ═══════════════════════════════════════
+   MENTOR33 PANEL — Layout original
+═══════════════════════════════════════ */
 .mentor-layout{ display:grid; grid-template-columns:1.5fr 1fr; gap:16px; align-items:start; }
 .mentor-hero{ background:linear-gradient(160deg,#0d1825,#111f30); border:1px solid #1e3248; border-radius:var(--radius); padding:24px; position:relative; overflow:hidden; }
 .mentor-hero::before{ content:''; position:absolute; top:-40px; right:-40px; width:220px; height:220px; background:radial-gradient(circle,rgba(30,234,138,.07),transparent 70%); pointer-events:none; }
 .mentor-header{ display:flex; align-items:flex-start; gap:16px; margin-bottom:20px; }
 .mentor-avatar{ width:58px; height:58px; border-radius:16px; flex-shrink:0; background:linear-gradient(135deg,#1eea8a,#0fb368); display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 0 24px rgba(30,234,138,.3); }
 .mentor-name{ font-size:20px; font-weight:800; margin-bottom:3px; display:flex; align-items:center; gap:8px; }
-.mentor-ver{ font-size:10px; font-weight:600; background:rgba(30,234,138,.15); color:var(--green); border:1px solid rgba(30,234,138,.3); padding:2px 7px; border-radius:5px; }
+.mentor-ver{ font-size:10px; font-weight:600; background:rgba(30,234,138,.15); color:var(--green); border:1px solid rgba(30,234,138,.3); padding:2px 7px; border-radius:5px; font-family:'IBM Plex Mono',monospace; }
 .mentor-tagline{ color:var(--muted); font-size:13px; line-height:1.55; margin-bottom:0; }
-.analyze-btn{ background:linear-gradient(180deg,#1eea8a,#11c870); color:#041209; border:none; padding:12px 22px; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:7px; transition:all .18s; box-shadow:0 4px 18px rgba(30,234,138,.25); font-family:inherit; }
-.analyze-btn:hover{ transform:translateY(-1px); box-shadow:0 7px 26px rgba(30,234,138,.35); }
-.analyze-btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
+
+/* ─── EL BOTÓN ORIGINAL — no se toca, solo se extiende ─── */
+.analyze-btn{
+  background:linear-gradient(180deg,#1eea8a,#11c870); color:#041209; border:none;
+  padding:12px 22px; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer;
+  display:flex; align-items:center; gap:7px; transition:all .18s;
+  box-shadow:0 4px 18px rgba(30,234,138,.25); font-family:inherit;
+  position:relative; overflow:hidden;
+}
+.analyze-btn::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);
+  transform:translateX(-100%); transition:transform 0.6s ease;
+}
+.analyze-btn:hover::after{ transform:translateX(100%); }
+.analyze-btn:hover{ transform:translateY(-1px); box-shadow:0 7px 26px rgba(30,234,138,.4); }
+.analyze-btn:disabled{ opacity:.5; cursor:not-allowed; transform:none; }
+
+/* ─── INSIGHTS GRID (original) ─── */
 .insights-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
-.ins-card{ background:#0d1825; border:1px solid var(--border); border-radius:12px; padding:14px; animation:fadeUp .35s ease both; }
-@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.ins-card:nth-child(1){animation-delay:.04s} .ins-card:nth-child(2){animation-delay:.09s} .ins-card:nth-child(3){animation-delay:.14s} .ins-card:nth-child(4){animation-delay:.19s}
-.ins-type{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.7px; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
+.ins-card{
+  background:#0d1825; border:1px solid var(--border); border-radius:12px; padding:14px;
+  animation:fadeUp .35s ease both;
+  transition:border-color .2s, box-shadow .2s;
+}
+.ins-card:hover{ border-color:rgba(255,255,255,.12); box-shadow:0 4px 20px rgba(0,0,0,.3); }
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ins-card:nth-child(1){animation-delay:.06s}
+.ins-card:nth-child(2){animation-delay:.12s}
+.ins-card:nth-child(3){animation-delay:.18s}
+.ins-card:nth-child(4){animation-delay:.24s}
+.ins-card:nth-child(5){animation-delay:.30s}
+.ins-card:nth-child(6){animation-delay:.36s}
+.ins-type{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.9px; margin-bottom:6px; display:flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace; }
 .ins-type.warning{color:var(--gold)} .ins-type.danger{color:var(--red)} .ins-type.success{color:var(--green)} .ins-type.info{color:var(--blue)}
-.ins-dot{ width:5px; height:5px; border-radius:50%; background:currentColor; }
-.ins-text{ font-size:13px; line-height:1.6; color:var(--text); }
-.ins-rec{ margin-top:8px; padding:7px 10px; background:rgba(255,255,255,.03); border-radius:7px; font-size:11px; color:var(--muted); border-left:2px solid var(--border); }
-.mentor-summary-box{ margin-top:14px; padding:13px 16px; background:rgba(30,234,138,.05); border:1px solid rgba(30,234,138,.15); border-radius:12px; font-size:13px; line-height:1.6; }
-.mentor-summary-lbl{ font-size:10px; color:var(--green); text-transform:uppercase; letter-spacing:.8px; display:block; margin-bottom:4px; }
-.mentor-chat{ background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; height:520px; overflow:hidden; box-shadow:var(--shadow); }
+.ins-dot{ width:5px; height:5px; border-radius:50%; background:currentColor; flex-shrink:0; }
+.ins-text{ font-size:13px; line-height:1.65; color:var(--text); }
+.ins-rec{ margin-top:8px; padding:8px 10px; background:rgba(255,255,255,.03); border-radius:8px; font-size:11px; color:var(--muted); border-left:2px solid rgba(255,255,255,.1); font-family:'IBM Plex Mono',monospace; line-height:1.55; }
+.mentor-summary-box{ margin-top:14px; padding:14px 16px; background:rgba(30,234,138,.05); border:1px solid rgba(30,234,138,.18); border-radius:12px; font-size:13px; line-height:1.65; }
+.mentor-summary-lbl{ font-size:10px; color:var(--green); text-transform:uppercase; letter-spacing:.9px; display:block; margin-bottom:6px; font-family:'IBM Plex Mono',monospace; font-weight:700; }
+
+/* ─── CHAT ─── */
+.mentor-chat{ background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; height:560px; overflow:hidden; box-shadow:var(--shadow); }
 .chat-hdr{ padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:9px; }
 .chat-hdr-ttl{ font-size:14px; font-weight:700; }
-.chat-hdr-sub{ font-size:11px; color:var(--muted); margin-top:1px; }
-.chat-msgs{ flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
+.chat-hdr-sub{ font-size:11px; color:var(--muted); margin-top:1px; font-family:'IBM Plex Mono',monospace; }
+.chat-msgs{ flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:12px; scroll-behavior:smooth; }
 .chat-msgs::-webkit-scrollbar{width:3px} .chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .msg{ display:flex; gap:8px; align-items:flex-start; }
 .msg.user{ flex-direction:row-reverse; }
-.msg-av{ width:29px; height:29px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; }
+.msg-av{ width:30px; height:30px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; }
 .msg.mentor .msg-av{ background:linear-gradient(135deg,#1eea8a,#0fb368); color:#041209; }
 .msg.user .msg-av{ background:var(--panel-2); border:1px solid var(--border); }
-.msg-bbl{ max-width:82%; padding:9px 13px; border-radius:11px; font-size:13px; line-height:1.6; }
+.msg-bbl{ max-width:82%; padding:10px 14px; border-radius:12px; font-size:13px; line-height:1.65; }
 .msg.mentor .msg-bbl{ background:#0d1825; border:1px solid var(--border); border-top-left-radius:3px; }
 .msg.user .msg-bbl{ background:rgba(30,234,138,.1); border:1px solid rgba(30,234,138,.18); border-top-right-radius:3px; }
 .chat-inp-row{ padding:10px 14px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:center; }
-.chat-inp{ flex:1; background:#0d141d; border:1px solid var(--border); border-radius:10px; padding:9px 13px; color:var(--text); font-size:13px; outline:none; font-family:inherit; transition:border-color .14s; }
-.chat-inp:focus{ border-color:rgba(30,234,138,.4); }
+.chat-inp{ flex:1; background:#0d141d; border:1px solid var(--border); border-radius:10px; padding:10px 13px; color:var(--text); font-size:13px; outline:none; font-family:inherit; transition:border-color .14s; }
+.chat-inp:focus{ border-color:rgba(30,234,138,.4); box-shadow:0 0 0 2px rgba(30,234,138,.08); }
 .chat-inp::placeholder{ color:var(--muted); }
-.chat-send{ background:var(--green); border:none; color:#041209; width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; transition:all .14s; flex-shrink:0; }
+.chat-send{ background:var(--green); border:none; color:#041209; width:36px; height:36px; border-radius:9px; cursor:pointer; font-size:16px; font-weight:800; display:flex; align-items:center; justify-content:center; transition:all .14s; flex-shrink:0; }
 .chat-send:hover{ background:#15d470; transform:scale(1.06); }
 .chat-send:disabled{ opacity:.4; cursor:not-allowed; transform:none; }
-.typing{ display:flex; gap:4px; align-items:center; }
-.td{ width:6px; height:6px; border-radius:50%; background:var(--muted); animation:blink 1.2s infinite; }
-.td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
-@keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
-.alerts-wrap{ position:fixed; bottom:22px; right:22px; display:flex; flex-direction:column; gap:9px; z-index:200; max-width:320px; }
-.alert-t{ background:var(--panel-2); border:1px solid var(--border); border-radius:14px; padding:12px 14px; display:flex; align-items:flex-start; gap:10px; animation:slideIn .26s ease; box-shadow:0 8px 28px rgba(0,0,0,.4); }
-@keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-.alert-t.danger{ border-color:rgba(255,95,122,.3); background:rgba(255,95,122,.06); }
-.alert-t.warning{ border-color:rgba(244,195,90,.3); background:rgba(244,195,90,.06); }
-.alert-t.success{ border-color:rgba(30,234,138,.3); background:rgba(30,234,138,.06); }
+
+/* ─── TYPING ─── */
+.typing{ display:flex; gap:4px; align-items:center; padding:2px 0; }
+.td{ width:6px; height:6px; border-radius:50%; background:var(--muted); animation:blink 1.3s infinite; }
+.td:nth-child(2){animation-delay:.22s} .td:nth-child(3){animation-delay:.44s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+
+/* ─── ALERTS ─── */
+.alerts-wrap{ position:fixed; bottom:22px; right:22px; display:flex; flex-direction:column; gap:9px; z-index:200; max-width:340px; }
+.alert-t{ background:var(--panel-2); border:1px solid var(--border); border-radius:14px; padding:13px 14px; display:flex; align-items:flex-start; gap:10px; animation:slideIn .28s ease; box-shadow:0 8px 28px rgba(0,0,0,.4); }
+@keyframes slideIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+.alert-t.danger{ border-color:rgba(255,95,122,.35); background:rgba(255,95,122,.07); }
+.alert-t.warning{ border-color:rgba(244,195,90,.35); background:rgba(244,195,90,.07); }
+.alert-t.success{ border-color:rgba(30,234,138,.35); background:rgba(30,234,138,.07); }
+.alert-t.info{ border-color:rgba(87,180,255,.35); background:rgba(87,180,255,.07); }
 .alert-ico{ font-size:18px; flex-shrink:0; margin-top:1px; }
 .alert-body{ flex:1; }
 .alert-ttl{ font-size:12px; font-weight:700; margin-bottom:2px; }
-.alert-msg{ font-size:11px; color:var(--muted); line-height:1.5; }
-.alert-x{ background:none; border:none; color:var(--muted); cursor:pointer; padding:2px; font-size:13px; line-height:1; }
-.spin{ width:15px; height:15px; border:2px solid rgba(30,234,138,.2); border-top-color:var(--green); border-radius:50%; animation:sp .65s linear infinite; display:inline-block; }
+.alert-msg{ font-size:11px; color:var(--muted); line-height:1.55; font-family:'IBM Plex Mono',monospace; }
+.alert-x{ background:none; border:none; color:var(--muted); cursor:pointer; padding:2px; font-size:14px; line-height:1; opacity:.6; transition:opacity .14s; }
+.alert-x:hover{ opacity:1; }
+
+/* ─── SPINNER ─── */
+.spin{ width:14px; height:14px; border:2px solid rgba(4,18,9,.3); border-top-color:#041209; border-radius:50%; animation:sp .6s linear infinite; display:inline-block; }
 @keyframes sp{to{transform:rotate(360deg)}}
 
-@media (max-width:1200px){
+/* ═══════════════════════════════════════
+   MENTOR33 IA — PANEL OVERLAY PREMIUM
+═══════════════════════════════════════ */
+
+/* ── Overlay backdrop ── */
+#m33-overlay{
+  position:fixed; inset:0; z-index:9000;
+  background:rgba(4,8,16,.88);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  opacity:0; pointer-events:none;
+  transition:opacity .38s ease;
+}
+#m33-overlay.open{ opacity:1; pointer-events:all; }
+
+/* ── Panel ── */
+#m33-panel{
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-46%) scale(0.96);
+  z-index:9001;
+  width:min(760px, 96vw);
+  max-height:88vh;
+  display:flex; flex-direction:column;
+  background:#08090f;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:20px;
+  overflow:hidden;
+  opacity:0; pointer-events:none;
+  transition:transform .45s cubic-bezier(.16,1,.3,1), opacity .35s ease;
+  box-shadow:
+    0 0 0 1px rgba(30,234,138,.08),
+    0 40px 100px rgba(0,0,0,.7),
+    0 0 80px rgba(30,234,138,.04);
+}
+#m33-panel::before{
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px; z-index:1;
+  background:linear-gradient(90deg, transparent 0%, rgba(30,234,138,.5) 35%, rgba(87,180,255,.4) 65%, transparent 100%);
+}
+#m33-panel.open{
+  transform:translate(-50%,-50%) scale(1);
+  opacity:1; pointer-events:all;
+}
+
+/* ── Header del panel ── */
+#m33-panel .m33-hdr{
+  display:flex; align-items:center; gap:16px;
+  padding:22px 26px 18px;
+  background:linear-gradient(135deg,rgba(30,234,138,.05) 0%,transparent 60%);
+  flex-shrink:0; position:relative; z-index:1;
+}
+.m33-avatar-wrap{ position:relative; width:54px; height:54px; flex-shrink:0; }
+.m33-avatar-ring{
+  position:absolute; inset:0; border-radius:14px;
+  border:1.5px solid transparent;
+  background:linear-gradient(135deg,rgba(30,234,138,.6),rgba(87,180,255,.4)) border-box;
+  -webkit-mask:linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:destination-out; mask-composite:exclude;
+  animation:m33spin 8s linear infinite;
+}
+@keyframes m33spin{to{transform:rotate(360deg)}}
+.m33-avatar-core{
+  position:absolute; inset:5px;
+  background:linear-gradient(135deg,#0d1e14,#091420);
+  border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:22px;
+}
+.m33-hdr-text{ flex:1; }
+.m33-badge{
+  display:inline-flex; align-items:center; gap:5px;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px; font-weight:700; letter-spacing:2px;
+  color:var(--green);
+  background:rgba(30,234,138,.1); border:1px solid rgba(30,234,138,.2);
+  border-radius:5px; padding:3px 8px; margin-bottom:5px;
+}
+.m33-badge-dot{ width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+.m33-hdr-title{ font-size:20px; font-weight:800; line-height:1.1; letter-spacing:-.3px; }
+.m33-hdr-sub{ font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted); margin-top:3px; }
+.m33-close-btn{
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08);
+  border-radius:9px; padding:8px; cursor:pointer; color:var(--muted);
+  flex-shrink:0; transition:all .2s; line-height:0;
+}
+.m33-close-btn:hover{ background:rgba(255,95,122,.12); border-color:rgba(255,95,122,.3); color:var(--red); }
+
+/* ── Divider ── */
+.m33-divider{
+  display:flex; align-items:center; gap:12px;
+  padding:0 26px 14px; flex-shrink:0;
+}
+.m33-div-line{ flex:1; height:1px; background:rgba(255,255,255,.06); }
+.m33-div-label{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px; font-weight:700; letter-spacing:2px;
+  color:rgba(145,162,182,.5); white-space:nowrap;
+}
+
+/* ── Scrollable insights ── */
+.m33-body{
+  flex:1; overflow-y:auto; padding:0 26px 8px;
+  display:flex; flex-direction:column; gap:10px;
+  scrollbar-width:thin; scrollbar-color:rgba(30,234,138,.2) transparent;
+}
+.m33-body::-webkit-scrollbar{width:3px}
+.m33-body::-webkit-scrollbar-thumb{background:rgba(30,234,138,.2);border-radius:3px}
+
+/* ── Insight cards ── */
+.m33-icard{
+  display:flex; gap:14px;
+  border:1px solid var(--m33-border, rgba(87,180,255,.15));
+  background:var(--m33-bg, rgba(87,180,255,.04));
+  border-radius:13px; padding:16px 18px;
+  opacity:0; transform:translateY(14px) scale(.99);
+  transition:opacity .4s ease, transform .42s cubic-bezier(.16,1,.3,1);
+}
+.m33-icard.visible{ opacity:1; transform:translateY(0) scale(1); }
+.m33-icard:hover{
+  border-color:var(--m33-color);
+  box-shadow:0 0 24px var(--m33-bg);
+  transition:border-color .2s, box-shadow .2s;
+}
+.m33-icard-left{
+  display:flex; flex-direction:column; align-items:center;
+  gap:6px; flex-shrink:0; padding-top:1px;
+}
+.m33-icard-icon{ font-size:20px; line-height:1; }
+.m33-icard-vline{
+  flex:1; width:1px; min-height:16px;
+  background:linear-gradient(to bottom,var(--m33-border),transparent);
+}
+.m33-icard-body{ flex:1; min-width:0; }
+.m33-icard-row{ display:flex; align-items:center; gap:8px; margin-bottom:7px; flex-wrap:wrap; }
+.m33-icard-tag{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px; font-weight:700; letter-spacing:1.5px;
+  border:1px solid; border-radius:4px; padding:2px 7px;
+  color:var(--m33-color); background:var(--m33-bg); border-color:var(--m33-border);
+  flex-shrink:0;
+}
+.m33-icard-title{ font-size:13px; font-weight:700; color:var(--text); }
+.m33-icard-text{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:12px; line-height:1.7; color:var(--muted);
+}
+.m33-icard-rec{
+  margin-top:9px; padding:8px 11px;
+  background:rgba(255,255,255,.03); border-radius:8px;
+  border-left:2px solid var(--m33-color);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px; color:rgba(145,162,182,.7); line-height:1.55;
+}
+.m33-icard-rec strong{ color:var(--m33-color); }
+
+/* ── Summary card ── */
+.m33-summary{
+  margin-top:4px;
+  background:rgba(30,234,138,.04); border:1px solid rgba(30,234,138,.15);
+  border-radius:13px; padding:16px 18px;
+  opacity:0; transform:translateY(10px);
+  transition:opacity .4s ease .5s, transform .4s ease .5s;
+}
+.m33-summary.visible{ opacity:1; transform:translateY(0); }
+.m33-summary-lbl{
+  font-family:'IBM Plex Mono',monospace;
+  font-size:9px; font-weight:700; letter-spacing:2px;
+  color:var(--green); display:block; margin-bottom:7px;
+}
+.m33-summary-text{ font-size:13px; line-height:1.7; color:var(--text); }
+
+/* ── Score row ── */
+.m33-score-row{
+  display:flex; gap:10px; flex-wrap:wrap;
+  padding:0 26px 14px; flex-shrink:0;
+}
+.m33-score-chip{
+  display:flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+  border-radius:8px; padding:7px 12px;
+  font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted);
+}
+.m33-score-chip strong{ font-size:13px; }
+.m33-score-chip.chip-green{ border-color:rgba(30,234,138,.2); background:rgba(30,234,138,.05); }
+.m33-score-chip.chip-green strong{ color:var(--green); }
+.m33-score-chip.chip-red{ border-color:rgba(255,95,122,.2); background:rgba(255,95,122,.05); }
+.m33-score-chip.chip-red strong{ color:var(--red); }
+.m33-score-chip.chip-gold{ border-color:rgba(244,195,90,.2); background:rgba(244,195,90,.05); }
+.m33-score-chip.chip-gold strong{ color:var(--gold); }
+.m33-score-chip.chip-blue{ border-color:rgba(87,180,255,.2); background:rgba(87,180,255,.05); }
+.m33-score-chip.chip-blue strong{ color:var(--blue); }
+
+/* ── Footer ── */
+.m33-footer{
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  padding:14px 26px 18px;
+  border-top:1px solid rgba(255,255,255,.05);
+  font-family:'IBM Plex Mono',monospace; font-size:10px; color:rgba(145,162,182,.4);
+  flex-shrink:0;
+}
+.m33-footer-dot{ width:3px; height:3px; border-radius:50%; background:rgba(30,234,138,.4); }
+
+/* ── Thinking animation on button ── */
+@keyframes m33thinking{
+  0%,100%{ box-shadow:0 4px 18px rgba(30,234,138,.25); }
+  50%{ box-shadow:0 4px 30px rgba(30,234,138,.55); }
+}
+.analyze-btn.thinking{ animation:m33thinking .9s infinite; }
+
+@media(max-width:1200px){
   .grid-metrics{grid-template-columns:repeat(3,1fr)}
   .form-grid{grid-template-columns:repeat(3,1fr)}
   .two-col{grid-template-columns:1fr}
@@ -197,11 +447,13 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
   .account-bar{flex-wrap:wrap}
   .account-bar-hint{display:none}
 }
-@media (max-width:760px){
+@media(max-width:760px){
   .grid-metrics{grid-template-columns:repeat(2,1fr)}
   .form-grid{grid-template-columns:repeat(2,1fr)}
   .topbar{flex-direction:column; align-items:flex-start}
   .account-size-input{width:120px}
+  #m33-panel{ border-radius:16px 16px 0 0; top:auto; bottom:0; left:0; right:0; width:100%; max-height:92vh; transform:translateY(24px); }
+  #m33-panel.open{ transform:translateY(0); }
 }
 ```
 
@@ -210,12 +462,12 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
 <body>
 <div class="wrap">
 
-  <!-- ── TOPBAR ── -->
+  <!-- TOPBAR -->
 
   <div class="topbar">
     <div class="brand">
       <div class="logo">
-        <img src="./q33.png" alt="Edge33">
+        <img src="./q33.png" alt="Edge33" onerror="this.parentElement.style.background='linear-gradient(135deg,#1eea8a,#0fb368)';this.style.display='none'">
       </div>
       <div>
         <h1>Edge33</h1>
@@ -233,76 +485,38 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
     </div>
   </div>
 
-  <!-- ── ACCOUNT SIZE BAR ── -->
+  <!-- ACCOUNT BAR -->
 
   <div class="account-bar">
     <div class="account-bar-ico">💰</div>
-    <div>
-      <div class="account-bar-label">Tamaño de cuenta</div>
-    </div>
+    <div><div class="account-bar-label">Tamaño de cuenta</div></div>
     <div class="account-bar-input-wrap">
       <div class="account-bar-prefix">$</div>
       <input class="account-size-input" id="accountSize" type="number" step="any" placeholder="10,000" min="1"/>
     </div>
     <div class="account-bar-divider"></div>
-    <div class="account-bar-stat">
-      <div class="val green" id="bar-pnl-pct">0.00%</div>
-      <div class="lbl">Rentabilidad</div>
-    </div>
+    <div class="account-bar-stat"><div class="val green" id="bar-pnl-pct">0.00%</div><div class="lbl">Rentabilidad</div></div>
     <div class="account-bar-divider"></div>
-    <div class="account-bar-stat">
-      <div class="val red" id="bar-dd-pct">0.00%</div>
-      <div class="lbl">DD / Cuenta</div>
-    </div>
+    <div class="account-bar-stat"><div class="val red" id="bar-dd-pct">0.00%</div><div class="lbl">DD / Cuenta</div></div>
     <div class="account-bar-divider"></div>
-    <div class="account-bar-stat">
-      <div class="val gold" id="bar-risk-per-trade">0.00%</div>
-      <div class="lbl">Riesgo prom/trade</div>
-    </div>
+    <div class="account-bar-stat"><div class="val gold" id="bar-risk-per-trade">0.00%</div><div class="lbl">Riesgo prom/trade</div></div>
     <div class="account-bar-divider"></div>
-    <div class="account-bar-stat">
-      <div class="val blue" id="bar-balance">$0.00</div>
-      <div class="lbl">Balance actual</div>
-    </div>
+    <div class="account-bar-stat"><div class="val blue" id="bar-balance">$0.00</div><div class="lbl">Balance actual</div></div>
     <div class="account-bar-hint">← Ingresa el capital inicial para calcular métricas relativas a la cuenta</div>
   </div>
 
-  <!-- ── METRICS ── -->
+  <!-- METRICS -->
 
   <div class="grid-metrics">
-    <div class="card metric">
-      <div class="label">P&amp;L Total</div>
-      <div class="value" id="m-pnl">$0.00</div>
-      <div class="sub" id="m-pnl-pct">0.00%</div>
-    </div>
-    <div class="card metric">
-      <div class="label">Win Rate</div>
-      <div class="value green" id="m-winrate">0.0%</div>
-      <div class="sub" id="m-wl">0W / 0L</div>
-    </div>
-    <div class="card metric">
-      <div class="label">Profit Factor</div>
-      <div class="value blue" id="m-pf">0.00</div>
-      <div class="sub">ganancia bruta / pérdida bruta</div>
-    </div>
-    <div class="card metric">
-      <div class="label">R:R Promedio</div>
-      <div class="value gold" id="m-rr">0.00R</div>
-      <div class="sub">resultado promedio por operación</div>
-    </div>
-    <div class="card metric">
-      <div class="label">Max Drawdown</div>
-      <div class="value red" id="m-dd">0.00%</div>
-      <div class="sub" id="m-dd-money">$0.00</div>
-    </div>
-    <div class="card metric">
-      <div class="label">Expectancy</div>
-      <div class="value" id="m-exp">0.00R</div>
-      <div class="sub">ventaja esperada por trade</div>
-    </div>
+    <div class="card metric"><div class="label">P&amp;L Total</div><div class="value" id="m-pnl">$0.00</div><div class="sub" id="m-pnl-pct">0.00%</div></div>
+    <div class="card metric"><div class="label">Win Rate</div><div class="value green" id="m-winrate">0.0%</div><div class="sub" id="m-wl">0W / 0L</div></div>
+    <div class="card metric"><div class="label">Profit Factor</div><div class="value blue" id="m-pf">0.00</div><div class="sub">ganancia bruta / pérdida bruta</div></div>
+    <div class="card metric"><div class="label">R:R Promedio</div><div class="value gold" id="m-rr">0.00R</div><div class="sub">resultado promedio por operación</div></div>
+    <div class="card metric"><div class="label">Max Drawdown</div><div class="value red" id="m-dd">0.00%</div><div class="sub" id="m-dd-money">$0.00</div></div>
+    <div class="card metric"><div class="label">Expectancy</div><div class="value" id="m-exp">0.00R</div><div class="sub">ventaja esperada por trade</div></div>
   </div>
 
-  <!-- ══ REGISTRO ══ -->
+  <!-- REGISTRO -->
 
   <section id="registro" class="panel active">
     <div class="card">
@@ -316,22 +530,11 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
         <div class="field"><label>Take Profit</label><input id="target" type="number" step="any" placeholder="0.00"/></div>
         <div class="field"><label>Tamaño Posición</label><input id="size" type="number" step="any" placeholder="1.00"/></div>
         <div class="field"><label>Comisión</label><input id="commission" type="number" step="any" placeholder="0.00"/></div>
-        <div class="field">
-  <label>Profit (MT5)</label>
-  <input id="profit" type="number" step="any" placeholder="32.35"/>
-</div>
-
-<div class="field">
-  <label>Swap</label>
-  <input id="swap" type="number" step="any" placeholder="-3.10"/>
-</div>
+        <div class="field"><label>Profit (MT5)</label><input id="profit" type="number" step="any" placeholder="32.35"/></div>
+        <div class="field"><label>Swap</label><input id="swap" type="number" step="any" placeholder="-3.10"/></div>
         <div class="field"><label>Estrategia</label><input id="strategy" type="text" placeholder="Q33, Breakout, Liquidez..."/></div>
-        
       </div>
-      <div class="field">
-        <label>Notas</label>
-        <textarea id="notes" placeholder="Qué viste, cómo te sentías, si seguiste el sistema, aprendizaje..."></textarea>
-      </div>
+      <div class="field"><label>Notas</label><textarea id="notes" placeholder="Qué viste, cómo te sentías, si seguiste el sistema, aprendizaje..."></textarea></div>
       <div class="actions">
         <button class="primary" id="addBtn">+ Agregar operación</button>
         <button class="ghost" id="exportBtn">Exportar JSON</button>
@@ -340,59 +543,38 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
         <input id="importFile" type="file" accept=".json" style="display:none"/>
         <button class="danger" id="clearBtn">Limpiar todo</button>
       </div>
-      <div class="footer-note">Los datos se guardan en tu navegador con localStorage. Puedes abrir este archivo cuando quieras y seguir usando tu bitácora.</div>
+      <div class="footer-note">Los datos se guardan en tu navegador con localStorage.</div>
     </div>
     <div style="height:16px"></div>
     <div class="table-wrap">
       <table>
         <thead>
-          <tr>
-            <th>#</th><th>Fecha</th><th>Activo</th><th>Dir.</th>
-            <th>Entrada</th><th>Salida</th><th>SL</th><th>TP</th>
-            <th>Tamaño</th><th>Comisión</th>
-            <th>P&amp;L $</th><th>P&amp;L %</th><th>% Cuenta</th><th>R Real</th>
-            <th>Resultado</th><th>Estrategia</th><th>Notas</th><th>Acción</th>
-          </tr>
+          <tr><th>#</th><th>Fecha</th><th>Activo</th><th>Dir.</th><th>Entrada</th><th>Salida</th><th>SL</th><th>TP</th><th>Tamaño</th><th>Comisión</th><th>P&amp;L $</th><th>P&amp;L %</th><th>% Cuenta</th><th>R Real</th><th>Resultado</th><th>Estrategia</th><th>Notas</th><th>Acción</th></tr>
         </thead>
         <tbody id="tbody"></tbody>
       </table>
     </div>
   </section>
 
-  <!-- ══ GRÁFICAS ══ -->
+  <!-- GRÁFICAS -->
 
   <section id="graficas" class="panel">
     <div class="two-col">
-      <div class="card chart-box">
-        <div style="font-weight:800;margin-bottom:10px">Curva de Equity</div>
-        <canvas id="equityChart" width="900" height="260"></canvas>
-        <div class="footer-note">Muestra la evolución acumulada de tu P&amp;L trade por trade.</div>
-      </div>
-      <div class="card chart-box">
-        <div style="font-weight:800;margin-bottom:10px">P&amp;L por operación</div>
-        <canvas id="pnlChart" width="500" height="260"></canvas>
-        <div class="footer-note">Barras verdes y rojas por cada operación registrada.</div>
-      </div>
+      <div class="card chart-box"><div style="font-weight:800;margin-bottom:10px">Curva de Equity</div><canvas id="equityChart" width="900" height="260"></canvas><div class="footer-note">Evolución acumulada de P&amp;L trade por trade.</div></div>
+      <div class="card chart-box"><div style="font-weight:800;margin-bottom:10px">P&amp;L por operación</div><canvas id="pnlChart" width="500" height="260"></canvas><div class="footer-note">Barras verdes y rojas por cada operación.</div></div>
     </div>
   </section>
 
-  <!-- ══ ANÁLISIS ══ -->
+  <!-- ANÁLISIS -->
 
   <section id="analisis" class="panel">
     <div class="two-col">
-      <div class="card">
-        <div style="font-weight:800;margin-bottom:12px">Resumen del sistema</div>
-        <div class="stats-list" id="analysisStats"></div>
-        <div class="footer-note" id="sampleHint"></div>
-      </div>
-      <div class="card">
-        <div style="font-weight:800;margin-bottom:12px">Lectura rápida</div>
-        <div id="quickRead" class="hint"></div>
-      </div>
+      <div class="card"><div style="font-weight:800;margin-bottom:12px">Resumen del sistema</div><div class="stats-list" id="analysisStats"></div><div class="footer-note" id="sampleHint"></div></div>
+      <div class="card"><div style="font-weight:800;margin-bottom:12px">Lectura rápida</div><div id="quickRead" class="hint"></div></div>
     </div>
   </section>
 
-  <!-- ══ MENTOR33 ══ -->
+  <!-- MENTOR33 -->
 
   <section id="mentor" class="panel">
     <div class="mentor-layout">
@@ -401,12 +583,11 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
           <div class="mentor-header">
             <div class="mentor-avatar">🤖</div>
             <div>
-              <div class="mentor-name">Mentor33 <span class="mentor-ver">AI v1.0</span></div>
-              <div class="mentor-tagline">
-                Tu mentor inteligente de trading. Analizo tu bitácora en tiempo real, detecto patrones invisibles y te guío para desarrollar tu edge real con el sistema Q33.
-              </div>
+              <div class="mentor-name">Mentor33 <span class="mentor-ver">IA v2.0</span></div>
+              <div class="mentor-tagline">Tu mentor inteligente de trading. Analizo tu bitácora en tiempo real, detecto patrones invisibles y te guío con el sistema Q33.</div>
             </div>
           </div>
+          <!-- BOTÓN ORIGINAL — funcionalidad extendida por JS sin modificar el HTML -->
           <button class="analyze-btn" id="analyzeBtn">
             <span>⚡</span> Analizar mi trading ahora
           </button>
@@ -416,18 +597,12 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
       <div class="mentor-chat">
         <div class="chat-hdr">
           <span style="font-size:20px">💬</span>
-          <div>
-            <div class="chat-hdr-ttl">Habla con Mentor33</div>
-            <div class="chat-hdr-sub">Pregúntame sobre tu trading</div>
-          </div>
+          <div><div class="chat-hdr-ttl">Habla con Mentor33</div><div class="chat-hdr-sub">Pregúntame sobre tu trading</div></div>
         </div>
         <div class="chat-msgs" id="chatMsgs">
           <div class="msg mentor">
             <div class="msg-av">🤖</div>
-            <div class="msg-bbl">
-              ¡Hola! Soy Mentor33, tu mentor de trading con inteligencia artificial.<br><br>
-              Analizo tu bitácora y te ayudo a encontrar tu edge real. Puedes preguntarme sobre tus métricas, patrones de comportamiento o pedirme que evalúe un aspecto específico de tu performance. ¿Por dónde empezamos?
-            </div>
+            <div class="msg-bbl">¡Hola! Soy Mentor33, tu mentor de trading con inteligencia artificial.<br><br>Analizo tu bitácora y te ayudo a encontrar tu edge real. Puedes preguntarme sobre tus métricas, patrones de comportamiento o pedirme que evalúe un aspecto específico. ¿Por dónde empezamos?</div>
           </div>
         </div>
         <div class="chat-inp-row">
@@ -437,31 +612,57 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
       </div>
     </div>
   </section>
+</div>
 
-</div><!-- /wrap -->
+<!-- ALERTS -->
 
 <div class="alerts-wrap" id="alertsWrap"></div>
 
-<script>
-/* ══════════════════════════════════════════
-   EDGE33 — Script principal corregido
-   Bugs reparados:
-   1. callClaude: faltaba "body:" → SyntaxError que rompía todo el script
-   2. renderTable: variable "t" colisionaba (tbody y trade en el mismo forEach)
-   3. Tab Mentor33: removido onclick inline, manejado por el listener de tabs
-   4. Chat: eventos movidos a addEventListener en lugar de atributos inline
-══════════════════════════════════════════ */
+<!-- MENTOR33 PANEL OVERLAY -->
 
+<div id="m33-overlay"></div>
+<div id="m33-panel" role="dialog" aria-modal="true" aria-label="Análisis Mentor33">
+  <div class="m33-hdr">
+    <div class="m33-avatar-wrap">
+      <div class="m33-avatar-ring"></div>
+      <div class="m33-avatar-core">🤖</div>
+    </div>
+    <div class="m33-hdr-text">
+      <div class="m33-badge"><div class="m33-badge-dot"></div>MENTOR33 IA</div>
+      <div class="m33-hdr-title">Análisis de Tu Trading</div>
+      <div class="m33-hdr-sub">Sistema cuantitativo Q33 · Análisis conductual avanzado</div>
+    </div>
+    <button class="m33-close-btn" id="m33CloseBtn" aria-label="Cerrar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="m33-score-row" id="m33ScoreRow"></div>
+  <div class="m33-divider">
+    <div class="m33-div-line"></div>
+    <div class="m33-div-label" id="m33DivLabel">INSIGHTS DETECTADOS</div>
+    <div class="m33-div-line"></div>
+  </div>
+  <div class="m33-body" id="m33Body"></div>
+  <div class="m33-footer">
+    <div class="m33-footer-dot"></div>
+    <span id="m33FooterTxt">Edge33 · Mentor33 IA v2.0</span>
+    <div class="m33-footer-dot"></div>
+  </div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════
+   EDGE33 — CORE ENGINE
+══════════════════════════════════════════════════════ */
 const STORAGE_KEY = "edge33_trades_v1";
 const ACCOUNT_KEY = "edge33_account_size_v1";
 let trades = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
 
-const $ = (id) => document.getElementById(id);
-
-function money(n){ return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n||0)); }
-function pct(n){ return `${Number(n||0).toFixed(2)}%`; }
-function num(n){ return Number(n || 0); }
-function fmt(n, d=2){ return Number(n||0).toFixed(d); }
+const $ = id => document.getElementById(id);
+const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n||0));
+const pct   = n => `${Number(n||0).toFixed(2)}%`;
+const num   = n => Number(n || 0);
+const fmt   = (n,d=2) => Number(n||0).toFixed(d);
 
 function todayStr(){
   const d = new Date();
@@ -474,76 +675,67 @@ function getAccountSize(){ return num($("accountSize").value) || 0; }
 const savedAccount = localStorage.getItem(ACCOUNT_KEY);
 if(savedAccount) $("accountSize").value = savedAccount;
 
-$("accountSize").addEventListener("input", ()=>{
+$("accountSize").addEventListener("input", () => {
   localStorage.setItem(ACCOUNT_KEY, $("accountSize").value);
   refreshAll();
 });
 
 function calcTrade(trade){
   const entry = num(trade.entry), exit = num(trade.exit), stop = num(trade.stop);
-  const size = num(trade.size || 1), commission = num(trade.commission || 0);
-  const points = trade.direction === "Long" ? (exit - entry) : (entry - exit);
+  const size = num(trade.size || 1);
   const pnl = (trade.profit || 0) + (trade.swap || 0) - (trade.commission || 0);
-const base = Math.abs(entry * size) || 1;
-const pnlPct = (pnl / base) * 100;
-
-const riskPerUnit = Math.abs(entry - stop);
-const move = trade.direction === "Long" ? (exit - entry) : (entry - exit);
-const r = riskPerUnit > 0 ? move / riskPerUnit : 0;
-
-const totalRisk = Math.abs(riskPerUnit * size);
-
-const accountSize = getAccountSize();
-const pnlPctAccount = accountSize > 0 ? (pnl / accountSize) * 100 : null;
-const riskPctAccount = accountSize > 0 ? (totalRisk / accountSize) * 100 : null;
-  return { 
-  ...trade, 
-  pnl, 
-  pnlPct, 
-  pnlPctAccount, 
-  riskPctAccount, 
-  r, 
-  result: pnl > 0 ? "WIN" : "LOSS" 
-};
+  const base = Math.abs(entry * size) || 1;
+  const pnlPct = (pnl / base) * 100;
+  const riskPerUnit = Math.abs(entry - stop);
+  const move = trade.direction === "Long" ? (exit - entry) : (entry - exit);
+  const r = riskPerUnit > 0 ? move / riskPerUnit : 0;
+  const totalRisk = Math.abs(riskPerUnit * size);
+  const accountSize = getAccountSize();
+  const pnlPctAccount  = accountSize > 0 ? (pnl / accountSize) * 100 : null;
+  const riskPctAccount = accountSize > 0 ? (totalRisk / accountSize) * 100 : null;
+  return { ...trade, pnl, pnlPct, pnlPctAccount, riskPctAccount, r, result: pnl > 0 ? "WIN" : "LOSS" };
 }
 
 function getComputedTrades(){ return trades.map(calcTrade); }
 
 function computeMetrics(rows){
   const total = rows.length;
-  const wins = rows.filter(t=>t.pnl>0), losses = rows.filter(t=>t.pnl<0);
-  const grossProfit = wins.reduce((a,b)=>a+b.pnl,0);
-  const grossLossAbs = Math.abs(losses.reduce((a,b)=>a+b.pnl,0));
-  const net = rows.reduce((a,b)=>a+b.pnl,0);
-  const totalExposure = rows.reduce((a,b)=>a+(Math.abs(num(b.entry)*num(b.size))||0),0);
+  const wins   = rows.filter(t => t.pnl > 0);
+  const losses = rows.filter(t => t.pnl < 0);
+  const grossProfit  = wins.reduce((a,b) => a + b.pnl, 0);
+  const grossLossAbs = Math.abs(losses.reduce((a,b) => a + b.pnl, 0));
+  const net    = rows.reduce((a,b) => a + b.pnl, 0);
+  const totalExposure = rows.reduce((a,b) => a + (Math.abs(num(b.entry)*num(b.size))||0), 0);
   const netPct = totalExposure ? (net/totalExposure)*100 : 0;
   const winRate = total ? (wins.length/total)*100 : 0;
-  const pf = grossLossAbs===0 ? (grossProfit>0?999:0) : grossProfit/grossLossAbs;
-  const avgR = total ? rows.reduce((a,b)=>a+b.r,0)/total : 0;
+  const pf = grossLossAbs === 0 ? (grossProfit > 0 ? 999 : 0) : grossProfit / grossLossAbs;
+  const avgR = total ? rows.reduce((a,b) => a + b.r, 0) / total : 0;
   let equity=0, peak=0, maxDD=0;
-  rows.forEach(t=>{ equity+=t.pnl; if(equity>peak)peak=equity; const dd=peak-equity; if(dd>maxDD)maxDD=dd; });
-  const maxDDPct = peak>0 ? (maxDD/peak)*100 : 0;
-  const avgWinR = wins.length ? wins.reduce((a,b)=>a+b.r,0)/wins.length : 0;
-  const avgLossR = losses.length ? Math.abs(losses.reduce((a,b)=>a+b.r,0)/losses.length) : 0;
+  rows.forEach(t => { equity += t.pnl; if(equity>peak) peak=equity; const dd=peak-equity; if(dd>maxDD) maxDD=dd; });
+  const maxDDPct = peak > 0 ? (maxDD/peak)*100 : 0;
+  const avgWinR  = wins.length   ? wins.reduce((a,b) => a+b.r, 0)/wins.length : 0;
+  const avgLossR = losses.length ? Math.abs(losses.reduce((a,b) => a+b.r, 0)/losses.length) : 0;
   const expectancy = (winRate/100*avgWinR) - ((100-winRate)/100*avgLossR);
   let bestStreak=0, worstStreak=0, curWin=0, curLoss=0;
-  rows.forEach(t=>{
+  rows.forEach(t => {
     if(t.pnl>0){curWin++;curLoss=0;} else if(t.pnl<0){curLoss++;curWin=0;} else{curWin=0;curLoss=0;}
-    if(curWin>bestStreak)bestStreak=curWin;
-    if(curLoss>worstStreak)worstStreak=curLoss;
+    if(curWin>bestStreak)  bestStreak=curWin;
+    if(curLoss>worstStreak) worstStreak=curLoss;
   });
-  const avgWin = wins.length ? grossProfit/wins.length : 0;
+  const avgWin  = wins.length   ? grossProfit/wins.length : 0;
   const avgLoss = losses.length ? Math.abs(losses.reduce((a,b)=>a+b.pnl,0))/losses.length : 0;
   const accountSize = getAccountSize();
   const avgRiskPctAccount = accountSize > 0 && total > 0 ? rows.reduce((a,b)=>a+(b.riskPctAccount||0),0)/total : null;
-  const netPctAccount = accountSize > 0 ? (net / accountSize) * 100 : null;
-  const maxDDPctAccount = accountSize > 0 ? (maxDD / accountSize) * 100 : null;
+  const netPctAccount     = accountSize > 0 ? (net/accountSize)*100 : null;
+  const maxDDPctAccount   = accountSize > 0 ? (maxDD/accountSize)*100 : null;
   const balance = accountSize > 0 ? accountSize + net : null;
-  const byHour = {};
-  rows.forEach(t=>{ if(t.timeOpen){ const h=parseInt(t.timeOpen); if(!byHour[h])byHour[h]={pnl:0,n:0,w:0}; byHour[h].pnl+=t.pnl; byHour[h].n++; if(t.pnl>0)byHour[h].w++; } });
+  const byHour  = {};
+  rows.forEach(t => { if(t.timeOpen){ const h=parseInt(t.timeOpen); if(!byHour[h])byHour[h]={pnl:0,n:0,w:0}; byHour[h].pnl+=t.pnl; byHour[h].n++; if(t.pnl>0)byHour[h].w++; } });
+  const byDay = {};
+  rows.forEach(t => { if(!t.date) return; if(!byDay[t.date])byDay[t.date]={pnl:0,n:0,w:0}; byDay[t.date].pnl+=t.pnl; byDay[t.date].n++; if(t.pnl>0)byDay[t.date].w++; });
   const byStrat = {};
-  rows.forEach(t=>{ if(t.strategy){ if(!byStrat[t.strategy])byStrat[t.strategy]={n:0,w:0,pnl:0}; byStrat[t.strategy].n++; if(t.pnl>0)byStrat[t.strategy].w++; byStrat[t.strategy].pnl+=t.pnl; } });
-  return { total, wins:wins.length, losses:losses.length, grossProfit, grossLossAbs, net, netPct, winRate, pf, avgR, maxDD, maxDDPct, expectancy, bestStreak, worstStreak, avgWin, avgLoss, byHour, byStrat, accountSize, netPctAccount, maxDDPctAccount, balance, avgRiskPctAccount };
+  rows.forEach(t => { if(t.strategy){ if(!byStrat[t.strategy])byStrat[t.strategy]={n:0,w:0,pnl:0}; byStrat[t.strategy].n++; if(t.pnl>0)byStrat[t.strategy].w++; byStrat[t.strategy].pnl+=t.pnl; } });
+  return { total, wins:wins.length, losses:losses.length, grossProfit, grossLossAbs, net, netPct, winRate, pf, avgR, maxDD, maxDDPct, expectancy, bestStreak, worstStreak, avgWin, avgLoss, byHour, byDay, byStrat, accountSize, netPctAccount, maxDDPctAccount, balance, avgRiskPctAccount };
 }
 
 function updateMetrics(){
@@ -551,8 +743,7 @@ function updateMetrics(){
   const m = computeMetrics(rows);
   $("m-pnl").textContent = money(m.net);
   $("m-pnl").className = `value ${m.net>=0?'green':'red'}`;
-  if(m.accountSize > 0){ $("m-pnl-pct").textContent = `${pct(m.netPctAccount)} de la cuenta`; }
-  else { $("m-pnl-pct").textContent = pct(m.netPct); }
+  $("m-pnl-pct").textContent = m.accountSize > 0 ? `${pct(m.netPctAccount)} de la cuenta` : pct(m.netPct);
   $("m-winrate").textContent = `${fmt(m.winRate,1)}%`;
   $("m-wl").textContent = `${m.wins}W / ${m.losses}L`;
   $("m-pf").textContent = m.pf===999?">10":fmt(m.pf);
@@ -569,17 +760,16 @@ function updateMetrics(){
     $("bar-pnl-pct").textContent = `${fmt(m.netPctAccount,2)}%`;
     $("bar-pnl-pct").className = `val ${m.net>=0?'green':'red'}`;
     $("bar-dd-pct").textContent = `${fmt(m.maxDDPctAccount,2)}%`;
-    $("bar-risk-per-trade").textContent = m.avgRiskPctAccount !== null ? `${fmt(m.avgRiskPctAccount,2)}%` : "—";
+    $("bar-risk-per-trade").textContent = m.avgRiskPctAccount!==null ? `${fmt(m.avgRiskPctAccount,2)}%` : "—";
     $("bar-balance").textContent = money(m.balance);
     $("bar-balance").className = `val ${m.balance>=m.accountSize?'green':'red'}`;
   } else {
-    $("bar-pnl-pct").textContent = "—"; $("bar-pnl-pct").className = "val green";
-    $("bar-dd-pct").textContent = "—"; $("bar-risk-per-trade").textContent = "—";
-    $("bar-balance").textContent = "—"; $("bar-balance").className = "val blue";
+    $("bar-pnl-pct").textContent="—"; $("bar-pnl-pct").className="val green";
+    $("bar-dd-pct").textContent="—"; $("bar-risk-per-trade").textContent="—";
+    $("bar-balance").textContent="—"; $("bar-balance").className="val blue";
   }
 }
 
-/* ── FIX: variable renombrada de "t" a "row" para evitar colisión con tbody ── */
 function renderTable(){
   const rows = getComputedTrades();
   const tbody = $("tbody");
@@ -588,7 +778,7 @@ function renderTable(){
   rows.forEach((row, i) => {
     const tr = document.createElement("tr");
     const rc = row.result==="WIN"?"green":row.result==="LOSS"?"red":"blue";
-    const acctPctCell = accountSize > 0 && row.pnlPctAccount !== null
+    const acctCell = accountSize > 0 && row.pnlPctAccount !== null
       ? `<td class="${row.pnl>=0?'green':'red'}">${fmt(row.pnlPctAccount,3)}%</td>`
       : `<td class="hint">—</td>`;
     tr.innerHTML = `
@@ -599,20 +789,20 @@ function renderTable(){
       <td>${fmt(row.size,2)}</td><td>${money(row.commission)}</td>
       <td class="${row.pnl>=0?'green':'red'}">${money(row.pnl)}</td>
       <td class="${row.pnl>=0?'green':'red'}">${pct(row.pnlPct)}</td>
-      ${acctPctCell}
+      ${acctCell}
       <td class="${row.r>=0?'green':'red'}">${fmt(row.r)}R</td>
       <td><span class="pill ${rc}">${row.result}</span></td>
       <td>${row.strategy||""}</td>
       <td title="${(row.notes||'').replace(/"/g,'&quot;')}">${(row.notes||"").slice(0,45)}</td>
-      <td><button onclick="removeTrade(${i})">Eliminar</button></td>
-    `;
+      <td><button onclick="removeTrade(${i})">Eliminar</button></td>`;
     tbody.appendChild(tr);
   });
 }
+
 function drawLineChart(canvas, values){
-  const ctx = canvas.getContext("2d"), W=canvas.width, H=canvas.height;
+  const ctx=canvas.getContext("2d"),W=canvas.width,H=canvas.height;
   ctx.clearRect(0,0,W,H); ctx.fillStyle="#0d141d"; ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle="rgba(255,255,255,.08)"; ctx.lineWidth=1;
+  ctx.strokeStyle="rgba(255,255,255,.06)"; ctx.lineWidth=1;
   for(let i=1;i<=4;i++){const y=i*H/5;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(W-16,y);ctx.stroke();}
   if(!values.length){ctx.fillStyle="#91a2b6";ctx.font="14px sans-serif";ctx.fillText("Sin datos todavía",50,H/2);return;}
   const min=Math.min(...values,0),max=Math.max(...values,0),range=(max-min)||1;
@@ -623,7 +813,7 @@ function drawLineChart(canvas, values){
   values.forEach((v,i)=>{
     const x=x0+(values.length===1?plotW/2:(i/(values.length-1))*plotW);
     const y=y0+plotH-((v-min)/range)*plotH;
-    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
   });
   ctx.stroke();
   ctx.fillStyle="#91a2b6";ctx.font="12px sans-serif";
@@ -651,61 +841,56 @@ function drawBarChart(canvas, values){
 function renderCharts(){
   const rows=getComputedTrades(); let eq=0;
   const equity=rows.map(t=>(eq+=t.pnl));
-  const pnls=rows.map(t=>t.pnl);
   drawLineChart($("equityChart"),equity);
-  drawBarChart($("pnlChart"),pnls);
+  drawBarChart($("pnlChart"),rows.map(t=>t.pnl));
 }
 
 function renderAnalysis(){
   const rows=getComputedTrades(); const m=computeMetrics(rows);
-  const accountSize = getAccountSize();
+  const accountSize=getAccountSize();
   const stats=[
-    ["Total de operaciones", m.total],
-    ["Ganancias brutas", money(m.grossProfit)],
-    ["Pérdidas brutas", money(m.grossLossAbs)],
-    ["Promedio ganancia", money(m.avgWin)],
-    ["Promedio pérdida", money(m.avgLoss)],
-    ["Mejor racha", `${m.bestStreak} wins`],
-    ["Peor racha", `${m.worstStreak} losses`],
-    ["Expectancy", `${fmt(m.expectancy)}R`],
-    ["R promedio", `${fmt(m.avgR)}R`],
-    ["Profit Factor", m.pf===999?">10":fmt(m.pf)],
-    ["Max Drawdown", `${money(m.maxDD)} (${pct(m.maxDDPct)})`],
+    ["Total de operaciones",m.total],
+    ["Ganancias brutas",money(m.grossProfit)],
+    ["Pérdidas brutas",money(m.grossLossAbs)],
+    ["Promedio ganancia",money(m.avgWin)],
+    ["Promedio pérdida",money(m.avgLoss)],
+    ["Mejor racha",`${m.bestStreak} wins`],
+    ["Peor racha",`${m.worstStreak} losses`],
+    ["Expectancy",`${fmt(m.expectancy)}R`],
+    ["R promedio",`${fmt(m.avgR)}R`],
+    ["Profit Factor",m.pf===999?">10":fmt(m.pf)],
+    ["Max Drawdown",`${money(m.maxDD)} (${pct(m.maxDDPct)})`],
   ];
-  if(accountSize > 0){
-    stats.push(["Tamaño de cuenta", money(accountSize)]);
-    stats.push(["Balance actual", money(m.balance)]);
-    stats.push(["Rentabilidad cuenta", `${fmt(m.netPctAccount,2)}%`]);
-    stats.push(["DD / Cuenta", `${fmt(m.maxDDPctAccount,2)}%`]);
-    if(m.avgRiskPctAccount !== null) stats.push(["Riesgo prom/trade", `${fmt(m.avgRiskPctAccount,3)}%`]);
+  if(accountSize>0){
+    stats.push(["Tamaño de cuenta",money(accountSize)]);
+    stats.push(["Balance actual",money(m.balance)]);
+    stats.push(["Rentabilidad cuenta",`${fmt(m.netPctAccount,2)}%`]);
+    stats.push(["DD / Cuenta",`${fmt(m.maxDDPctAccount,2)}%`]);
+    if(m.avgRiskPctAccount!==null) stats.push(["Riesgo prom/trade",`${fmt(m.avgRiskPctAccount,3)}%`]);
   }
   $("analysisStats").innerHTML=stats.map(([k,v])=>`<div class="stat-row"><span>${k}</span><strong>${v}</strong></div>`).join("");
   $("sampleHint").textContent=m.total<30
-    ?"Lectura importante: la muestra todavía es pequeña. Las métricas empiezan a ser mucho más confiables después de 30 operaciones o más."
-    :"Ya tienes una muestra más útil. Ahora sí puedes empezar a leer con más confianza la consistencia del sistema.";
+    ?"Lectura importante: la muestra todavía es pequeña. Las métricas empiezan a ser mucho más confiables después de 30 operaciones."
+    :"Ya tienes una muestra más útil. Ahora puedes leer con más confianza la consistencia del sistema.";
   let text="";
-  if(m.total===0){ text="Todavía no hay operaciones cargadas. Empieza registrando tus trades para ver la lectura automática del sistema."; }
-  else {
+  if(m.total===0){text="Todavía no hay operaciones cargadas.";}
+  else{
     text+=`Llevas ${m.total} operación(es). `;
-    text+=m.winRate>=50?`Tu tasa de acierto va en ${fmt(m.winRate,1)}%, lo cual luce sólida por ahora. `:`Tu win rate va en ${fmt(m.winRate,1)}%, así que toca revisar si tu R promedio compensa las pérdidas. `;
-    text+=m.expectancy>0?`La expectancy está positiva en ${fmt(m.expectancy)}R, así que el sistema muestra ventaja estadística en esta muestra. `:`La expectancy está en ${fmt(m.expectancy)}R; aún no hay ventaja clara o necesitas más muestra. `;
-    if(accountSize > 0){ text+=`Tu cuenta va en ${fmt(m.netPctAccount,2)}% de rentabilidad con un drawdown máximo del ${fmt(m.maxDDPctAccount,2)}% sobre el capital inicial. `; }
-    else { text+=m.maxDD===0?`Todavía no se ve drawdown relevante.`:`El drawdown máximo actual va en ${money(m.maxDD)}.`; }
+    text+=m.winRate>=50?`Tu tasa de acierto va en ${fmt(m.winRate,1)}%.`:  `Tu win rate va en ${fmt(m.winRate,1)}%.`;
+    text+=m.expectancy>0?` La expectancy está positiva en ${fmt(m.expectancy)}R.`:` La expectancy está en ${fmt(m.expectancy)}R.`;
+    if(accountSize>0) text+=` Tu cuenta va en ${fmt(m.netPctAccount,2)}% con DD máx ${fmt(m.maxDDPctAccount,2)}%.`;
   }
   $("quickRead").textContent=text;
 }
 
 function save(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(trades)); }
-
 function resetForm(){
-  ["asset","entry","exit","stop","target","size","commission","strategy","notes"].forEach(id=>$(id).value="");
+  ["asset","entry","exit","stop","target","size","commission","strategy","notes","profit","swap"].forEach(id=>$(id).value="");
   $("direction").value="Long"; $("date").value=todayStr();
 }
-
 function refreshAll(){ updateMetrics(); renderTable(); renderCharts(); renderAnalysis(); }
 
-/* ── BOTONES DE REGISTRO ── */
-$("addBtn").addEventListener("click", ()=>{
+$("addBtn").addEventListener("click", () => {
   const trade={
     date:$("date").value||todayStr(), asset:$("asset").value.trim(),
     direction:$("direction").value,
@@ -713,13 +898,13 @@ $("addBtn").addEventListener("click", ()=>{
     stop:num($("stop").value), target:num($("target").value),
     size:num($("size").value||1), commission:num($("commission").value||0),
     strategy:$("strategy").value.trim(), notes:$("notes").value.trim(),
-    profit:num($("profit").value||0),
-swap:num($("swap").value||0),
+    profit:num($("profit").value||0), swap:num($("swap").value||0),
   };
   if(!trade.asset){ alert("Pon el activo."); return; }
   if(!trade.entry||!trade.exit){ alert("Pon entrada y salida."); return; }
   trades.push(trade); save(); refreshAll(); resetForm();
-  checkSmartAlerts(trade);
+  // Mentor33 hook: análisis post-trade
+  setTimeout(() => m33PostTradeAnalysis(trade), 60);
 });
 
 window.removeTrade = function(index){
@@ -727,205 +912,642 @@ window.removeTrade = function(index){
   trades.splice(index,1); save(); refreshAll();
 };
 
-$("clearBtn").addEventListener("click", ()=>{
+$("clearBtn").addEventListener("click", () => {
   if(!confirm("¿Seguro que quieres borrar toda la bitácora?")) return;
   trades=[]; save(); refreshAll();
 });
 
-$("exportBtn").addEventListener("click", ()=>{
+$("exportBtn").addEventListener("click", () => {
   const blob=new Blob([JSON.stringify(trades,null,2)],{type:"application/json"});
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
   a.download="edge33-trades.json"; a.click();
 });
 
-$("csvBtn").addEventListener("click", ()=>{
+$("csvBtn").addEventListener("click", () => {
   const rows=getComputedTrades();
   const headers=["date","asset","direction","entry","exit","stop","target","size","commission","strategy","notes","pnl","pnlPct","pnlPctAccount","r","result"];
   const csv=[headers.join(","),...rows.map(r=>headers.map(h=>`"${String(r[h]??"")}"`).join(","))].join("\n");
   const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
-  const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
-  a.download="edge33-trades.csv"; a.click();
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="edge33-trades.csv"; a.click();
 });
 
-$("importBtn").addEventListener("click", ()=>$("importFile").click());
-$("importFile").addEventListener("change", (e)=>{
+$("importBtn").addEventListener("click", () => $("importFile").click());
+$("importFile").addEventListener("change", e => {
   const file=e.target.files[0]; if(!file) return;
   const reader=new FileReader();
   reader.onload=()=>{
     try{
       const data=JSON.parse(reader.result);
-      if(!Array.isArray(data)) throw new Error("Formato inválido");
+      if(!Array.isArray(data)) throw new Error();
       trades=data; save(); refreshAll(); alert("Importación completada.");
-    }catch(err){ alert("No pude importar ese archivo JSON."); }
+    }catch{ alert("No pude importar ese archivo JSON."); }
   };
   reader.readAsText(file);
 });
 
-/* ── TABS: incluye Mentor33 correctamente ── */
-document.querySelectorAll(".tab").forEach(btn=>{
-  btn.addEventListener("click", ()=>{
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
     document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
     document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
     btn.classList.add("active");
-    const tabId = btn.dataset.tab;
-    const panel = document.getElementById(tabId);
+    const panel=document.getElementById(btn.dataset.tab);
     if(panel) panel.classList.add("active");
     renderCharts();
   });
 });
 
-/* ── ANÁLISIS con IA ── */
-$("analyzeBtn").addEventListener("click", runAnalysis);
+/* ══════════════════════════════════════════════════════
+   MENTOR33 IA v2.0 — MOTOR COMPLETO
+   Funciones puras y modulares. No toca nada del dashboard.
+══════════════════════════════════════════════════════ */
 
-async function runAnalysis(){
-  const rows = getComputedTrades();
-  if(!rows.length){ showAlert("warning","Sin datos","Registra al menos 1 operación para analizar."); return; }
-  const m = computeMetrics(rows);
-  const btn = $("analyzeBtn");
-  btn.disabled=true; btn.innerHTML='<span class="spin"></span> Analizando...';
-  $("insightsWrap").innerHTML="";
-  try{
-    const prompt = buildPrompt(rows, m);
-    const data = await callClaude(prompt);
-    renderInsights(data);
-  }catch(e){
-    showAlert("danger","Error de IA","No se pudo conectar con Mentor33. Verifica tu conexión.");
-    console.error(e);
-  }
-  btn.disabled=false;
-  btn.innerHTML='<span>⚡</span> Analizar mi trading ahora';
+// ── CONFIG ──
+const M33 = {
+  OVERTRADE_LIMIT : 3,          // trades/día para alertar
+  HIGH_RISK_PCT   : 2.0,        // % cuenta que se considera riesgo alto
+  MIN_SAMPLE      : 5,          // mínimo de trades para patrones
+  THINK_MS        : 2400,       // ms de "pensando"
+  CARD_DELAY_MS   : 110,        // ms entre cada card al aparecer
+};
+
+// ── PALETA POR TIPO ──
+const M33_PALETTE = {
+  success: { color:'#1eea8a', bg:'rgba(30,234,138,0.07)',  border:'rgba(30,234,138,0.22)', label:'POSITIVO', icon:'✅' },
+  warning: { color:'#f4c35a', bg:'rgba(244,195,90,0.07)',  border:'rgba(244,195,90,0.22)', label:'ATENCIÓN', icon:'⚠️' },
+  danger:  { color:'#ff5f7a', bg:'rgba(255,95,122,0.07)',  border:'rgba(255,95,122,0.22)', label:'ALERTA',   icon:'🚨' },
+  info:    { color:'#57b4ff', bg:'rgba(87,180,255,0.07)',  border:'rgba(87,180,255,0.22)', label:'INFO',     icon:'📊' },
+};
+
+/* ─────────────────────────────────────────────────────
+   1. analyzeTrades(rows, metrics)
+   Agrupa y prepara estructuras de datos enriquecidas
+───────────────────────────────────────────────────── */
+function analyzeTrades(rows, m) {
+  // Últimos 5 trades
+  const last5  = rows.slice(-5);
+  const last10 = rows.slice(-10);
+
+  // Primera mitad vs segunda mitad
+  const half = Math.floor(rows.length / 2);
+  const firstHalf  = rows.slice(0, half);
+  const secondHalf = rows.slice(half);
+
+  // Días extremos
+  const dayEntries = Object.entries(m.byDay).sort((a,b) => b[1].pnl - a[1].pnl);
+  const bestDay  = dayEntries[0] || null;
+  const worstDay = dayEntries[dayEntries.length - 1] || null;
+
+  // Setup más rentable
+  const stratEntries = Object.entries(m.byStrat)
+    .filter(([,v]) => v.n >= 2)
+    .sort((a,b) => (b[1].pnl/b[1].n) - (a[1].pnl/a[1].n));
+  const bestStrat  = stratEntries[0] || null;
+  const worstStrat = stratEntries[stratEntries.length - 1] || null;
+
+  // Días con sobreoperación
+  const overtradeDays = Object.entries(m.byDay).filter(([,v]) => v.n >= M33.OVERTRADE_LIMIT);
+
+  // WR primera vs segunda mitad
+  const wr1 = firstHalf.length  ? firstHalf.filter(t=>t.pnl>0).length/firstHalf.length*100  : 0;
+  const wr2 = secondHalf.length ? secondHalf.filter(t=>t.pnl>0).length/secondHalf.length*100 : 0;
+
+  // Trades con riesgo alto
+  const highRiskTrades = rows.filter(t => t.riskPctAccount !== null && t.riskPctAccount > M33.HIGH_RISK_PCT);
+
+  // Sesión dominante (AM < 12 vs PM >= 12)
+  const amTrades = rows.filter(t => { const h=_hour(t); return h!==null && h<12; });
+  const pmTrades = rows.filter(t => { const h=_hour(t); return h!==null && h>=12; });
+
+  return { rows, m, last5, last10, firstHalf, secondHalf, bestDay, worstDay, bestStrat, worstStrat, overtradeDays, wr1, wr2, highRiskTrades, amTrades, pmTrades };
 }
 
-function buildPrompt(rows, m){
-  const hrTxt = Object.entries(m.byHour).map(([h,v])=>`${h}:00h → ${v.n} trades, WR:${(v.w/v.n*100).toFixed(0)}%, PnL:${money(v.pnl)}`).join(" | ") || "sin datos de horario";
-  const stTxt = Object.entries(m.byStrat).map(([k,v])=>`${k}(${v.n} trades, WR:${(v.w/v.n*100).toFixed(0)}%, PnL:${money(v.pnl)})`).join(", ") || "sin datos";
-  const accountCtx = m.accountSize > 0
-    ? `Cuenta: ${money(m.accountSize)} | Balance actual: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount,2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount,2)}% | Riesgo prom/trade: ${m.avgRiskPctAccount!==null?fmt(m.avgRiskPctAccount,3)+'%':'N/A'}`
-    : "Cuenta: no configurada";
-  return `Eres Mentor33, mentor de trading profesional para Edge33. El sistema del trader es: "Altos y Bajos de H4 confirmados con Q33".
+function _hour(trade){
+  if(trade.time) return parseInt(trade.time.split(":")[0], 10);
+  return null;
+}
 
-Analiza los siguientes datos reales del trader y responde ÚNICAMENTE con un JSON válido con exactamente este formato:
-{
-  "insights": [
-    {
-      "type": "warning|danger|success|info",
-      "title": "título conciso",
-      "text": "análisis en 2-3 oraciones directas como mentor profesional",
-      "recommendation": "acción concreta específica"
+/* ─────────────────────────────────────────────────────
+   2. detectPatterns(analysis)
+   Encuentra patrones estadísticos clave y los clasifica
+───────────────────────────────────────────────────── */
+function detectPatterns(analysis) {
+  const { rows, m, last5, overtradeDays, wr1, wr2, firstHalf, secondHalf, highRiskTrades, amTrades, pmTrades, bestStrat, worstStrat } = analysis;
+  const patterns = [];
+
+  if(rows.length < M33.MIN_SAMPLE) return patterns;
+
+  /* ── P1: Racha reciente de pérdidas ── */
+  const lossesLast5 = last5.filter(t => t.pnl < 0).length;
+  if(lossesLast5 >= 4)
+    patterns.push({ type:'danger', category:'racha_perdidas', severity:3,
+      lossCount:lossesLast5, total:last5.length });
+  else if(lossesLast5 === 3)
+    patterns.push({ type:'warning', category:'racha_perdidas', severity:2,
+      lossCount:lossesLast5, total:last5.length });
+
+  /* ── P2: Sobreoperación ── */
+  if(overtradeDays.length > 0){
+    const badOvertradeDays = overtradeDays.filter(([,v]) => v.pnl < 0).length;
+    patterns.push({ type:'danger', category:'sobreoperacion', severity:3,
+      days:overtradeDays.length, badDays:badOvertradeDays });
+  }
+
+  /* ── P3: WR cayendo (regresión de rendimiento) ── */
+  if(secondHalf.length >= 4 && wr2 < wr1 - 15)
+    patterns.push({ type:'warning', category:'wr_cayendo', severity:2,
+      wr1:fmt(wr1,1), wr2:fmt(wr2,1), diff:fmt(wr1-wr2,1) });
+
+  /* ── P4: Edge confirmado ── */
+  if(m.winRate >= 52 && m.pf >= 1.5 && m.expectancy > 0 && m.total >= 10)
+    patterns.push({ type:'success', category:'edge_confirmado', severity:1,
+      wr:fmt(m.winRate,1), pf:m.pf===999?">10":fmt(m.pf), exp:fmt(m.expectancy) });
+
+  /* ── P5: Setup ganador identificado ── */
+  if(bestStrat){
+    const [name, data] = bestStrat;
+    const wr = (data.w / data.n) * 100;
+    if(wr >= 55 && data.n >= 3)
+      patterns.push({ type:'success', category:'setup_ganador', severity:1,
+        setup:name, wr:fmt(wr,0), trades:data.n, pnl:data.pnl });
+  }
+
+  /* ── P6: Setup perdedor recurrente ── */
+  if(worstStrat && worstStrat !== bestStrat){
+    const [name, data] = worstStrat;
+    const wr = (data.w / data.n) * 100;
+    if(wr < 35 && data.n >= 3)
+      patterns.push({ type:'warning', category:'setup_perdedor', severity:2,
+        setup:name, wr:fmt(wr,0), trades:data.n, pnl:data.pnl });
+  }
+
+  /* ── P7: Riesgo elevado = peor resultado ── */
+  if(highRiskTrades.length >= 2 && m.total >= 6){
+    const normalTrades = rows.filter(t => t.riskPctAccount !== null && t.riskPctAccount < M33.HIGH_RISK_PCT);
+    const wrHigh   = highRiskTrades.filter(t=>t.pnl>0).length / highRiskTrades.length * 100;
+    const wrNormal = normalTrades.length ? normalTrades.filter(t=>t.pnl>0).length / normalTrades.length * 100 : 0;
+    if(wrHigh < wrNormal - 10)
+      patterns.push({ type:'danger', category:'riesgo_capital', severity:3,
+        count:highRiskTrades.length, wrHigh:fmt(wrHigh,0), wrNormal:fmt(wrNormal,0), threshold:M33.HIGH_RISK_PCT });
+  }
+
+  /* ── P8: Rendimiento AM vs PM ── */
+  if(amTrades.length >= 3 && pmTrades.length >= 3){
+    const wrAM = amTrades.filter(t=>t.pnl>0).length / amTrades.length * 100;
+    const wrPM = pmTrades.filter(t=>t.pnl>0).length / pmTrades.length * 100;
+    const diff = Math.abs(wrAM - wrPM);
+    if(diff >= 15)
+      patterns.push({ type: wrAM > wrPM ? 'info' : 'info', category:'sesion_horaria', severity:1,
+        wrAM:fmt(wrAM,0), wrPM:fmt(wrPM,0), betterSession: wrAM>wrPM?'mañana (AM)':'tarde (PM)', diff:fmt(diff,0) });
+  }
+
+  /* ── P9: Sin datos de SL / Setup ── */
+  const sinSL    = rows.filter(t => !t.stop || t.stop === 0).length;
+  const sinSetup = rows.filter(t => !t.strategy || t.strategy.trim()==="").length;
+  if(sinSL > rows.length * 0.3)
+    patterns.push({ type:'warning', category:'datos_incompletos', severity:2,
+      field:'Stop Loss', pct:fmt(sinSL/rows.length*100,0), count:sinSL });
+  else if(sinSetup > rows.length * 0.4)
+    patterns.push({ type:'info', category:'datos_incompletos', severity:1,
+      field:'Estrategia', pct:fmt(sinSetup/rows.length*100,0), count:sinSetup });
+
+  /* ── P10: Sistema sin ventaja ── */
+  if(m.total >= 10 && m.pf < 1 && m.expectancy < 0)
+    patterns.push({ type:'danger', category:'sin_ventaja', severity:3,
+      pf:fmt(m.pf), exp:fmt(m.expectancy), wr:fmt(m.winRate,1) });
+
+  // Ordenar por severidad
+  return patterns.sort((a,b) => b.severity - a.severity);
+}
+
+/* ─────────────────────────────────────────────────────
+   3. generateInsights(patterns, analysis)
+   Convierte patrones en lenguaje natural de mentor
+───────────────────────────────────────────────────── */
+function generateInsights(patterns, analysis) {
+  const { m, rows, bestDay, worstDay } = analysis;
+  const insights = [];
+
+  /* ── INSIGHT GLOBAL (siempre primero) ── */
+  const globalType = m.pf >= 1.5 ? 'success' : m.pf >= 1.0 ? 'warning' : 'danger';
+  const accountLine = m.accountSize > 0
+    ? ` Tu cuenta lleva ${fmt(m.netPctAccount,2)}% de rentabilidad.`
+    : '';
+  insights.push({
+    type: globalType, icon:'📊', title:'Diagnóstico general',
+    text: m.total === 0
+      ? 'No hay operaciones registradas todavía. Empieza a cargar tus trades para que pueda darte un análisis real.'
+      : `Llevas ${m.total} operaciones con WR ${fmt(m.winRate,1)}%, Profit Factor ${m.pf===999?'>10':fmt(m.pf)} y expectancy de ${fmt(m.expectancy)}R.${accountLine}`,
+    rec: m.pf >= 1.5
+      ? 'Tienes ventaja estadística real. Enfócate en consistencia y en no cambiar lo que funciona.'
+      : m.pf >= 1.0
+      ? 'Eres rentable pero el margen es estrecho. Mejora la calidad de los setups antes de escalar el tamaño.'
+      : 'El sistema no muestra ventaja matemática todavía. Revisa la selección de setups y la gestión de salidas.',
+  });
+
+  /* ── INSIGHTS POR PATRÓN ── */
+  patterns.forEach(p => {
+    switch(p.category){
+
+      case 'racha_perdidas':
+        insights.push({
+          type: p.type, icon:'📉', title:'Racha de pérdidas activa',
+          text: `${p.lossCount} de tus últimos ${p.total} trades cerraron en negativo. Cuando el mercado no está en condición para tu sistema, el resultado es exactamente este.`,
+          rec: p.lossCount >= 4
+            ? 'Detente. No abras más trades hoy ni mañana. Revisa si el contexto de mercado cambió o si estás forzando setups donde no hay estructura.'
+            : 'Baja el tamaño de posición a la mitad hasta recuperar el ritmo. No es rendirse, es gestión profesional.',
+        }); break;
+
+      case 'sobreoperacion':
+        insights.push({
+          type:'danger', icon:'🚨', title:'Sobreoperación detectada',
+          text: `Detecté ${p.days} día(s) con ${M33.OVERTRADE_LIMIT}+ trades. En ${p.badDays} de esos días cerraste en negativo. La sobreoperación es el error más costoso y más evitable.`,
+          rec: `Define un máximo de 2 trades por día y respétalo sin importar cuántas "oportunidades" veas. La disciplina en la ejecución es lo que separa al trader rentable del que explota la cuenta.`,
+        }); break;
+
+      case 'wr_cayendo':
+        insights.push({
+          type:'warning', icon:'📉', title:'Rendimiento en regresión',
+          text: `Tu winrate bajó de ${p.wr1}% a ${p.wr2}% en la segunda mitad de tus trades (–${p.diff}%). Eso es un patrón de deterioro, no mala suerte.`,
+          rec: 'Revisa si cambiaste algo en tu proceso: ¿empezaste a tomar setups más débiles? ¿Subiste el riesgo? ¿Operaste en horarios distintos? La consistencia requiere proceso constante.',
+        }); break;
+
+      case 'edge_confirmado':
+        insights.push({
+          type:'success', icon:'✅', title:'Edge estadístico confirmado',
+          text: `Con WR ${p.wr}%, PF ${p.pf} y expectancy ${p.exp}R, tu sistema tiene una ventaja estadística real en esta muestra de ${m.total} trades.`,
+          rec: 'Ahora protégelo: no cambies el plan durante rachas perdedoras, no escales el tamaño sin un proceso de crecimiento claro, sigue registrando todo.',
+        }); break;
+
+      case 'setup_ganador':
+        insights.push({
+          type:'success', icon:'🎯', title:'Tu setup ganador identificado',
+          text: `"${p.setup}" es tu edge más fuerte: ${p.wr}% de winrate en ${p.trades} trades con ${money(p.pnl)} de PnL total. Ese es el setup que construye tu cuenta.`,
+          rec: `Cuando ese setup no aparezca, no operes por operar. El mercado no te debe un trade. Si no ves "${p.setup}" claramente, espera.`,
+        }); break;
+
+      case 'setup_perdedor':
+        insights.push({
+          type:'warning', icon:'⚠️', title:'Setup con rendimiento negativo',
+          text: `"${p.setup}" muestra WR de ${p.wr}% en ${p.trades} trades con ${money(p.pnl)} de resultado. Ese setup está destruyendo valor en tu cuenta.`,
+          rec: `Ponlo en lista de observación durante 2 semanas sin operarlo. Si no tiene ventaja estadística demostrable, elimínalo del playbook.`,
+        }); break;
+
+      case 'riesgo_capital':
+        insights.push({
+          type:'danger', icon:'💸', title:'Riesgo elevado = peor resultado',
+          text: `Cuando subes el riesgo por encima del ${p.threshold}%, tu WR cae a ${p.wrHigh}% vs ${p.wrNormal}% con riesgo estándar. Arriesgar más no mejora el rendimiento, solo amplifica los errores.`,
+          rec: `Congela el tamaño de posición en el nivel donde tu sistema funciona. El crecimiento de cuenta viene de consistencia, no de apuestas más grandes.`,
+        }); break;
+
+      case 'sesion_horaria':
+        insights.push({
+          type:'info', icon:'🕐', title:'Horario con ventaja estadística',
+          text: `Tu WR en sesión de ${p.betterSession} es ${p.betterSession.includes('AM') ? p.wrAM : p.wrPM}% vs ${p.betterSession.includes('AM') ? p.wrPM : p.wrAM}% en el otro bloque. Diferencia de ${p.diff}%.`,
+          rec: `Concentra tus trades en la sesión donde tienes ventaja demostrada. El resto del día, solo observa y aprende. No necesitas estar en el mercado 8 horas.`,
+        }); break;
+
+      case 'datos_incompletos':
+        insights.push({
+          type: p.type, icon:'📝', title:`Faltan datos: ${p.field}`,
+          text: `El ${p.pct}% de tus trades (${p.count} operaciones) no tienen "${p.field}" registrado. Sin esos datos, el análisis es parcial y el aprendizaje, limitado.`,
+          rec: `Completa todos los campos en cada trade. Un registro incompleto es como operar sin journal: no puedes mejorar lo que no mides.`,
+        }); break;
+
+      case 'sin_ventaja':
+        insights.push({
+          type:'danger', icon:'🔴', title:'Sistema sin ventaja matemática',
+          text: `Con PF ${p.pf} y expectancy ${p.exp}R en ${m.total} trades, el sistema no tiene ventaja estadística. Esto no es una racha: es el resultado del sistema actual.`,
+          rec: `Para antes de seguir operando real. Define con claridad las reglas exactas de entrada, SL y TP del sistema Q33 y backtestéalas en al menos 50 operaciones demo.`,
+        }); break;
     }
-  ],
-  "summary": "diagnóstico poderoso en 2 oraciones directas"
-}
-
-DATOS DEL TRADER:
-Trades: ${m.total} | WR: ${fmt(m.winRate,1)}% | PF: ${m.pf===999?">10":fmt(m.pf)} | Expectancy: ${fmt(m.expectancy)}R | R avg: ${fmt(m.avgR)}R | DD máx: ${fmt(m.maxDDPct)}%
-Wins: ${m.wins} | Losses: ${m.losses} | Mejor racha: ${m.bestStreak} | Peor racha: ${m.worstStreak}
-Promedio ganancia: ${money(m.avgWin)} | Promedio pérdida: ${money(m.avgLoss)}
-${accountCtx}
-Por horario: ${hrTxt}
-Por estrategia: ${stTxt}
-
-Genera exactamente 4 insights relevantes y accionables. RESPONDE SOLO JSON, sin texto adicional.`;
-}
-
-/* ── FIX PRINCIPAL: faltaba "body:" en el fetch original ── */
-async function callClaude(prompt){
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      messages: [{ role: "user", content: prompt }]
-    })
   });
-  if(!res.ok) throw new Error(`API ${res.status}`);
-  const data = await res.json();
-  const txt = data.content.find(b=>b.type==="text")?.text || "{}";
-  return JSON.parse(txt.replace(/```json|```/g,"").trim());
-}
 
-function renderInsights(data){
-  if(!data.insights?.length) return;
-  let html = `<div class="insights-grid">`;
-  data.insights.forEach(ins=>{
-    html += `<div class="ins-card">
-      <div class="ins-type ${ins.type}"><div class="ins-dot"></div>${ins.title}</div>
-      <div class="ins-text">${ins.text}</div>
-      <div class="ins-rec">💡 ${ins.recommendation}</div>
-    </div>`;
-  });
-  html += `</div>`;
-  if(data.summary){
-    html += `<div class="mentor-summary-box">
-      <span class="mentor-summary-lbl">📊 Diagnóstico Mentor33</span>
-      ${data.summary}
-    </div>`;
+  /* ── DÍAS EXTREMOS (si hay datos) ── */
+  if(bestDay && worstDay && bestDay[0] !== worstDay[0]){
+    const bv=bestDay[1].pnl, wv=worstDay[1].pnl;
+    insights.push({
+      type: Math.abs(wv) > bv * 0.8 ? 'warning' : 'info',
+      icon:'📅', title:'Días extremos',
+      text:`Tu mejor día fue ${bestDay[0]} (+${money(bv)}). Tu peor día fue ${worstDay[0]} (${money(wv)}). ${Math.abs(wv) > bv * 0.8 ? 'Tus pérdidas máximas casi igualan tus ganancias máximas.' : 'Hay buena asimetría entre tus días extremos.'}`,
+      rec: Math.abs(wv) > bv * 0.8
+        ? 'Implementa un circuit breaker: si pierdes más del 50% de tu mejor día en un solo día, cierra la plataforma. Sin excepciones.'
+        : 'Mantén esa asimetría. Los mejores traders tienen peores días pequeños y mejores días grandes.',
+    });
   }
-  $("insightsWrap").innerHTML = html;
+
+  return insights;
 }
 
-/* ── CHAT ── */
-const chatHistory = [];
+/* ─────────────────────────────────────────────────────
+   4. renderMentorUI(insights, metrics)
+   Construye y anima el panel overlay premium
+───────────────────────────────────────────────────── */
+function renderMentorUI(insights, m) {
+  const overlay = $("m33-overlay");
+  const panel   = $("m33-panel");
+  const body    = $("m33Body");
+  const scoreRow = $("m33ScoreRow");
+  const footer  = $("m33FooterTxt");
+  const divLabel = $("m33DivLabel");
 
-$("chatSendBtn").addEventListener("click", sendChat);
-$("chatInp").addEventListener("keydown", (e)=>{
-  if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); sendChat(); }
+  // Limpiar
+  body.innerHTML = "";
+  scoreRow.innerHTML = "";
+
+  // Score chips
+  const chips = [
+    { label:'WR', value: m.total?`${fmt(m.winRate,1)}%`:'—', cls: m.winRate>=50?'chip-green':'chip-red' },
+    { label:'PF', value: m.pf===999?'>10':fmt(m.pf), cls: m.pf>=1.5?'chip-green':m.pf>=1?'chip-gold':'chip-red' },
+    { label:'EXP', value: `${fmt(m.expectancy)}R`, cls: m.expectancy>0?'chip-green':'chip-red' },
+    { label:'DD', value: m.accountSize>0?`${fmt(m.maxDDPctAccount,1)}%`:`${fmt(m.maxDDPct,1)}%`, cls: m.maxDDPct>15?'chip-red':m.maxDDPct>8?'chip-gold':'chip-green' },
+    { label:'TRADES', value: m.total, cls:'chip-blue' },
+  ];
+  chips.forEach(c => {
+    const el = document.createElement("div");
+    el.className = `m33-score-chip ${c.cls}`;
+    el.innerHTML = `<span>${c.label}</span> <strong>${c.value}</strong>`;
+    scoreRow.appendChild(el);
+  });
+
+  // Divider label
+  divLabel.textContent = `${insights.length} INSIGHTS DETECTADOS`;
+
+  // Footer
+  footer.textContent = `${m.total} operaciones analizadas · Mentor33 IA v2.0 · Edge33`;
+
+  // Abrir overlay + panel
+  overlay.classList.add("open");
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => panel.classList.add("open"));
+  });
+
+  // Renderizar cards con stagger
+  insights.forEach((ins, i) => {
+    setTimeout(() => {
+      const p = M33_PALETTE[ins.type] || M33_PALETTE.info;
+      const card = document.createElement("div");
+      card.className = "m33-icard";
+      card.style.cssText = `--m33-color:${p.color};--m33-bg:${p.bg};--m33-border:${p.border};`;
+      card.innerHTML = `
+        <div class="m33-icard-left">
+          <div class="m33-icard-icon">${ins.icon}</div>
+          <div class="m33-icard-vline"></div>
+        </div>
+        <div class="m33-icard-body">
+          <div class="m33-icard-row">
+            <span class="m33-icard-tag">${p.label}</span>
+            <span class="m33-icard-title">${ins.title}</span>
+          </div>
+          <div class="m33-icard-text">${ins.text}</div>
+          ${ins.rec ? `<div class="m33-icard-rec"><strong>→</strong> ${ins.rec}</div>` : ''}
+        </div>`;
+      body.appendChild(card);
+      // Trigger animation
+      requestAnimationFrame(() => requestAnimationFrame(() => card.classList.add("visible")));
+    }, i * M33.CARD_DELAY_MS);
+  });
+}
+
+/* ─────────────────────────────────────────────────────
+   5. Thinking state — animación del botón
+───────────────────────────────────────────────────── */
+function m33StartThinking(btn) {
+  btn.disabled = true;
+  btn.classList.add("thinking");
+  const frames = ["⠋ Analizando datos…","⠙ Detectando patrones…","⠹ Procesando edge…","⠸ Generando insights…","⠼ Construyendo análisis…","⠴ Revisando comportamiento…"];
+  let fi = 0;
+  const interval = setInterval(() => {
+    btn.innerHTML = `<span class="spin" style="border-top-color:#041209"></span> ${frames[fi++ % frames.length]}`;
+  }, 320);
+  return () => { clearInterval(interval); btn.disabled=false; btn.classList.remove("thinking"); btn.innerHTML='<span>⚡</span> Analizar mi trading ahora'; };
+}
+
+/* ─────────────────────────────────────────────────────
+   6. Close handlers
+───────────────────────────────────────────────────── */
+function m33Close() {
+  const overlay = $("m33-overlay");
+  const panel   = $("m33-panel");
+  panel.classList.remove("open");
+  overlay.classList.remove("open");
+}
+
+$("m33CloseBtn").addEventListener("click", m33Close);
+$("m33-overlay").addEventListener("click", m33Close);
+document.addEventListener("keydown", e => { if(e.key==="Escape") m33Close(); });
+
+/* ─────────────────────────────────────────────────────
+   7. MAIN: analyzeBtn click handler
+   Extiende el botón original sin modificar el HTML
+───────────────────────────────────────────────────── */
+$("analyzeBtn").addEventListener("click", async () => {
+  const rows = getComputedTrades();
+  if(!rows.length){
+    showAlert("warning","Sin datos","Registra al menos 1 operación para analizar.");
+    return;
+  }
+
+  const btn = $("analyzeBtn");
+  const stopThinking = m33StartThinking(btn);
+
+  // Delay para UX de IA "pensando"
+  await new Promise(r => setTimeout(r, M33.THINK_MS));
+
+  const m        = computeMetrics(rows);
+  const analysis = analyzeTrades(rows, m);
+  const patterns = detectPatterns(analysis);
+  const insights = generateInsights(patterns, analysis);
+
+  stopThinking();
+  renderMentorUI(insights, m);
 });
 
-async function sendChat(){
+/* ─────────────────────────────────────────────────────
+   8. Post-trade analysis (hook al addBtn)
+   Análisis automático al registrar un trade
+───────────────────────────────────────────────────── */
+function m33PostTradeAnalysis(trade) {
+  if(!trades.length) return;
+  const computed = calcTrade(trade);
+  const rows = getComputedTrades();
+
+  // Calidad del trade por R
+  const r = computed.r;
+  let qual, qualMsg;
+  if(r >= 3)       { qual='A+'; qualMsg=`R de ${fmt(r)}R. Trade de alta calidad. Esos construyen la cuenta.`; }
+  else if(r >= 2)  { qual='A';  qualMsg=`R de ${fmt(r)}R. Sólido, dentro del rango Q33.`; }
+  else if(r >= 1)  { qual='B';  qualMsg=`R de ${fmt(r)}R. Aceptable. Busca setups con más proyección.`; }
+  else if(r >= 0)  { qual='C';  qualMsg=`R de ${fmt(r)}R. Bajo. ¿El TP estaba bien colocado?`; }
+  else             { qual='L';  qualMsg=`Trade en pérdida (${fmt(r)}R). Analiza si el SL era el correcto.`; }
+
+  const qColors = { 'A+':'success','A':'success','B':'info','C':'warning','L':'danger' };
+  showAlert(qColors[qual]||'info', `Calidad del trade: ${qual}`, qualMsg);
+
+  // Sobreoperación inmediata
+  const todayCount = trades.filter(t => t.date === trade.date).length;
+  if(todayCount >= M33.OVERTRADE_LIMIT){
+    setTimeout(() => showAlert('danger','🚨 Sobreoperación',`Llevas ${todayCount} trades hoy. Tu historial muestra caída de rendimiento en este patrón.`), 500);
+  }
+
+  // Riesgo elevado
+  if(computed.riskPctAccount !== null && computed.riskPctAccount > M33.HIGH_RISK_PCT){
+    setTimeout(() => showAlert('warning','⚠️ Riesgo elevado',`Este trade arriesgó ${fmt(computed.riskPctAccount,2)}% de la cuenta. El estándar profesional es 0.5–1%.`), 900);
+  }
+
+  // Sin estrategia
+  if(!trade.strategy || trade.strategy.trim()===""){
+    setTimeout(() => showAlert('info','📝 Dato faltante','No registraste estrategia. Ese campo es clave para que Mentor33 identifique tu edge real.'), 1300);
+  }
+
+  // Patrón de racha
+  const last3 = rows.slice(-3);
+  if(last3.length === 3 && last3.every(t => t.pnl < 0)){
+    setTimeout(() => showAlert('danger','📉 3 pérdidas seguidas','Considera tomarte un descanso o reducir el tamaño. Las rachas negativas requieren gestión activa.'), 1700);
+  }
+}
+
+/* ─────────────────────────────────────────────────────
+   9. CHAT — sistema local + API fallback
+───────────────────────────────────────────────────── */
+const chatHistory = [];
+
+function m33ChatLocal(userMsg) {
+  const msg = userMsg.toLowerCase().trim();
+  const rows = getComputedTrades();
+  const m = computeMetrics(rows);
+  const accountSize = getAccountSize();
+
+  if(!rows.length) return "No tienes trades registrados todavía. Empieza a cargar tus operaciones y te daré análisis reales basados en tus datos.";
+
+  if(/winrate|win rate|acierto|ganar|gano/.test(msg)){
+    return m.winRate >= 55
+      ? `Tu WR está en ${fmt(m.winRate,1)}% — sólido. Junto a tu R promedio de ${fmt(m.avgR)}R, la expectancy es ${fmt(m.expectancy)}R. El sistema muestra ventaja.`
+      : m.winRate >= 45
+      ? `WR en ${fmt(m.winRate,1)}%. Zona gris. Necesitas mínimo 45% con R ≥ 1.5 para tener ventaja real. Tu R promedio actual es ${fmt(m.avgR)}R.`
+      : `WR en ${fmt(m.winRate,1)}% — bajo. Con ${fmt(m.avgR)}R promedio, ${m.expectancy>0?'la expectancy sigue positiva pero frágil':'no hay ventaja matemática todavía'}. Revisa si estás saliendo demasiado pronto de las ganadoras.`;
+  }
+
+  if(/riesgo|arriesgo|sizing|tamaño.*posici|mucho riesgo/.test(msg)){
+    if(!accountSize) return "Para calcular el riesgo real necesito que configures el tamaño de tu cuenta en la barra superior.";
+    const avg = m.avgRiskPctAccount;
+    if(avg === null) return "No tengo datos de riesgo calculados. Asegúrate de que Stop Loss y Tamaño estén llenos en tus trades.";
+    return avg > 2
+      ? `Tu riesgo promedio es ${fmt(avg,2)}% por trade — demasiado alto. El estándar profesional es 0.5–1%. Una racha de 5 pérdidas te come ${fmt(avg*5,1)}% de la cuenta.`
+      : avg > 1
+      ? `Riesgo promedio del ${fmt(avg,2)}% por trade. En el límite. Apunta a 0.5–1% para sobrevivir drawdowns sin daño psicológico.`
+      : `Riesgo promedio del ${fmt(avg,2)}% por trade — dentro del rango óptimo. Buena gestión de capital.`;
+  }
+
+  if(/sobr[ae]oper|muchos trades|demasiados trades/.test(msg)){
+    const over = Object.entries(m.byDay).filter(([,v])=>v.n >= M33.OVERTRADE_LIMIT);
+    if(!over.length) return "No detecto sobreoperación en tu historial. El volumen por día parece controlado. Sigue así.";
+    const malos = over.filter(([,v])=>v.pnl<0).length;
+    return `Detecté ${over.length} día(s) con ${M33.OVERTRADE_LIMIT}+ trades. ${malos} de esos días cerraron en negativo. Define un límite de 2 trades diarios y respétalo sin excepción.`;
+  }
+
+  if(/mejorar|cómo mejoro|qué hago|consejos|recomend/.test(msg)){
+    const recs = [];
+    if(m.winRate < 50) recs.push("mejorar la selección de setups — espera solo los A+ antes de entrar");
+    if(m.avgR < 1.5) recs.push("dejar correr más las ganadoras — tu R promedio indica salidas anticipadas");
+    if(m.worstStreak >= 4) recs.push(`implementar un circuit breaker — tu peor racha fue de ${m.worstStreak} losses seguidos`);
+    if(m.pf < 1.5) recs.push(`revisar la calidad de setups — Profit Factor de ${fmt(m.pf)} está bajo el estándar`);
+    if(!recs.length) return `Tu sistema muestra métricas sólidas: WR ${fmt(m.winRate,1)}%, PF ${fmt(m.pf)}, Expectancy ${fmt(m.expectancy)}R. Enfócate en consistencia.`;
+    return `Tus tres focos clave: ${recs.slice(0,3).map((r,i)=>`${i+1}) ${r}`).join(". ")}.`;
+  }
+
+  if(/análisis|analiza|cómo voy|mi performance|mis resultados|mi trading/.test(msg)){
+    const estado = m.expectancy > 0 ? "positiva" : "negativa";
+    const acctLine = accountSize > 0 ? ` Cuenta en ${fmt(m.netPctAccount,2)}% rentabilidad, DD máx ${fmt(m.maxDDPctAccount,2)}%.` : "";
+    return `Llevas ${m.total} trades. WR: ${fmt(m.winRate,1)}%, PF: ${m.pf===999?">10":fmt(m.pf)}, Expectancy: ${fmt(m.expectancy)}R (${estado}).${acctLine} ${m.expectancy>0?"El sistema muestra ventaja estadística.":"Todavía no hay ventaja clara."}`;
+  }
+
+  if(/drawdown|dd|pérdidas seguidas|racha|bacha/.test(msg)){
+    return `Drawdown máximo: ${money(m.maxDD)}${accountSize>0?` (${fmt(m.maxDDPctAccount,2)}% de cuenta)`:""} . Peor racha: ${m.worstStreak} losses seguidos. ${m.worstStreak>=5?"Esa racha requiere reglas de circuit breaker claras.":"Dentro de rangos normales para un sistema en desarrollo."}`;
+  }
+
+  if(/estrategia|setup|sistema|q33/.test(msg)){
+    if(!Object.keys(m.byStrat).length) return "No tienes estrategias registradas. Ese campo es clave — sin él no puedo identificar tu edge real ni qué setup operar y cuál evitar.";
+    const stratLines = Object.entries(m.byStrat).map(([k,v])=>`${k}: ${v.n} trades, ${fmt(v.w/v.n*100,0)}% WR, PnL ${money(v.pnl)}`).join(" | ");
+    const top = Object.entries(m.byStrat).sort((a,b)=>b[1].pnl-a[1].pnl)[0];
+    return `Estrategias registradas → ${stratLines}. ${top?.[0]} es tu setup más rentable hasta ahora.`;
+  }
+
+  if(/profit factor|pf/.test(msg)){
+    const pfVal = m.pf===999?">10":fmt(m.pf);
+    return `Tu Profit Factor es ${pfVal}. ${m.pf>=2?"Excelente — por cada dólar perdido ganas más del doble.":m.pf>=1.5?"Bueno — el sistema genera ventaja real.":m.pf>=1?"En el límite. Mejora la calidad de entradas o la gestión de salidas.":"Por debajo de 1 — el sistema pierde más de lo que gana en términos brutos. Revisión necesaria."}`;
+  }
+
+  if(/expectancy|expectativa|ventaja/.test(msg)){
+    return `Tu expectancy es ${fmt(m.expectancy)}R. ${m.expectancy>0.5?"Ventaja real y sólida. El sistema tiene edge demostrable.":m.expectancy>0?"Ventaja positiva pero pequeña. Sigue registrando para confirmar.":"Sin ventaja estadística todavía. Revisa el sistema antes de seguir escalando."}`;
+  }
+
+  if(/hola|hey|buenas|qué tal|cómo estás|buenas tardes|buenos días/.test(msg)){
+    return `¡Hola! Listo para trabajar. Tienes ${m.total} trades cargados, WR ${fmt(m.winRate,1)}% y expectancy ${fmt(m.expectancy)}R. ¿Qué quieres analizar?`;
+  }
+
+  if(/último.*trade|trade más reciente|cómo salió/.test(msg)){
+    const rows = getComputedTrades();
+    if(!rows.length) return "No hay trades registrados todavía.";
+    const last = rows[rows.length-1];
+    return `Tu último trade fue ${last.asset||'sin activo'} el ${last.date||'fecha desconocida'}: ${last.result}, ${money(last.pnl)}, ${fmt(last.r)}R. ${last.pnl>0?"Trade ganador. ¿Seguiste el plan o fue suerte?":"Trade perdedor. ¿El SL estaba bien puesto o lo moviste?"}`;
+  }
+
+  // Respuesta genérica con contexto
+  return `Con tus ${m.total} trades: WR ${fmt(m.winRate,1)}%, Expectancy ${fmt(m.expectancy)}R, PF ${m.pf===999?">10":fmt(m.pf)}. Puedes preguntarme sobre winrate, riesgo, sobreoperación, estrategias, drawdown, expectancy o pedirme un análisis general.`;
+}
+
+async function sendChat() {
   const inp = $("chatInp"), btn = $("chatSendBtn");
   const msg = inp.value.trim(); if(!msg) return;
-  inp.value=""; btn.disabled=true;
+  inp.value = ""; btn.disabled = true;
   addMsg("user", msg);
+
+  // Detectar si necesita profundidad (API) o puede responder local
+  const needsAPI = /explica|por qué|cómo funciona|qué significa|cuéntame|desarrolla|profundiza|detalla/i.test(msg);
+  const localReply = m33ChatLocal(msg);
+
+  if(!needsAPI){
+    const typing = addTyping();
+    await new Promise(r => setTimeout(r, 380 + Math.random()*200));
+    typing.remove();
+    addMsg("mentor", localReply);
+    btn.disabled = false;
+    return;
+  }
+
+  // Fallback a API con contexto completo
   const typing = addTyping();
   const rows = getComputedTrades();
   const m = computeMetrics(rows);
-  const accountCtx = m.accountSize > 0
-    ? `Cuenta: ${money(m.accountSize)} | Balance: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount,2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount,2)}%`
+  const accountSize = getAccountSize();
+  const acctCtx = accountSize > 0
+    ? `Cuenta: ${money(accountSize)} | Balance: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount,2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount,2)}%`
     : "Cuenta: no configurada";
-  const system = `Eres Mentor33, mentor de trading para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
+  const systemPrompt = `Eres Mentor33, mentor de trading para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
+Datos actuales: ${m.total} trades | WR: ${fmt(m.winRate,1)}% | PF: ${m.pf===999?">10":fmt(m.pf)} | Expectancy: ${fmt(m.expectancy)}R | R avg: ${fmt(m.avgR)}R | DD máx: ${fmt(m.maxDDPct)}% | ${acctCtx}
+Responde en español. Directo, como mentor profesional. Máximo 4-5 oraciones.`;
 
-Datos actuales del trader:
-- ${m.total} trades registrados
-- Win Rate: ${fmt(m.winRate,1)}% (${m.wins}W / ${m.losses}L)
-- Profit Factor: ${m.pf===999?">10":fmt(m.pf)}
-- Expectancy: ${fmt(m.expectancy)}R
-- R promedio: ${fmt(m.avgR)}R
-- Max Drawdown: ${fmt(m.maxDDPct)}%
-- Mejor racha: ${m.bestStreak} wins | Peor racha: ${m.worstStreak} losses
-- ${accountCtx}
-- Estrategias: ${Object.entries(m.byStrat).map(([k,v])=>`${k}(${v.n} trades)`).join(", ")||"sin datos"}
-
-Responde en español. Sé directo, claro y como mentor profesional de trading. Máximo 4-5 oraciones.`;
-  chatHistory.push({role:"user", content:msg});
-  try{
-    const res = await fetch("https://api.anthropic.com/v1/messages",{
+  chatHistory.push({ role:"user", content:msg });
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
       method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({
-        model:"claude-sonnet-4-20250514",
-        max_tokens:500,
-        system,
-        messages: chatHistory.slice(-10)
-      })
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:600, system:systemPrompt, messages:chatHistory.slice(-12) })
     });
     const data = await res.json();
-    const reply = data.content?.find(b=>b.type==="text")?.text || "No pude generar respuesta.";
-    chatHistory.push({role:"assistant", content:reply});
-    typing.remove();
-    addMsg("mentor", reply);
-  }catch(e){
-    typing.remove();
-    addMsg("mentor","Error de conexión. Verifica la configuración de la API.");
+    const reply = data.content?.find(b=>b.type==="text")?.text || localReply;
+    chatHistory.push({ role:"assistant", content:reply });
+    typing.remove(); addMsg("mentor", reply);
+  } catch {
+    typing.remove(); addMsg("mentor", localReply);
   }
-  btn.disabled=false;
+  btn.disabled = false;
 }
 
 function addMsg(role, text){
   const msgs = $("chatMsgs");
   const d = document.createElement("div"); d.className=`msg ${role}`;
-  d.innerHTML=`<div class="msg-av">${role==="mentor"?"🤖":"👤"}</div><div class="msg-bbl">${text}</div>`;
+  d.innerHTML=`<div class="msg-av">${role==="mentor"?"🤖":"👤"}</div><div class="msg-bbl">${text.replace(/\n/g,'<br>')}</div>`;
   msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
   return d;
 }
@@ -938,377 +1560,27 @@ function addTyping(){
   return d;
 }
 
-function checkSmartAlerts(t){
-  const todayTrades = trades.filter(x => x.date === t.date);
-  if(todayTrades.length >= 3)
-    showAlert("danger","🚨 Sobreoperación detectada",`Llevas ${todayTrades.length} trades hoy. Tu historial muestra caída en rendimiento en este escenario.`);
-  if(!t.strategy)
-    showAlert("warning","⚠️ Sin estrategia registrada","Registrar el setup ayuda a Mentor33 a detectar tu edge real con más precisión.");
-  const accountSize = getAccountSize();
-  if(accountSize > 0){
-    const computed = calcTrade(t);
-    if(computed.riskPctAccount !== null && computed.riskPctAccount > 2){
-      showAlert("warning","⚠️ Riesgo elevado por trade",`Este trade arriesga ${fmt(computed.riskPctAccount,2)}% de tu cuenta (${money(computed.riskPctAccount/100*accountSize)}). Considera mantenerlo bajo el 1-2%.`);
-    }
-  }
-}
+$("chatSendBtn").addEventListener("click", sendChat);
+$("chatInp").addEventListener("keydown", e => { if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); sendChat(); } });
 
+/* ─────────────────────────────────────────────────────
+   10. ALERTS globales
+───────────────────────────────────────────────────── */
 function showAlert(type, title, msg){
   const wrap = $("alertsWrap");
+  const icons = { danger:"🚨", warning:"⚠️", success:"✅", info:"💡" };
   const d = document.createElement("div"); d.className=`alert-t ${type}`;
-  const icons = {danger:"🚨",warning:"⚠️",success:"✅",info:"💡"};
-  d.innerHTML=`<div class="alert-ico">${icons[type]||"💡"}</div>
+  d.innerHTML=`
+    <div class="alert-ico">${icons[type]||"💡"}</div>
     <div class="alert-body"><div class="alert-ttl">${title}</div><div class="alert-msg">${msg}</div></div>
-    <button class="alert-x" onclick="this.parentElement.remove()">✕</button>`;
+    <button class="alert-x" onclick="this.closest('.alert-t').remove()">✕</button>`;
   wrap.appendChild(d);
-  setTimeout(()=>{ if(d.parentElement) d.remove(); }, 8000);
-}
-/* ══════════════════════════════════════════
-   MENTOR33 — Motor de análisis local
-   Integración sin tocar UI ni flujo existente
-══════════════════════════════════════════ */
-
-// ── 1. ANALIZADOR DE TRADE INDIVIDUAL ──
-function mentor33(trade, computed) {
-  const insights = [];
-  const r = computed.r;
-  const accountSize = getAccountSize();
-
-  // Calidad del trade por R
-  let quality, qualityMsg;
-  if (r >= 3)        { quality = "A+"; qualityMsg = `R de ${fmt(r)}R es excelente. Esos trades construyen la cuenta.`; }
-  else if (r >= 2)   { quality = "A";  qualityMsg = `R de ${fmt(r)}R es sólido. Dentro del rango del sistema Q33.`; }
-  else if (r >= 1)   { quality = "B";  qualityMsg = `R de ${fmt(r)}R es aceptable pero busca setups con más proyección.`; }
-  else if (r >= 0)   { quality = "C";  qualityMsg = `R de ${fmt(r)}R es bajo. ¿El TP estaba bien colocado?`; }
-  else               { quality = "L";  qualityMsg = `Trade en pérdida (${fmt(r)}R). Analiza si el SL era el correcto.`; }
-
-  // Riesgo por trade
-  if (accountSize > 0 && computed.riskPctAccount !== null) {
-    if (computed.riskPctAccount > 2) {
-      insights.push({ level: "danger", msg: `Riesgo del ${fmt(computed.riskPctAccount, 2)}% de cuenta. Estás fuera del límite recomendado (máx 1-2%).` });
-    } else if (computed.riskPctAccount > 1) {
-      insights.push({ level: "warning", msg: `Riesgo del ${fmt(computed.riskPctAccount, 2)}% de cuenta. En el límite superior. Considera reducir.` });
-    } else {
-      insights.push({ level: "ok", msg: `Riesgo del ${fmt(computed.riskPctAccount, 2)}% de cuenta. Dentro del rango óptimo.` });
-    }
-  }
-
-  // Estrategia registrada
-  if (!trade.strategy || trade.strategy.trim() === "") {
-    insights.push({ level: "warning", msg: "No registraste estrategia. Sin ese dato Mentor33 no puede medir tu edge por setup." });
-  } else {
-    insights.push({ level: "ok", msg: `Setup registrado: "${trade.strategy}". Bien, eso alimenta el análisis de edge.` });
-  }
-
-  // Notas psicológicas
-  const notasLower = (trade.notes || "").toLowerCase();
-  const palabrasImpulso   = ["fomo", "impulso", "impulsivo", "aburrido", "aburrimiento", "revenge", "revancha", "apurado", "desesperado"];
-  const palabrasPositivas = ["sistema", "plan", "espere", "esperé", "confirmé", "confirme", "paciencia", "estructura"];
-  const detectóImpulso   = palabrasImpulso.some(p => notasLower.includes(p));
-  const detectóDisciplina = palabrasPositivas.some(p => notasLower.includes(p));
-
-  if (detectóImpulso) {
-    insights.push({ level: "danger", msg: "Tus notas sugieren trade emocional o por impulso. Esos son los trades que más destruyen una cuenta." });
-  } else if (detectóDisciplina) {
-    insights.push({ level: "ok", msg: "Tus notas reflejan disciplina y proceso. Así se construye consistencia real." });
-  }
-
-  // Detección de errores comunes
-  if (trade.stop === 0 || !trade.stop) {
-    insights.push({ level: "danger", msg: "No registraste Stop Loss. Sin SL no puedes medir el R ni el riesgo real del trade." });
-  }
-  if (trade.size === 0 || !trade.size) {
-    insights.push({ level: "warning", msg: "Tamaño de posición en cero. Verifica que el sizing esté registrado correctamente." });
-  }
-
-  return { quality, qualityMsg, insights };
+  setTimeout(() => { if(d.parentElement) d.remove(); }, 9000);
 }
 
-// ── 2. ANALIZADOR DE MÚLTIPLES TRADES (PATRONES) ──
-function mentor33Patterns() {
-  const rows = getComputedTrades();
-  if (rows.length < 3) return null;
-
-  const patterns = [];
-  const m = computeMetrics(rows);
-
-  // Sobreoperación por día
-  const byDay = {};
-  rows.forEach(t => {
-    if (!t.date) return;
-    if (!byDay[t.date]) byDay[t.date] = { trades: 0, pnl: 0 };
-    byDay[t.date].trades++;
-    byDay[t.date].pnl += t.pnl;
-  });
-  const diasSobre = Object.entries(byDay).filter(([, v]) => v.trades >= 4);
-  if (diasSobre.length > 0) {
-    const daysBad = diasSobre.filter(([, v]) => v.pnl < 0).length;
-    patterns.push({
-      level: "danger",
-      msg: `Sobreoperación detectada en ${diasSobre.length} día(s). ${daysBad} de esos días cerraron en negativo. Los días con 4+ trades son tus peores días.`
-    });
-  }
-
-  // Racha de pérdidas activa
-  const last5 = rows.slice(-5);
-  const lossesLast5 = last5.filter(t => t.pnl < 0).length;
-  if (lossesLast5 >= 4) {
-    patterns.push({
-      level: "danger",
-      msg: `${lossesLast5} de tus últimos 5 trades son pérdidas. Señal de alerta: considera parar y revisar si el mercado está en condición para tu sistema.`
-    });
-  } else if (lossesLast5 === 3) {
-    patterns.push({
-      level: "warning",
-      msg: `3 de tus últimos 5 trades son pérdidas. Evalúa si el contexto de mercado cambió o si estás forzando setups.`
-    });
-  }
-
-  // Winrate cayendo en últimos trades
-  const firstHalf = rows.slice(0, Math.floor(rows.length / 2));
-  const secondHalf = rows.slice(Math.floor(rows.length / 2));
-  const wr1 = firstHalf.length ? firstHalf.filter(t => t.pnl > 0).length / firstHalf.length * 100 : 0;
-  const wr2 = secondHalf.length ? secondHalf.filter(t => t.pnl > 0).length / secondHalf.length * 100 : 0;
-  if (wr2 < wr1 - 15 && secondHalf.length >= 5) {
-    patterns.push({
-      level: "warning",
-      msg: `Tu winrate bajó de ${fmt(wr1, 1)}% a ${fmt(wr2, 1)}% en la segunda mitad de tus trades. Posible cambio de condición o fatiga.`
-    });
-  }
-
-  // Consistencia por estrategia
-  Object.entries(m.byStrat).forEach(([strat, data]) => {
-    if (data.n >= 3) {
-      const wr = (data.w / data.n) * 100;
-      if (wr < 35) {
-        patterns.push({
-          level: "warning",
-          msg: `Setup "${strat}" tiene winrate de ${fmt(wr, 0)}% en ${data.n} trades. Evalúa si ese setup sigue siendo válido.`
-        });
-      } else if (wr >= 65 && data.n >= 5) {
-        patterns.push({
-          level: "ok",
-          msg: `Setup "${strat}" muestra edge real: ${fmt(wr, 0)}% WR en ${data.n} trades. Ese es tu mejor setup ahora mismo.`
-        });
-      }
-    }
-  });
-
-  // R promedio bajo con winrate bajo = sistema en riesgo
-  if (m.avgR < 1 && m.winRate < 45 && m.total >= 10) {
-    patterns.push({
-      level: "danger",
-      msg: `R promedio de ${fmt(m.avgR)}R con WR del ${fmt(m.winRate, 1)}% — sin ventaja matemática. El sistema necesita revisión urgente.`
-    });
-  }
-
-  return patterns;
-}
-
-// ── 3. RESPUESTAS DE CHAT LOCAL (sin API) ──
-function mentor33ChatLocal(userMsg) {
-  const msg = userMsg.toLowerCase().trim();
-  const rows = getComputedTrades();
-  const m = computeMetrics(rows);
-  const accountSize = getAccountSize();
-
-  if (rows.length === 0) {
-    return "No tienes trades registrados todavía. Empieza a cargar tus operaciones y podré darte análisis reales basados en tus datos.";
-  }
-
-  // ── Respuestas contextuales por palabras clave ──
-
-  if (/winrate|win rate|acierto|ganar/.test(msg)) {
-    const tip = m.winRate >= 55
-      ? `Tu WR está en ${fmt(m.winRate, 1)}% — sólido. Pero recuerda que el WR solo importa junto al R. Con un R promedio de ${fmt(m.avgR)}R, tu ventaja es ${m.expectancy > 0 ? "positiva" : "negativa"}.`
-      : m.winRate >= 45
-      ? `WR en ${fmt(m.winRate, 1)}%. Está en zona gris. Necesitas al menos 45-50% con un R ≥ 1.5 para tener ventaja real. Tu R promedio es ${fmt(m.avgR)}R.`
-      : `WR en ${fmt(m.winRate, 1)}% — bajo. Con ${fmt(m.avgR)}R promedio, ${m.expectancy > 0 ? "la expectancy sigue positiva pero es frágil" : "no hay ventaja matemática todavía"}. Revisa si estás saliendo demasiado pronto de las ganadoras.`;
-    return tip;
-  }
-
-  if (/riesgo|arriesgo|sizing|tamaño|mucho riesgo|demasiado riesgo/.test(msg)) {
-    if (accountSize === 0) {
-      return "Para calcular el riesgo real por trade necesito que configures el tamaño de tu cuenta en la barra superior. Una vez que lo pongas, te doy el número exacto.";
-    }
-    const avgRisk = m.avgRiskPctAccount;
-    if (avgRisk === null) {
-      return "No tengo datos de riesgo calculados. Asegúrate de que los campos de Stop Loss y Tamaño estén bien llenados en tus trades.";
-    }
-    return avgRisk > 2
-      ? `Tu riesgo promedio por trade es ${fmt(avgRisk, 2)}% de cuenta — estás arriesgando demasiado. El estándar profesional es 0.5-1%. Con ese riesgo, una racha de 5 pérdidas te come más del ${fmt(avgRisk * 5, 1)}% de la cuenta.`
-      : avgRisk > 1
-      ? `Riesgo promedio del ${fmt(avgRisk, 2)}% por trade. Aceptable pero en el límite superior. Apunta a mantenerlo en 0.5-1% para sobrevivir drawdowns sin daño psicológico.`
-      : `Riesgo promedio del ${fmt(avgRisk, 2)}% por trade — dentro del rango óptimo. Buena gestión de capital.`;
-  }
-
-  if (/sobr[ae]oper|muchos trades|demasiados trades/.test(msg)) {
-    const byDay = {};
-    rows.forEach(t => {
-      if (!t.date) return;
-      if (!byDay[t.date]) byDay[t.date] = { n: 0, pnl: 0 };
-      byDay[t.date].n++;
-      byDay[t.date].pnl += t.pnl;
-    });
-    const sobre = Object.entries(byDay).filter(([, v]) => v.n >= 4);
-    if (sobre.length === 0) {
-      return `No detecto sobreoperación en tu historial. El promedio por día parece controlado. Sigue así.`;
-    }
-    const malos = sobre.filter(([, v]) => v.pnl < 0).length;
-    return `Detecté ${sobre.length} día(s) con 4+ trades. ${malos} de esos días cerraron en negativo. La sobreoperación es uno de los destructores más comunes del edge. Define un límite de 2-3 trades por día y respétalo sin importar qué.`;
-  }
-
-  if (/mejorar|cómo mejoro|qué hago|consejos|recomend/.test(msg)) {
-    const recs = [];
-    if (m.winRate < 50) recs.push("mejorar la selección de setups — espera solo los A+ antes de entrar");
-    if (m.avgR < 1.5) recs.push("dejar correr más las ganadoras — tu R promedio indica que sales demasiado pronto");
-    if (m.worstStreak >= 4) recs.push("implementar regla de stop de pérdidas diario — tu peor racha fue de " + m.worstStreak + " losses seguidos");
-    if (m.pf < 1.5) recs.push("revisar la calidad de los setups — tu Profit Factor de " + fmt(m.pf) + " está por debajo del estándar");
-    if (recs.length === 0) return `Tu sistema muestra métricas sólidas: WR ${fmt(m.winRate,1)}%, PF ${fmt(m.pf)}, Expectancy ${fmt(m.expectancy)}R. Enfócate en consistencia y no cambiar lo que funciona.`;
-    return `Basado en tus datos, los tres focos clave son: ${recs.slice(0, 3).map((r, i) => `${i + 1}) ${r}`).join(". ")}.`;
-  }
-
-  if (/análisis|analiza|cómo voy|mi performance|mis resultados|mi trading/.test(msg)) {
-    const estado = m.expectancy > 0 ? "positiva" : "negativa";
-    const accountLine = accountSize > 0
-      ? ` Tu cuenta va en ${fmt(m.netPctAccount, 2)}% de rentabilidad con DD máx de ${fmt(m.maxDDPctAccount, 2)}%.`
-      : "";
-    return `Llevas ${m.total} trades. WR: ${fmt(m.winRate, 1)}%, R promedio: ${fmt(m.avgR)}R, Profit Factor: ${m.pf === 999 ? ">10" : fmt(m.pf)}, Expectancy ${fmt(m.expectancy)}R (${estado}).${accountLine} ${m.expectancy > 0 ? "El sistema muestra ventaja estadística." : "Todavía no hay ventaja clara — necesitas más muestra o revisar el sistema."}`;
-  }
-
-  if (/drawdown|dd|pérdidas seguidas|racha|bacha/.test(msg)) {
-    return `Tu drawdown máximo fue de ${money(m.maxDD)}${accountSize > 0 ? ` (${fmt(m.maxDDPctAccount, 2)}% de tu cuenta)` : ""}. Peor racha: ${m.worstStreak} losses seguidos. ${m.worstStreak >= 5 ? "Esa racha es señal de alerta — necesitas reglas de circuit breaker claras." : "Eso está dentro de rangos normales para un sistema en desarrollo."}`;
-  }
-
-  if (/estrategia|setup|sistema|q33/.test(msg)) {
-    if (Object.keys(m.byStrat).length === 0) {
-      return "No tienes estrategias registradas en tus trades. Ese campo es clave — sin él no puedo decirte qué setup tiene edge real y cuál estás operando mal.";
-    }
-    const stratLines = Object.entries(m.byStrat)
-      .map(([k, v]) => `${k}: ${v.n} trades, ${fmt(v.w / v.n * 100, 0)}% WR, PnL ${money(v.pnl)}`)
-      .join(" | ");
-    return `Estrategias registradas → ${stratLines}. ${Object.entries(m.byStrat).sort((a,b)=>b[1].pnl-a[1].pnl)[0]?.[0]} es tu setup más rentable hasta ahora.`;
-  }
-
-  if (/profit factor|pf/.test(msg)) {
-    const pfVal = m.pf === 999 ? ">10" : fmt(m.pf);
-    return `Tu Profit Factor es ${pfVal}. ${m.pf >= 2 ? "Excelente — significa que por cada dólar que pierdes, ganas más del doble." : m.pf >= 1.5 ? "Bueno — el sistema genera ventaja real." : m.pf >= 1 ? "En el límite. Necesitas mejorar la calidad de entradas o la gestión de salidas." : "Por debajo de 1 — el sistema pierde más de lo que gana en términos brutos. Revisión necesaria."}`;
-  }
-
-  if (/hola|hey|buenas|qué tal|cómo estás/.test(msg)) {
-    return `¡Hola! Listo para trabajar. Tienes ${m.total} trades cargados con WR de ${fmt(m.winRate, 1)}% y expectancy de ${fmt(m.expectancy)}R. ¿Qué quieres analizar?`;
-  }
-
-  // Respuesta genérica con contexto
-  return `Con tus ${m.total} trades actuales: WR ${fmt(m.winRate, 1)}%, Expectancy ${fmt(m.expectancy)}R, PF ${m.pf === 999 ? ">10" : fmt(m.pf)}. Puedes preguntarme sobre tu winrate, riesgo, sobreoperación, estrategias, drawdown o pedirme que analice tu performance general.`;
-}
-
-// ── 4. HOOKEAR mentor33 AL FLUJO DE addBtn ──
-// Guardar referencia al listener original ya existente y extender sin tocarlo
-const _originalAddBtn = $("addBtn");
-_originalAddBtn.addEventListener("click", () => {
-  // Este listener corre DESPUÉS del original (orden de registro)
-  // Esperamos un tick para que el trade ya esté en el array
-  setTimeout(() => {
-    if (trades.length === 0) return;
-    const lastTrade = trades[trades.length - 1];
-    const computed = calcTrade(lastTrade);
-    const analysis = mentor33(lastTrade, computed);
-
-    // Calidad del trade como alerta
-    const qualityColors = { "A+": "success", "A": "success", "B": "info", "C": "warning", "L": "danger" };
-    showAlert(
-      qualityColors[analysis.quality] || "info",
-      `Calidad del trade: ${analysis.quality}`,
-      analysis.qualityMsg
-    );
-
-    // Mostrar primer insight relevante (danger primero, luego warning)
-    const priority = analysis.insights.find(i => i.level === "danger") || analysis.insights.find(i => i.level === "warning");
-    if (priority) {
-      setTimeout(() => showAlert(priority.level === "danger" ? "danger" : "warning", "Mentor33 detectó", priority.msg), 600);
-    }
-
-    // Análisis de patrones globales
-    const patterns = mentor33Patterns();
-    if (patterns && patterns.length > 0) {
-      const topPattern = patterns.find(p => p.level === "danger") || patterns[0];
-      setTimeout(() => showAlert(topPattern.level === "danger" ? "danger" : "warning", "📊 Patrón detectado", topPattern.msg), 1200);
-    }
-  }, 50);
-});
-
-// ── 5. OVERRIDE INTELIGENTE DEL CHAT: local primero, API como fallback ──
-// Reemplazamos sendChat para intentar respuesta local antes de llamar a la API
-const _origSendChat = window.sendChat; // por si acaso
-
-async function sendChat() {
-  const inp = $("chatInp"), btn = $("chatSendBtn");
-  const msg = inp.value.trim(); if (!msg) return;
-  inp.value = ""; btn.disabled = true;
-  addMsg("user", msg);
-
-  // Intentar respuesta local primero
-  const localReply = mentor33ChatLocal(msg);
-
-  // Si la pregunta es general/de datos → respuesta local instantánea
-  const needsAPI = /explica|por qué|cómo funciona|qué significa|cuéntame más|desarrolla|profundiza/i.test(msg);
-
-  if (!needsAPI) {
-    // Simular typing breve para que se sienta natural
-    const typing = addTyping();
-    await new Promise(r => setTimeout(r, 420));
-    typing.remove();
-    addMsg("mentor", localReply);
-    btn.disabled = false;
-    return;
-  }
-
-  // Si necesita profundidad → API con contexto
-  const typing = addTyping();
-  const rows = getComputedTrades();
-  const m = computeMetrics(rows);
-  const accountSize = getAccountSize();
-  const accountCtx = accountSize > 0
-    ? `Cuenta: ${money(accountSize)} | Balance: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount, 2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount, 2)}%`
-    : "Cuenta: no configurada";
-  const system = `Eres Mentor33, mentor de trading para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
-Datos actuales: ${m.total} trades | WR: ${fmt(m.winRate, 1)}% | PF: ${m.pf === 999 ? ">10" : fmt(m.pf)} | Expectancy: ${fmt(m.expectancy)}R | R prom: ${fmt(m.avgR)}R | DD máx: ${fmt(m.maxDDPct)}% | ${accountCtx}
-Responde en español, directo, como mentor profesional. Máximo 4-5 oraciones.`;
-  chatHistory.push({ role: "user", content: msg });
-  try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 500, system, messages: chatHistory.slice(-10) })
-    });
-    const data = await res.json();
-    const reply = data.content?.find(b => b.type === "text")?.text || localReply;
-    chatHistory.push({ role: "assistant", content: reply });
-    typing.remove();
-    addMsg("mentor", reply);
-  } catch (e) {
-    typing.remove();
-    addMsg("mentor", localReply); // Fallback local si falla la API
-  }
-  btn.disabled = false;
-}
-
-// Reemplazar los event listeners del chat con la nueva versión
-const oldSendBtn = $("chatSendBtn");
-const newSendBtn = oldSendBtn.cloneNode(true);
-oldSendBtn.parentNode.replaceChild(newSendBtn, oldSendBtn);
-newSendBtn.addEventListener("click", sendChat);
-
-const oldInp = $("chatInp");
-const newInp = oldInp.cloneNode(true);
-oldInp.parentNode.replaceChild(newInp, oldInp);
-newInp.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); }
-});
-
-/* ── FIN MENTOR33 ── */
-/* ── Inicializar ── */
+/* ─────────────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────────────── */
 refreshAll();
 </script>
 

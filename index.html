@@ -482,14 +482,20 @@ $("accountSize").addEventListener("input", ()=>{
 function calcTrade(trade){
   const entry = num(trade.entry), exit = num(trade.exit), stop = num(trade.stop);
   const size = num(trade.size || 1), commission = num(trade.commission || 0);
-  const points = trade.direction === "Long" ? exit - entry : entry - exit;
-const pnl = (trade.profit || 0) + (trade.swap || 0) - (trade.commission || 0);
-  const base = Math.abs(entry * size) || 1;
-const
-  const accountSize = getAccountSize();
-  const pnlPctAccount = accountSize > 0 ? (pnl / accountSize) * 100 : null;
-  const riskPctAccount = accountSize > 0 ? (totalRisk / accountSize) * 100 : null;
-  return { ...trade, pnl, pnlPct, pnlPctAccount, riskPctAccount, r, result: pnl > 0 ? "WIN" : pnl < 0 ? "LOSS" : "BE" };
+  const points = trade.direction === "Long" const pnl = (trade.profit || 0) + (trade.swap || 0) - (trade.commission || 0);
+
+const base = Math.abs(entry * size) || 1;
+const pnlPct = (pnl / base) * 100;
+
+const riskPerUnit = Math.abs(entry - stop);
+const move = trade.direction === "Long" ? (exit - entry) : (entry - exit);
+const r = riskPerUnit > 0 ? move / riskPerUnit : 0;
+
+const totalRisk = Math.abs(riskPerUnit * size);
+
+const accountSize = getAccountSize();
+const pnlPctAccount = accountSize > 0 ? (pnl / accountSize) * 100 : null;
+const riskPctAccount = accountSize > 0 ? (totalRisk / accountSize) * 100 : null;
 }
 
 function getComputedTrades(){ return trades.map(calcTrade); }

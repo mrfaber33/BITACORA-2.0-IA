@@ -963,7 +963,351 @@ function showAlert(type, title, msg){
   wrap.appendChild(d);
   setTimeout(()=>{ if(d.parentElement) d.remove(); }, 8000);
 }
+/* ══════════════════════════════════════════
+   MENTOR33 — Motor de análisis local
+   Integración sin tocar UI ni flujo existente
+══════════════════════════════════════════ */
 
+// ── 1. ANALIZADOR DE TRADE INDIVIDUAL ──
+function mentor33(trade, computed) {
+  const insights = [];
+  const r = computed.r;
+  const accountSize = getAccountSize();
+
+  // Calidad del trade por R
+  let quality, qualityMsg;
+  if (r >= 3)        { quality = "A+"; qualityMsg = `R de ${fmt(r)}R es excelente. Esos trades construyen la cuenta.`; }
+  else if (r >= 2)   { quality = "A";  qualityMsg = `R de ${fmt(r)}R es sólido. Dentro del rango del sistema Q33.`; }
+  else if (r >= 1)   { quality = "B";  qualityMsg = `R de ${fmt(r)}R es aceptable pero busca setups con más proyección.`; }
+  else if (r >= 0)   { quality = "C";  qualityMsg = `R de ${fmt(r)}R es bajo. ¿El TP estaba bien colocado?`; }
+  else               { quality = "L";  qualityMsg = `Trade en pérdida (${fmt(r)}R). Analiza si el SL era el correcto.`; }
+
+  // Riesgo por trade
+  if (accountSize > 0 && computed.riskPctAccount !== null) {
+    if (computed.riskPctAccount > 2) {
+      insights.push({ level: "danger", msg: `Riesgo del ${fmt(computed.riskPctAccount, 2)}% de cuenta. Estás fuera del límite recomendado (máx 1-2%).` });
+    } else if (computed.riskPctAccount > 1) {
+      insights.push({ level: "warning", msg: `Riesgo del ${fmt(computed.riskPctAccount, 2)}% de cuenta. En el límite superior. Considera reducir.` });
+    } else {
+      insights.push({ level: "ok", msg: `Riesgo del ${fmt(computed.riskPctAccount, 2)}% de cuenta. Dentro del rango óptimo.` });
+    }
+  }
+
+  // Estrategia registrada
+  if (!trade.strategy || trade.strategy.trim() === "") {
+    insights.push({ level: "warning", msg: "No registraste estrategia. Sin ese dato Mentor33 no puede medir tu edge por setup." });
+  } else {
+    insights.push({ level: "ok", msg: `Setup registrado: "${trade.strategy}". Bien, eso alimenta el análisis de edge.` });
+  }
+
+  // Notas psicológicas
+  const notasLower = (trade.notes || "").toLowerCase();
+  const palabrasImpulso   = ["fomo", "impulso", "impulsivo", "aburrido", "aburrimiento", "revenge", "revancha", "apurado", "desesperado"];
+  const palabrasPositivas = ["sistema", "plan", "espere", "esperé", "confirmé", "confirme", "paciencia", "estructura"];
+  const detectóImpulso   = palabrasImpulso.some(p => notasLower.includes(p));
+  const detectóDisciplina = palabrasPositivas.some(p => notasLower.includes(p));
+
+  if (detectóImpulso) {
+    insights.push({ level: "danger", msg: "Tus notas sugieren trade emocional o por impulso. Esos son los trades que más destruyen una cuenta." });
+  } else if (detectóDisciplina) {
+    insights.push({ level: "ok", msg: "Tus notas reflejan disciplina y proceso. Así se construye consistencia real." });
+  }
+
+  // Detección de errores comunes
+  if (trade.stop === 0 || !trade.stop) {
+    insights.push({ level: "danger", msg: "No registraste Stop Loss. Sin SL no puedes medir el R ni el riesgo real del trade." });
+  }
+  if (trade.size === 0 || !trade.size) {
+    insights.push({ level: "warning", msg: "Tamaño de posición en cero. Verifica que el sizing esté registrado correctamente." });
+  }
+
+  return { quality, qualityMsg, insights };
+}
+
+// ── 2. ANALIZADOR DE MÚLTIPLES TRADES (PATRONES) ──
+function mentor33Patterns() {
+  const rows = getComputedTrades();
+  if (rows.length < 3) return null;
+
+  const patterns = [];
+  const m = computeMetrics(rows);
+
+  // Sobreoperación por día
+  const byDay = {};
+  rows.forEach(t => {
+    if (!t.date) return;
+    if (!byDay[t.date]) byDay[t.date] = { trades: 0, pnl: 0 };
+    byDay[t.date].trades++;
+    byDay[t.date].pnl += t.pnl;
+  });
+  const diasSobre = Object.entries(byDay).filter(([, v]) => v.trades >= 4);
+  if (diasSobre.length > 0) {
+    const daysBad = diasSobre.filter(([, v]) => v.pnl < 0).length;
+    patterns.push({
+      level: "danger",
+      msg: `Sobreoperación detectada en ${diasSobre.length} día(s). ${daysBad} de esos días cerraron en negativo. Los días con 4+ trades son tus peores días.`
+    });
+  }
+
+  // Racha de pérdidas activa
+  const last5 = rows.slice(-5);
+  const lossesLast5 = last5.filter(t => t.pnl < 0).length;
+  if (lossesLast5 >= 4) {
+    patterns.push({
+      level: "danger",
+      msg: `${lossesLast5} de tus últimos 5 trades son pérdidas. Señal de alerta: considera parar y revisar si el mercado está en condición para tu sistema.`
+    });
+  } else if (lossesLast5 === 3) {
+    patterns.push({
+      level: "warning",
+      msg: `3 de tus últimos 5 trades son pérdidas. Evalúa si el contexto de mercado cambió o si estás forzando setups.`
+    });
+  }
+
+  // Winrate cayendo en últimos trades
+  const firstHalf = rows.slice(0, Math.floor(rows.length / 2));
+  const secondHalf = rows.slice(Math.floor(rows.length / 2));
+  const wr1 = firstHalf.length ? firstHalf.filter(t => t.pnl > 0).length / firstHalf.length * 100 : 0;
+  const wr2 = secondHalf.length ? secondHalf.filter(t => t.pnl > 0).length / secondHalf.length * 100 : 0;
+  if (wr2 < wr1 - 15 && secondHalf.length >= 5) {
+    patterns.push({
+      level: "warning",
+      msg: `Tu winrate bajó de ${fmt(wr1, 1)}% a ${fmt(wr2, 1)}% en la segunda mitad de tus trades. Posible cambio de condición o fatiga.`
+    });
+  }
+
+  // Consistencia por estrategia
+  Object.entries(m.byStrat).forEach(([strat, data]) => {
+    if (data.n >= 3) {
+      const wr = (data.w / data.n) * 100;
+      if (wr < 35) {
+        patterns.push({
+          level: "warning",
+          msg: `Setup "${strat}" tiene winrate de ${fmt(wr, 0)}% en ${data.n} trades. Evalúa si ese setup sigue siendo válido.`
+        });
+      } else if (wr >= 65 && data.n >= 5) {
+        patterns.push({
+          level: "ok",
+          msg: `Setup "${strat}" muestra edge real: ${fmt(wr, 0)}% WR en ${data.n} trades. Ese es tu mejor setup ahora mismo.`
+        });
+      }
+    }
+  });
+
+  // R promedio bajo con winrate bajo = sistema en riesgo
+  if (m.avgR < 1 && m.winRate < 45 && m.total >= 10) {
+    patterns.push({
+      level: "danger",
+      msg: `R promedio de ${fmt(m.avgR)}R con WR del ${fmt(m.winRate, 1)}% — sin ventaja matemática. El sistema necesita revisión urgente.`
+    });
+  }
+
+  return patterns;
+}
+
+// ── 3. RESPUESTAS DE CHAT LOCAL (sin API) ──
+function mentor33ChatLocal(userMsg) {
+  const msg = userMsg.toLowerCase().trim();
+  const rows = getComputedTrades();
+  const m = computeMetrics(rows);
+  const accountSize = getAccountSize();
+
+  if (rows.length === 0) {
+    return "No tienes trades registrados todavía. Empieza a cargar tus operaciones y podré darte análisis reales basados en tus datos.";
+  }
+
+  // ── Respuestas contextuales por palabras clave ──
+
+  if (/winrate|win rate|acierto|ganar/.test(msg)) {
+    const tip = m.winRate >= 55
+      ? `Tu WR está en ${fmt(m.winRate, 1)}% — sólido. Pero recuerda que el WR solo importa junto al R. Con un R promedio de ${fmt(m.avgR)}R, tu ventaja es ${m.expectancy > 0 ? "positiva" : "negativa"}.`
+      : m.winRate >= 45
+      ? `WR en ${fmt(m.winRate, 1)}%. Está en zona gris. Necesitas al menos 45-50% con un R ≥ 1.5 para tener ventaja real. Tu R promedio es ${fmt(m.avgR)}R.`
+      : `WR en ${fmt(m.winRate, 1)}% — bajo. Con ${fmt(m.avgR)}R promedio, ${m.expectancy > 0 ? "la expectancy sigue positiva pero es frágil" : "no hay ventaja matemática todavía"}. Revisa si estás saliendo demasiado pronto de las ganadoras.`;
+    return tip;
+  }
+
+  if (/riesgo|arriesgo|sizing|tamaño|mucho riesgo|demasiado riesgo/.test(msg)) {
+    if (accountSize === 0) {
+      return "Para calcular el riesgo real por trade necesito que configures el tamaño de tu cuenta en la barra superior. Una vez que lo pongas, te doy el número exacto.";
+    }
+    const avgRisk = m.avgRiskPctAccount;
+    if (avgRisk === null) {
+      return "No tengo datos de riesgo calculados. Asegúrate de que los campos de Stop Loss y Tamaño estén bien llenados en tus trades.";
+    }
+    return avgRisk > 2
+      ? `Tu riesgo promedio por trade es ${fmt(avgRisk, 2)}% de cuenta — estás arriesgando demasiado. El estándar profesional es 0.5-1%. Con ese riesgo, una racha de 5 pérdidas te come más del ${fmt(avgRisk * 5, 1)}% de la cuenta.`
+      : avgRisk > 1
+      ? `Riesgo promedio del ${fmt(avgRisk, 2)}% por trade. Aceptable pero en el límite superior. Apunta a mantenerlo en 0.5-1% para sobrevivir drawdowns sin daño psicológico.`
+      : `Riesgo promedio del ${fmt(avgRisk, 2)}% por trade — dentro del rango óptimo. Buena gestión de capital.`;
+  }
+
+  if (/sobr[ae]oper|muchos trades|demasiados trades/.test(msg)) {
+    const byDay = {};
+    rows.forEach(t => {
+      if (!t.date) return;
+      if (!byDay[t.date]) byDay[t.date] = { n: 0, pnl: 0 };
+      byDay[t.date].n++;
+      byDay[t.date].pnl += t.pnl;
+    });
+    const sobre = Object.entries(byDay).filter(([, v]) => v.n >= 4);
+    if (sobre.length === 0) {
+      return `No detecto sobreoperación en tu historial. El promedio por día parece controlado. Sigue así.`;
+    }
+    const malos = sobre.filter(([, v]) => v.pnl < 0).length;
+    return `Detecté ${sobre.length} día(s) con 4+ trades. ${malos} de esos días cerraron en negativo. La sobreoperación es uno de los destructores más comunes del edge. Define un límite de 2-3 trades por día y respétalo sin importar qué.`;
+  }
+
+  if (/mejorar|cómo mejoro|qué hago|consejos|recomend/.test(msg)) {
+    const recs = [];
+    if (m.winRate < 50) recs.push("mejorar la selección de setups — espera solo los A+ antes de entrar");
+    if (m.avgR < 1.5) recs.push("dejar correr más las ganadoras — tu R promedio indica que sales demasiado pronto");
+    if (m.worstStreak >= 4) recs.push("implementar regla de stop de pérdidas diario — tu peor racha fue de " + m.worstStreak + " losses seguidos");
+    if (m.pf < 1.5) recs.push("revisar la calidad de los setups — tu Profit Factor de " + fmt(m.pf) + " está por debajo del estándar");
+    if (recs.length === 0) return `Tu sistema muestra métricas sólidas: WR ${fmt(m.winRate,1)}%, PF ${fmt(m.pf)}, Expectancy ${fmt(m.expectancy)}R. Enfócate en consistencia y no cambiar lo que funciona.`;
+    return `Basado en tus datos, los tres focos clave son: ${recs.slice(0, 3).map((r, i) => `${i + 1}) ${r}`).join(". ")}.`;
+  }
+
+  if (/análisis|analiza|cómo voy|mi performance|mis resultados|mi trading/.test(msg)) {
+    const estado = m.expectancy > 0 ? "positiva" : "negativa";
+    const accountLine = accountSize > 0
+      ? ` Tu cuenta va en ${fmt(m.netPctAccount, 2)}% de rentabilidad con DD máx de ${fmt(m.maxDDPctAccount, 2)}%.`
+      : "";
+    return `Llevas ${m.total} trades. WR: ${fmt(m.winRate, 1)}%, R promedio: ${fmt(m.avgR)}R, Profit Factor: ${m.pf === 999 ? ">10" : fmt(m.pf)}, Expectancy ${fmt(m.expectancy)}R (${estado}).${accountLine} ${m.expectancy > 0 ? "El sistema muestra ventaja estadística." : "Todavía no hay ventaja clara — necesitas más muestra o revisar el sistema."}`;
+  }
+
+  if (/drawdown|dd|pérdidas seguidas|racha|bacha/.test(msg)) {
+    return `Tu drawdown máximo fue de ${money(m.maxDD)}${accountSize > 0 ? ` (${fmt(m.maxDDPctAccount, 2)}% de tu cuenta)` : ""}. Peor racha: ${m.worstStreak} losses seguidos. ${m.worstStreak >= 5 ? "Esa racha es señal de alerta — necesitas reglas de circuit breaker claras." : "Eso está dentro de rangos normales para un sistema en desarrollo."}`;
+  }
+
+  if (/estrategia|setup|sistema|q33/.test(msg)) {
+    if (Object.keys(m.byStrat).length === 0) {
+      return "No tienes estrategias registradas en tus trades. Ese campo es clave — sin él no puedo decirte qué setup tiene edge real y cuál estás operando mal.";
+    }
+    const stratLines = Object.entries(m.byStrat)
+      .map(([k, v]) => `${k}: ${v.n} trades, ${fmt(v.w / v.n * 100, 0)}% WR, PnL ${money(v.pnl)}`)
+      .join(" | ");
+    return `Estrategias registradas → ${stratLines}. ${Object.entries(m.byStrat).sort((a,b)=>b[1].pnl-a[1].pnl)[0]?.[0]} es tu setup más rentable hasta ahora.`;
+  }
+
+  if (/profit factor|pf/.test(msg)) {
+    const pfVal = m.pf === 999 ? ">10" : fmt(m.pf);
+    return `Tu Profit Factor es ${pfVal}. ${m.pf >= 2 ? "Excelente — significa que por cada dólar que pierdes, ganas más del doble." : m.pf >= 1.5 ? "Bueno — el sistema genera ventaja real." : m.pf >= 1 ? "En el límite. Necesitas mejorar la calidad de entradas o la gestión de salidas." : "Por debajo de 1 — el sistema pierde más de lo que gana en términos brutos. Revisión necesaria."}`;
+  }
+
+  if (/hola|hey|buenas|qué tal|cómo estás/.test(msg)) {
+    return `¡Hola! Listo para trabajar. Tienes ${m.total} trades cargados con WR de ${fmt(m.winRate, 1)}% y expectancy de ${fmt(m.expectancy)}R. ¿Qué quieres analizar?`;
+  }
+
+  // Respuesta genérica con contexto
+  return `Con tus ${m.total} trades actuales: WR ${fmt(m.winRate, 1)}%, Expectancy ${fmt(m.expectancy)}R, PF ${m.pf === 999 ? ">10" : fmt(m.pf)}. Puedes preguntarme sobre tu winrate, riesgo, sobreoperación, estrategias, drawdown o pedirme que analice tu performance general.`;
+}
+
+// ── 4. HOOKEAR mentor33 AL FLUJO DE addBtn ──
+// Guardar referencia al listener original ya existente y extender sin tocarlo
+const _originalAddBtn = $("addBtn");
+_originalAddBtn.addEventListener("click", () => {
+  // Este listener corre DESPUÉS del original (orden de registro)
+  // Esperamos un tick para que el trade ya esté en el array
+  setTimeout(() => {
+    if (trades.length === 0) return;
+    const lastTrade = trades[trades.length - 1];
+    const computed = calcTrade(lastTrade);
+    const analysis = mentor33(lastTrade, computed);
+
+    // Calidad del trade como alerta
+    const qualityColors = { "A+": "success", "A": "success", "B": "info", "C": "warning", "L": "danger" };
+    showAlert(
+      qualityColors[analysis.quality] || "info",
+      `Calidad del trade: ${analysis.quality}`,
+      analysis.qualityMsg
+    );
+
+    // Mostrar primer insight relevante (danger primero, luego warning)
+    const priority = analysis.insights.find(i => i.level === "danger") || analysis.insights.find(i => i.level === "warning");
+    if (priority) {
+      setTimeout(() => showAlert(priority.level === "danger" ? "danger" : "warning", "Mentor33 detectó", priority.msg), 600);
+    }
+
+    // Análisis de patrones globales
+    const patterns = mentor33Patterns();
+    if (patterns && patterns.length > 0) {
+      const topPattern = patterns.find(p => p.level === "danger") || patterns[0];
+      setTimeout(() => showAlert(topPattern.level === "danger" ? "danger" : "warning", "📊 Patrón detectado", topPattern.msg), 1200);
+    }
+  }, 50);
+});
+
+// ── 5. OVERRIDE INTELIGENTE DEL CHAT: local primero, API como fallback ──
+// Reemplazamos sendChat para intentar respuesta local antes de llamar a la API
+const _origSendChat = window.sendChat; // por si acaso
+
+async function sendChat() {
+  const inp = $("chatInp"), btn = $("chatSendBtn");
+  const msg = inp.value.trim(); if (!msg) return;
+  inp.value = ""; btn.disabled = true;
+  addMsg("user", msg);
+
+  // Intentar respuesta local primero
+  const localReply = mentor33ChatLocal(msg);
+
+  // Si la pregunta es general/de datos → respuesta local instantánea
+  const needsAPI = /explica|por qué|cómo funciona|qué significa|cuéntame más|desarrolla|profundiza/i.test(msg);
+
+  if (!needsAPI) {
+    // Simular typing breve para que se sienta natural
+    const typing = addTyping();
+    await new Promise(r => setTimeout(r, 420));
+    typing.remove();
+    addMsg("mentor", localReply);
+    btn.disabled = false;
+    return;
+  }
+
+  // Si necesita profundidad → API con contexto
+  const typing = addTyping();
+  const rows = getComputedTrades();
+  const m = computeMetrics(rows);
+  const accountSize = getAccountSize();
+  const accountCtx = accountSize > 0
+    ? `Cuenta: ${money(accountSize)} | Balance: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount, 2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount, 2)}%`
+    : "Cuenta: no configurada";
+  const system = `Eres Mentor33, mentor de trading para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
+Datos actuales: ${m.total} trades | WR: ${fmt(m.winRate, 1)}% | PF: ${m.pf === 999 ? ">10" : fmt(m.pf)} | Expectancy: ${fmt(m.expectancy)}R | R prom: ${fmt(m.avgR)}R | DD máx: ${fmt(m.maxDDPct)}% | ${accountCtx}
+Responde en español, directo, como mentor profesional. Máximo 4-5 oraciones.`;
+  chatHistory.push({ role: "user", content: msg });
+  try {
+    const res = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 500, system, messages: chatHistory.slice(-10) })
+    });
+    const data = await res.json();
+    const reply = data.content?.find(b => b.type === "text")?.text || localReply;
+    chatHistory.push({ role: "assistant", content: reply });
+    typing.remove();
+    addMsg("mentor", reply);
+  } catch (e) {
+    typing.remove();
+    addMsg("mentor", localReply); // Fallback local si falla la API
+  }
+  btn.disabled = false;
+}
+
+// Reemplazar los event listeners del chat con la nueva versión
+const oldSendBtn = $("chatSendBtn");
+const newSendBtn = oldSendBtn.cloneNode(true);
+oldSendBtn.parentNode.replaceChild(newSendBtn, oldSendBtn);
+newSendBtn.addEventListener("click", sendChat);
+
+const oldInp = $("chatInp");
+const newInp = oldInp.cloneNode(true);
+oldInp.parentNode.replaceChild(newInp, oldInp);
+newInp.addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendChat(); }
+});
+
+/* ── FIN MENTOR33 ── */
 /* ── Inicializar ── */
 refreshAll();
 </script>

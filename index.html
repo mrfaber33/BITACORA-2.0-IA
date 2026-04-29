@@ -915,20 +915,19 @@ function addMsg(role, text){
   msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
   return d;
 }
-
-function addTyping(){
+  function addTyping(){
   const msgs = $("chatMsgs");
   const d = document.createElement("div"); d.className="msg mentor";
   d.innerHTML=`<div class="msg-av">🤖</div><div class="msg-bbl"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>`;
   msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
   return d;
 }
-</script>
 
-  <script>
-function mentor33(){
-  document.getElementById("mentorBox").innerText =
-    "🤖 Mentor33: 🔥 Sistema activo y analizando...";
+  function mentor33(){
+  const box = document.getElementById("mentorBox");
+  if (box){
+    box.innerText = "🤖 Mentor33: 🔥 Sistema activo y analizando...";
+  }
 }
 </script>
 

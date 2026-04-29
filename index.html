@@ -32,39 +32,26 @@
     .topbar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:20px; }
     .brand{ display:flex; align-items:center; gap:12px; }
     .logo{
-  width:52px;
-  height:52px;
-  border-radius:50%;
-  overflow:hidden;
-  flex-shrink:0;
-  border:1px solid rgba(30,234,138,.25);
-  box-shadow: 
-    0 0 15px rgba(30,234,138,.4),
-    0 0 40px rgba(0,255,120,.2);
-  animation: pulseGlow 2.5s infinite;
-}
-    .logo:hover{
-  transform: scale(1.08);
-  box-shadow: 
-    0 0 30px rgba(30,234,138,.7),
-    0 0 80px rgba(0,255,120,.4);
-  transition: all .3s ease;
-}
-    .logo{
-  transition: all .3s ease;
-}
-    @keyframes pulseGlow {
-  0% { box-shadow: 0 0 10px rgba(30,234,138,.3), 0 0 20px rgba(0,255,120,.15); }
-  50% { box-shadow: 0 0 25px rgba(30,234,138,.6), 0 0 60px rgba(0,255,120,.3); }
-  100% { box-shadow: 0 0 10px rgba(30,234,138,.3), 0 0 20px rgba(0,255,120,.15); }
-}
-    .logo img{
-      width:100%; height:100%; object-fit:cover; display:block;
+      width:52px; height:52px; border-radius:50%; overflow:hidden; flex-shrink:0;
+      border:1px solid rgba(30,234,138,.25);
+      box-shadow: 0 0 15px rgba(30,234,138,.4), 0 0 40px rgba(0,255,120,.2);
+      animation: pulseGlow 2.5s infinite;
+      transition: all .3s ease;
     }
+    .logo:hover{
+      transform: scale(1.08);
+      box-shadow: 0 0 30px rgba(30,234,138,.7), 0 0 80px rgba(0,255,120,.4);
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 10px rgba(30,234,138,.3), 0 0 20px rgba(0,255,120,.15); }
+      50% { box-shadow: 0 0 25px rgba(30,234,138,.6), 0 0 60px rgba(0,255,120,.3); }
+      100% { box-shadow: 0 0 10px rgba(30,234,138,.3), 0 0 20px rgba(0,255,120,.15); }
+    }
+    .logo img{ width:100%; height:100%; object-fit:cover; display:block; }
     .brand h1{ margin:0; font-size:28px; letter-spacing:.4px; }
     .brand small{ display:block; color:var(--muted); margin-top:2px; }
     .tabs{ display:flex; gap:10px; flex-wrap:wrap; }
-    .tab{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:10px 14px; border-radius:999px; cursor:pointer; }
+    .tab{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:10px 14px; border-radius:999px; cursor:pointer; font-size:14px; }
     .tab.active{ background:linear-gradient(180deg,#1b2735,#111b26); border-color:#3c536c; box-shadow:var(--shadow); }
     .tab.mentor-tab{
       background:linear-gradient(180deg,rgba(30,234,138,.15),rgba(30,234,138,.08));
@@ -74,7 +61,7 @@
       background:linear-gradient(180deg,rgba(30,234,138,.25),rgba(30,234,138,.12));
       border-color:var(--green); box-shadow:0 0 20px rgba(30,234,138,.2);
     }
-    .mentor-dot-live{ width:7px;height:7px;border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green); animation:pulse 2s infinite; }
+    .mentor-dot-live{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green); animation:pulse 2s infinite; }
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 
 ```
@@ -111,19 +98,19 @@
 .green{color:var(--green)} .red{color:var(--red)} .gold{color:var(--gold)} .blue{color:var(--blue)}
 
 .panel{ display:none; }
-.panel.active{display:block}
+.panel.active{ display:block; }
 
 .form-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:16px; }
 .field{ display:flex; flex-direction:column; gap:7px; }
 label{ font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.6px; }
-input, select, textarea{ width:100%; background:#0d141d; color:var(--text); border:1px solid var(--border); border-radius:12px; padding:12px 12px; outline:none; }
-textarea{min-height:92px; resize:vertical}
+input, select, textarea{ width:100%; background:#0d141d; color:var(--text); border:1px solid var(--border); border-radius:12px; padding:12px 12px; outline:none; font-family:inherit; }
+textarea{ min-height:92px; resize:vertical; }
 input:focus, select:focus, textarea:focus{ border-color:#3a5d80; box-shadow:0 0 0 3px rgba(87,180,255,.12); }
 .actions{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 4px; }
-button{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:11px 14px; border-radius:12px; cursor:pointer; font-weight:700; }
+button{ border:1px solid var(--border); background:var(--panel); color:var(--text); padding:11px 14px; border-radius:12px; cursor:pointer; font-weight:700; font-family:inherit; }
 .primary{ background:linear-gradient(180deg,#18d77d,#11b86a); color:#05140d; border-color:#17c774; }
 .danger{ background:linear-gradient(180deg,#ff758b,#ff5470); color:#24050c; border-color:#ff657d; }
-.ghost{background:#0d141d}
+.ghost{ background:#0d141d; }
 .table-wrap{ overflow:auto; border-radius:16px; border:1px solid var(--border); background:linear-gradient(180deg,var(--panel),var(--panel-2)); box-shadow:var(--shadow); }
 table{ width:100%; border-collapse:collapse; min-width:1200px; }
 th, td{ padding:12px 10px; border-bottom:1px solid rgba(255,255,255,.06); text-align:left; font-size:14px; white-space:nowrap; }
@@ -142,57 +129,63 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
 /* ── MENTOR33 ── */
 .mentor-layout{ display:grid; grid-template-columns:1.5fr 1fr; gap:16px; align-items:start; }
 .mentor-hero{ background:linear-gradient(160deg,#0d1825,#111f30); border:1px solid #1e3248; border-radius:var(--radius); padding:24px; position:relative; overflow:hidden; }
-.mentor-hero::before{ content:'';position:absolute;top:-40px;right:-40px; width:220px;height:220px; background:radial-gradient(circle,rgba(30,234,138,.07),transparent 70%); pointer-events:none; }
-.mentor-header{ display:flex;align-items:flex-start;gap:16px;margin-bottom:20px; }
-.mentor-avatar{ width:58px;height:58px;border-radius:16px;flex-shrink:0; background:linear-gradient(135deg,#1eea8a,#0fb368); display:flex;align-items:center;justify-content:center; font-size:26px; box-shadow:0 0 24px rgba(30,234,138,.3); }
-.mentor-name{ font-size:20px;font-weight:800;margin-bottom:3px; display:flex;align-items:center;gap:8px; }
-.mentor-ver{ font-size:10px;font-weight:600; background:rgba(30,234,138,.15); color:var(--green);border:1px solid rgba(30,234,138,.3); padding:2px 7px;border-radius:5px; }
-.mentor-tagline{ color:var(--muted);font-size:13px;line-height:1.55;margin-bottom:0; }
-.analyze-btn{ background:linear-gradient(180deg,#1eea8a,#11c870); color:#041209;border:none; padding:12px 22px;border-radius:12px; font-weight:700;font-size:14px;cursor:pointer; display:flex;align-items:center;gap:7px; transition:all .18s; box-shadow:0 4px 18px rgba(30,234,138,.25); font-family:inherit; }
-.analyze-btn:hover{transform:translateY(-1px);box-shadow:0 7px 26px rgba(30,234,138,.35)}
-.analyze-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.insights-grid{ display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px; }
-.ins-card{ background:#0d1825;border:1px solid var(--border);border-radius:12px; padding:14px;animation:fadeUp .35s ease both; }
+.mentor-hero::before{ content:''; position:absolute; top:-40px; right:-40px; width:220px; height:220px; background:radial-gradient(circle,rgba(30,234,138,.07),transparent 70%); pointer-events:none; }
+.mentor-header{ display:flex; align-items:flex-start; gap:16px; margin-bottom:20px; }
+.mentor-avatar{ width:58px; height:58px; border-radius:16px; flex-shrink:0; background:linear-gradient(135deg,#1eea8a,#0fb368); display:flex; align-items:center; justify-content:center; font-size:26px; box-shadow:0 0 24px rgba(30,234,138,.3); }
+.mentor-name{ font-size:20px; font-weight:800; margin-bottom:3px; display:flex; align-items:center; gap:8px; }
+.mentor-ver{ font-size:10px; font-weight:600; background:rgba(30,234,138,.15); color:var(--green); border:1px solid rgba(30,234,138,.3); padding:2px 7px; border-radius:5px; }
+.mentor-tagline{ color:var(--muted); font-size:13px; line-height:1.55; margin-bottom:0; }
+.analyze-btn{ background:linear-gradient(180deg,#1eea8a,#11c870); color:#041209; border:none; padding:12px 22px; border-radius:12px; font-weight:700; font-size:14px; cursor:pointer; display:flex; align-items:center; gap:7px; transition:all .18s; box-shadow:0 4px 18px rgba(30,234,138,.25); font-family:inherit; }
+.analyze-btn:hover{ transform:translateY(-1px); box-shadow:0 7px 26px rgba(30,234,138,.35); }
+.analyze-btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
+.insights-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+.ins-card{ background:#0d1825; border:1px solid var(--border); border-radius:12px; padding:14px; animation:fadeUp .35s ease both; }
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .ins-card:nth-child(1){animation-delay:.04s} .ins-card:nth-child(2){animation-delay:.09s} .ins-card:nth-child(3){animation-delay:.14s} .ins-card:nth-child(4){animation-delay:.19s}
-.ins-type{ font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px; margin-bottom:6px;display:flex;align-items:center;gap:5px; }
+.ins-type{ font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.7px; margin-bottom:6px; display:flex; align-items:center; gap:5px; }
 .ins-type.warning{color:var(--gold)} .ins-type.danger{color:var(--red)} .ins-type.success{color:var(--green)} .ins-type.info{color:var(--blue)}
-.ins-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
-.ins-text{font-size:13px;line-height:1.6;color:var(--text)}
-.ins-rec{ margin-top:8px;padding:7px 10px; background:rgba(255,255,255,.03);border-radius:7px; font-size:11px;color:var(--muted); border-left:2px solid var(--border); }
-.mentor-summary-box{ margin-top:14px;padding:13px 16px; background:rgba(30,234,138,.05); border:1px solid rgba(30,234,138,.15); border-radius:12px;font-size:13px;line-height:1.6; }
-.mentor-summary-lbl{ font-size:10px;color:var(--green);text-transform:uppercase; letter-spacing:.8px;display:block;margin-bottom:4px; }
-.mentor-chat{ background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--border);border-radius:var(--radius); display:flex;flex-direction:column;height:520px;overflow:hidden; box-shadow:var(--shadow); }
-.chat-hdr{ padding:14px 18px;border-bottom:1px solid var(--border); display:flex;align-items:center;gap:9px; }
-.chat-hdr-ttl{font-size:14px;font-weight:700} .chat-hdr-sub{font-size:11px;color:var(--muted);margin-top:1px}
-.chat-msgs{ flex:1;overflow-y:auto;padding:14px 16px; display:flex;flex-direction:column;gap:12px; }
+.ins-dot{ width:5px; height:5px; border-radius:50%; background:currentColor; }
+.ins-text{ font-size:13px; line-height:1.6; color:var(--text); }
+.ins-rec{ margin-top:8px; padding:7px 10px; background:rgba(255,255,255,.03); border-radius:7px; font-size:11px; color:var(--muted); border-left:2px solid var(--border); }
+.mentor-summary-box{ margin-top:14px; padding:13px 16px; background:rgba(30,234,138,.05); border:1px solid rgba(30,234,138,.15); border-radius:12px; font-size:13px; line-height:1.6; }
+.mentor-summary-lbl{ font-size:10px; color:var(--green); text-transform:uppercase; letter-spacing:.8px; display:block; margin-bottom:4px; }
+.mentor-chat{ background:linear-gradient(180deg,var(--panel),var(--panel-2)); border:1px solid var(--border); border-radius:var(--radius); display:flex; flex-direction:column; height:520px; overflow:hidden; box-shadow:var(--shadow); }
+.chat-hdr{ padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:9px; }
+.chat-hdr-ttl{ font-size:14px; font-weight:700; }
+.chat-hdr-sub{ font-size:11px; color:var(--muted); margin-top:1px; }
+.chat-msgs{ flex:1; overflow-y:auto; padding:14px 16px; display:flex; flex-direction:column; gap:12px; }
 .chat-msgs::-webkit-scrollbar{width:3px} .chat-msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-.msg{display:flex;gap:8px;align-items:flex-start} .msg.user{flex-direction:row-reverse}
-.msg-av{ width:29px;height:29px;border-radius:8px;flex-shrink:0; display:flex;align-items:center;justify-content:center;font-size:13px; }
-.msg.mentor .msg-av{background:linear-gradient(135deg,#1eea8a,#0fb368);color:#041209}
-.msg.user .msg-av{background:var(--panel-2);border:1px solid var(--border)}
-.msg-bbl{ max-width:82%;padding:9px 13px;border-radius:11px;font-size:13px;line-height:1.6; }
-.msg.mentor .msg-bbl{ background:#0d1825;border:1px solid var(--border); border-top-left-radius:3px; }
-.msg.user .msg-bbl{ background:rgba(30,234,138,.1);border:1px solid rgba(30,234,138,.18); border-top-right-radius:3px; }
-.chat-inp-row{ padding:10px 14px;border-top:1px solid var(--border); display:flex;gap:8px;align-items:center; }
-.chat-inp{ flex:1;background:#0d141d;border:1px solid var(--border);border-radius:10px; padding:9px 13px;color:var(--text);font-size:13px;outline:none; font-family:inherit;transition:border-color .14s; }
-.chat-inp:focus{border-color:rgba(30,234,138,.4)} .chat-inp::placeholder{color:var(--muted)}
-.chat-send{ background:var(--green);border:none;color:#041209; width:34px;height:34px;border-radius:9px;cursor:pointer; font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center; transition:all .14s;flex-shrink:0; }
-.chat-send:hover{background:#15d470;transform:scale(1.06)} .chat-send:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.typing{display:flex;gap:4px;align-items:center}
-.td{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1.2s infinite}
-.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+.msg{ display:flex; gap:8px; align-items:flex-start; }
+.msg.user{ flex-direction:row-reverse; }
+.msg-av{ width:29px; height:29px; border-radius:8px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; }
+.msg.mentor .msg-av{ background:linear-gradient(135deg,#1eea8a,#0fb368); color:#041209; }
+.msg.user .msg-av{ background:var(--panel-2); border:1px solid var(--border); }
+.msg-bbl{ max-width:82%; padding:9px 13px; border-radius:11px; font-size:13px; line-height:1.6; }
+.msg.mentor .msg-bbl{ background:#0d1825; border:1px solid var(--border); border-top-left-radius:3px; }
+.msg.user .msg-bbl{ background:rgba(30,234,138,.1); border:1px solid rgba(30,234,138,.18); border-top-right-radius:3px; }
+.chat-inp-row{ padding:10px 14px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:center; }
+.chat-inp{ flex:1; background:#0d141d; border:1px solid var(--border); border-radius:10px; padding:9px 13px; color:var(--text); font-size:13px; outline:none; font-family:inherit; transition:border-color .14s; }
+.chat-inp:focus{ border-color:rgba(30,234,138,.4); }
+.chat-inp::placeholder{ color:var(--muted); }
+.chat-send{ background:var(--green); border:none; color:#041209; width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; transition:all .14s; flex-shrink:0; }
+.chat-send:hover{ background:#15d470; transform:scale(1.06); }
+.chat-send:disabled{ opacity:.4; cursor:not-allowed; transform:none; }
+.typing{ display:flex; gap:4px; align-items:center; }
+.td{ width:6px; height:6px; border-radius:50%; background:var(--muted); animation:blink 1.2s infinite; }
+.td:nth-child(2){animation-delay:.2s} .td:nth-child(3){animation-delay:.4s}
 @keyframes blink{0%,80%,100%{opacity:.25}40%{opacity:1}}
-.alerts-wrap{ position:fixed;bottom:22px;right:22px; display:flex;flex-direction:column;gap:9px; z-index:200;max-width:320px; }
-.alert-t{ background:var(--panel-2);border:1px solid var(--border); border-radius:14px;padding:12px 14px; display:flex;align-items:flex-start;gap:10px; animation:slideIn .26s ease;box-shadow:0 8px 28px rgba(0,0,0,.4); }
+.alerts-wrap{ position:fixed; bottom:22px; right:22px; display:flex; flex-direction:column; gap:9px; z-index:200; max-width:320px; }
+.alert-t{ background:var(--panel-2); border:1px solid var(--border); border-radius:14px; padding:12px 14px; display:flex; align-items:flex-start; gap:10px; animation:slideIn .26s ease; box-shadow:0 8px 28px rgba(0,0,0,.4); }
 @keyframes slideIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
-.alert-t.danger{border-color:rgba(255,95,122,.3);background:rgba(255,95,122,.06)}
-.alert-t.warning{border-color:rgba(244,195,90,.3);background:rgba(244,195,90,.06)}
-.alert-t.success{border-color:rgba(30,234,138,.3);background:rgba(30,234,138,.06)}
-.alert-ico{font-size:18px;flex-shrink:0;margin-top:1px}
-.alert-body{flex:1} .alert-ttl{font-size:12px;font-weight:700;margin-bottom:2px} .alert-msg{font-size:11px;color:var(--muted);line-height:1.5}
-.alert-x{background:none;border:none;color:var(--muted);cursor:pointer;padding:2px;font-size:13px;line-height:1}
-.spin{ width:15px;height:15px;border:2px solid rgba(30,234,138,.2); border-top-color:var(--green);border-radius:50%; animation:sp .65s linear infinite;display:inline-block; }
+.alert-t.danger{ border-color:rgba(255,95,122,.3); background:rgba(255,95,122,.06); }
+.alert-t.warning{ border-color:rgba(244,195,90,.3); background:rgba(244,195,90,.06); }
+.alert-t.success{ border-color:rgba(30,234,138,.3); background:rgba(30,234,138,.06); }
+.alert-ico{ font-size:18px; flex-shrink:0; margin-top:1px; }
+.alert-body{ flex:1; }
+.alert-ttl{ font-size:12px; font-weight:700; margin-bottom:2px; }
+.alert-msg{ font-size:11px; color:var(--muted); line-height:1.5; }
+.alert-x{ background:none; border:none; color:var(--muted); cursor:pointer; padding:2px; font-size:13px; line-height:1; }
+.spin{ width:15px; height:15px; border:2px solid rgba(30,234,138,.2); border-top-color:var(--green); border-radius:50%; animation:sp .65s linear infinite; display:inline-block; }
 @keyframes sp{to{transform:rotate(360deg)}}
 
 @media (max-width:1200px){
@@ -222,7 +215,7 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
   <div class="topbar">
     <div class="brand">
       <div class="logo">
-        <img src="./q33.png">
+        <img src="./q33.png" alt="Edge33">
       </div>
       <div>
         <h1>Edge33</h1>
@@ -233,15 +226,13 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
       <button class="tab active" data-tab="registro">Registro</button>
       <button class="tab" data-tab="graficas">Gráficas</button>
       <button class="tab" data-tab="analisis">Análisis</button>
-     <button onclick="mentor33()" class="tab mentor-tab" data-tab="mentor">
+      <button class="tab mentor-tab" data-tab="mentor">
         <div class="mentor-dot-live"></div>
         🤖 Mentor33
       </button>
     </div>
   </div>
-<div id="mentorBox" class="mentor-box">
-  🤖 Mentor33: Esperando análisis...
-</div>
+
   <!-- ── ACCOUNT SIZE BAR ── -->
 
   <div class="account-bar">
@@ -406,7 +397,7 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
               </div>
             </div>
           </div>
-          <button class="analyze-btn" id="analyzeBtn" onclick="runAnalysis()">
+          <button class="analyze-btn" id="analyzeBtn">
             <span>⚡</span> Analizar mi trading ahora
           </button>
           <div id="insightsWrap"></div>
@@ -430,10 +421,8 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
           </div>
         </div>
         <div class="chat-inp-row">
-          <input class="chat-inp" id="chatInp"
-            placeholder="Pregunta a Mentor33..."
-            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"/>
-          <button class="chat-send" id="chatSendBtn" onclick="sendChat()">➤</button>
+          <input class="chat-inp" id="chatInp" placeholder="Pregunta a Mentor33..."/>
+          <button class="chat-send" id="chatSendBtn">➤</button>
         </div>
       </div>
     </div>
@@ -444,6 +433,15 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
 <div class="alerts-wrap" id="alertsWrap"></div>
 
 <script>
+/* ══════════════════════════════════════════
+   EDGE33 — Script principal corregido
+   Bugs reparados:
+   1. callClaude: faltaba "body:" → SyntaxError que rompía todo el script
+   2. renderTable: variable "t" colisionaba (tbody y trade en el mismo forEach)
+   3. Tab Mentor33: removido onclick inline, manejado por el listener de tabs
+   4. Chat: eventos movidos a addEventListener en lugar de atributos inline
+══════════════════════════════════════════ */
+
 const STORAGE_KEY = "edge33_trades_v1";
 const ACCOUNT_KEY = "edge33_account_size_v1";
 let trades = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
@@ -537,8 +535,13 @@ function updateMetrics(){
   $("m-wl").textContent = `${m.wins}W / ${m.losses}L`;
   $("m-pf").textContent = m.pf===999?">10":fmt(m.pf);
   $("m-rr").textContent = `${fmt(m.avgR)}R`;
-  if(m.accountSize > 0){ $("m-dd").textContent = pct(m.maxDDPctAccount); $("m-dd-money").textContent = `-${money(m.maxDD)} (${pct(m.maxDDPct)} del pico)`; }
-  else { $("m-dd").textContent = pct(m.maxDDPct); $("m-dd-money").textContent = `-${money(m.maxDD)}`; }
+  if(m.accountSize > 0){
+    $("m-dd").textContent = pct(m.maxDDPctAccount);
+    $("m-dd-money").textContent = `-${money(m.maxDD)} (${pct(m.maxDDPct)} del pico)`;
+  } else {
+    $("m-dd").textContent = pct(m.maxDDPct);
+    $("m-dd-money").textContent = `-${money(m.maxDD)}`;
+  }
   $("m-exp").textContent = `${fmt(m.expectancy)}R`;
   if(m.accountSize > 0){
     $("bar-pnl-pct").textContent = `${fmt(m.netPctAccount,2)}%`;
@@ -554,33 +557,34 @@ function updateMetrics(){
   }
 }
 
+/* ── FIX: variable renombrada de "t" a "row" para evitar colisión con tbody ── */
 function renderTable(){
   const rows = getComputedTrades();
-  const t = $("t");
-  t.innerHTML = "";
+  const tbody = $("tbody");
+  tbody.innerHTML = "";
   const accountSize = getAccountSize();
-  rows.forEach((t,i)=>{
+  rows.forEach((row, i) => {
     const tr = document.createElement("tr");
-    const rc = t.result==="WIN"?"green":t.result==="LOSS"?"red":"blue";
-    const acctPctCell = accountSize > 0 && t.pnlPctAccount !== null
-      ? `<td class="${t.pnl>=0?'green':'red'}">${fmt(t.pnlPctAccount,3)}%</td>`
+    const rc = row.result==="WIN"?"green":row.result==="LOSS"?"red":"blue";
+    const acctPctCell = accountSize > 0 && row.pnlPctAccount !== null
+      ? `<td class="${row.pnl>=0?'green':'red'}">${fmt(row.pnlPctAccount,3)}%</td>`
       : `<td class="hint">—</td>`;
     tr.innerHTML = `
-      <td>${i+1}</td><td>${t.date||""}</td><td>${t.asset||""}</td>
-      <td><span class="pill blue">${t.direction||""}</span></td>
-      <td>${fmt(t.entry,4)}</td><td>${fmt(t.exit,4)}</td>
-      <td>${fmt(t.stop,4)}</td><td>${fmt(t.target,4)}</td>
-      <td>${fmt(t.size,2)}</td><td>${money(t.commission)}</td>
-      <td class="${t.pnl>=0?'green':'red'}">${money(t.pnl)}</td>
-      <td class="${t.pnl>=0?'green':'red'}">${pct(t.pnlPct)}</td>
+      <td>${i+1}</td><td>${row.date||""}</td><td>${row.asset||""}</td>
+      <td><span class="pill blue">${row.direction||""}</span></td>
+      <td>${fmt(row.entry,4)}</td><td>${fmt(row.exit,4)}</td>
+      <td>${fmt(row.stop,4)}</td><td>${fmt(row.target,4)}</td>
+      <td>${fmt(row.size,2)}</td><td>${money(row.commission)}</td>
+      <td class="${row.pnl>=0?'green':'red'}">${money(row.pnl)}</td>
+      <td class="${row.pnl>=0?'green':'red'}">${pct(row.pnlPct)}</td>
       ${acctPctCell}
-      <td class="${t.r>=0?'green':'red'}">${fmt(t.r)}R</td>
-      <td><span class="pill ${rc}">${t.result}</span></td>
-      <td>${t.strategy||""}</td>
-      <td title="${(t.notes||'').replace(/"/g,'&quot;')}">${(t.notes||"").slice(0,45)}</td>
+      <td class="${row.r>=0?'green':'red'}">${fmt(row.r)}R</td>
+      <td><span class="pill ${rc}">${row.result}</span></td>
+      <td>${row.strategy||""}</td>
+      <td title="${(row.notes||'').replace(/"/g,'&quot;')}">${(row.notes||"").slice(0,45)}</td>
       <td><button onclick="removeTrade(${i})">Eliminar</button></td>
     `;
-    t.appendChild(tr);
+    tbody.appendChild(tr);
   });
 }
 
@@ -679,7 +683,8 @@ function resetForm(){
 
 function refreshAll(){ updateMetrics(); renderTable(); renderCharts(); renderAnalysis(); }
 
-$("addBtn").addEventListener("click",()=>{
+/* ── BOTONES DE REGISTRO ── */
+$("addBtn").addEventListener("click", ()=>{
   const trade={
     date:$("date").value||todayStr(), asset:$("asset").value.trim(),
     direction:$("direction").value,
@@ -688,29 +693,29 @@ $("addBtn").addEventListener("click",()=>{
     size:num($("size").value||1), commission:num($("commission").value||0),
     strategy:$("strategy").value.trim(), notes:$("notes").value.trim()
   };
-  if(!trade.asset){alert("Pon el activo.");return;}
-  if(!trade.entry||!trade.exit){alert("Pon entrada y salida.");return;}
+  if(!trade.asset){ alert("Pon el activo."); return; }
+  if(!trade.entry||!trade.exit){ alert("Pon entrada y salida."); return; }
   trades.push(trade); save(); refreshAll(); resetForm();
   checkSmartAlerts(trade);
 });
 
-window.removeTrade=function(index){
-  if(!confirm("¿Eliminar esta operación?"))return;
+window.removeTrade = function(index){
+  if(!confirm("¿Eliminar esta operación?")) return;
   trades.splice(index,1); save(); refreshAll();
 };
 
-$("clearBtn").addEventListener("click",()=>{
-  if(!confirm("¿Seguro que quieres borrar toda la bitácora?"))return;
+$("clearBtn").addEventListener("click", ()=>{
+  if(!confirm("¿Seguro que quieres borrar toda la bitácora?")) return;
   trades=[]; save(); refreshAll();
 });
 
-$("exportBtn").addEventListener("click",()=>{
+$("exportBtn").addEventListener("click", ()=>{
   const blob=new Blob([JSON.stringify(trades,null,2)],{type:"application/json"});
   const a=document.createElement("a"); a.href=URL.createObjectURL(blob);
   a.download="edge33-trades.json"; a.click();
 });
 
-$("csvBtn").addEventListener("click",()=>{
+$("csvBtn").addEventListener("click", ()=>{
   const rows=getComputedTrades();
   const headers=["date","asset","direction","entry","exit","stop","target","size","commission","strategy","notes","pnl","pnlPct","pnlPctAccount","r","result"];
   const csv=[headers.join(","),...rows.map(r=>headers.map(h=>`"${String(r[h]??"")}"`).join(","))].join("\n");
@@ -719,56 +724,35 @@ $("csvBtn").addEventListener("click",()=>{
   a.download="edge33-trades.csv"; a.click();
 });
 
-$("importBtn").addEventListener("click",()=>$("importFile").click());
-$("importFile").addEventListener("change",(e)=>{
-  const file=e.target.files[0]; if(!file)return;
+$("importBtn").addEventListener("click", ()=>$("importFile").click());
+$("importFile").addEventListener("change", (e)=>{
+  const file=e.target.files[0]; if(!file) return;
   const reader=new FileReader();
   reader.onload=()=>{
     try{
       const data=JSON.parse(reader.result);
-      if(!Array.isArray(data))throw new Error("Formato inválido");
+      if(!Array.isArray(data)) throw new Error("Formato inválido");
       trades=data; save(); refreshAll(); alert("Importación completada.");
     }catch(err){ alert("No pude importar ese archivo JSON."); }
   };
   reader.readAsText(file);
 });
 
+/* ── TABS: incluye Mentor33 correctamente ── */
 document.querySelectorAll(".tab").forEach(btn=>{
-  btn.addEventListener("click",()=>{
+  btn.addEventListener("click", ()=>{
     document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
     document.querySelectorAll(".panel").forEach(p=>p.classList.remove("active"));
     btn.classList.add("active");
-    document.getElementById(btn.dataset.tab).classList.add("active");
+    const tabId = btn.dataset.tab;
+    const panel = document.getElementById(tabId);
+    if(panel) panel.classList.add("active");
     renderCharts();
   });
 });
 
-refreshAll();
-
-function checkSmartAlerts(t){
-  const todayTrades = trades.filter(x => x.date === t.date);
-  if(todayTrades.length >= 3)
-    showAlert("danger","🚨 Sobreoperación detectada",`Llevas ${todayTrades.length} trades hoy. Tu historial muestra caída en rendimiento en este escenario.`);
-  if(!t.strategy)
-    showAlert("warning","⚠️ Sin estrategia registrada","Registrar el setup ayuda a Mentor33 a detectar tu edge real con más precisión.");
-  const accountSize = getAccountSize();
-  if(accountSize > 0){
-    const computed = calcTrade(t);
-    if(computed.riskPctAccount !== null && computed.riskPctAccount > 2){
-      showAlert("warning","⚠️ Riesgo elevado por trade",`Este trade arriesga ${fmt(computed.riskPctAccount,2)}% de tu cuenta (${money(computed.riskPctAccount/100*accountSize)}). Considera mantenerlo bajo el 1-2%.`);
-    }
-  }
-}
-
-function showAlert(type, title, msg){
-  const wrap = $("alertsWrap");
-  const d = document.createElement("div"); d.className=`alert-t ${type}`;
-  d.innerHTML=`<div class="alert-ico">${{danger:"🚨",warning:"⚠️",success:"✅",info:"💡"}[type]}</div>
-    <div class="alert-"><div class="alert-ttl">${title}</div><div class="alert-msg">${msg}</div></div>
-    <button class="alert-x" onclick="this.parentElement.remove()">✕</button>`;
-  wrap.appendChild(d);
-  setTimeout(()=>d.remove(), 8000);
-}
+/* ── ANÁLISIS con IA ── */
+$("analyzeBtn").addEventListener("click", runAnalysis);
 
 async function runAnalysis(){
   const rows = getComputedTrades();
@@ -818,17 +802,18 @@ ${accountCtx}
 Por horario: ${hrTxt}
 Por estrategia: ${stTxt}
 
-Genera exactamente 4 insights relevantes y accionables. Si hay datos de cuenta, incluye análisis de gestión del riesgo como % del capital. RESPONDE SOLO JSON, sin texto adicional.`;
+Genera exactamente 4 insights relevantes y accionables. RESPONDE SOLO JSON, sin texto adicional.`;
 }
 
+/* ── FIX PRINCIPAL: faltaba "body:" en el fetch original ── */
 async function callClaude(prompt){
-  const res = await fetch("https://api.anthropic.com/v1/messages",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    :JSON.stringify({
-      model:"claude-sonnet-4-20250514",
-      max_tokens:1000,
-      messages:[{role:"user",content:prompt}]
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1000,
+      messages: [{ role: "user", content: prompt }]
     })
   });
   if(!res.ok) throw new Error(`API ${res.status}`);
@@ -857,7 +842,13 @@ function renderInsights(data){
   $("insightsWrap").innerHTML = html;
 }
 
+/* ── CHAT ── */
 const chatHistory = [];
+
+$("chatSendBtn").addEventListener("click", sendChat);
+$("chatInp").addEventListener("keydown", (e)=>{
+  if(e.key==="Enter" && !e.shiftKey){ e.preventDefault(); sendChat(); }
+});
 
 async function sendChat(){
   const inp = $("chatInp"), btn = $("chatSendBtn");
@@ -883,7 +874,7 @@ Datos actuales del trader:
 - ${accountCtx}
 - Estrategias: ${Object.entries(m.byStrat).map(([k,v])=>`${k}(${v.n} trades)`).join(", ")||"sin datos"}
 
-Responde en español. Sé directo, claro y como mentor profesional de trading. Máximo 4-5 oraciones. No uses markdown excesivo.`;
+Responde en español. Sé directo, claro y como mentor profesional de trading. Máximo 4-5 oraciones.`;
   chatHistory.push({role:"user", content:msg});
   try{
     const res = await fetch("https://api.anthropic.com/v1/messages",{
@@ -915,7 +906,8 @@ function addMsg(role, text){
   msgs.appendChild(d); msgs.scrollTop=msgs.scrollHeight;
   return d;
 }
-  function addTyping(){
+
+function addTyping(){
   const msgs = $("chatMsgs");
   const d = document.createElement("div"); d.className="msg mentor";
   d.innerHTML=`<div class="msg-av">🤖</div><div class="msg-bbl"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>`;
@@ -923,12 +915,34 @@ function addMsg(role, text){
   return d;
 }
 
-  function mentor33(){
-  const box = document.getElementById("mentorBox");
-  if (box){
-    box.innerText = "🤖 Mentor33: 🔥 Sistema activo y analizando...";
+function checkSmartAlerts(t){
+  const todayTrades = trades.filter(x => x.date === t.date);
+  if(todayTrades.length >= 3)
+    showAlert("danger","🚨 Sobreoperación detectada",`Llevas ${todayTrades.length} trades hoy. Tu historial muestra caída en rendimiento en este escenario.`);
+  if(!t.strategy)
+    showAlert("warning","⚠️ Sin estrategia registrada","Registrar el setup ayuda a Mentor33 a detectar tu edge real con más precisión.");
+  const accountSize = getAccountSize();
+  if(accountSize > 0){
+    const computed = calcTrade(t);
+    if(computed.riskPctAccount !== null && computed.riskPctAccount > 2){
+      showAlert("warning","⚠️ Riesgo elevado por trade",`Este trade arriesga ${fmt(computed.riskPctAccount,2)}% de tu cuenta (${money(computed.riskPctAccount/100*accountSize)}). Considera mantenerlo bajo el 1-2%.`);
+    }
   }
 }
+
+function showAlert(type, title, msg){
+  const wrap = $("alertsWrap");
+  const d = document.createElement("div"); d.className=`alert-t ${type}`;
+  const icons = {danger:"🚨",warning:"⚠️",success:"✅",info:"💡"};
+  d.innerHTML=`<div class="alert-ico">${icons[type]||"💡"}</div>
+    <div class="alert-body"><div class="alert-ttl">${title}</div><div class="alert-msg">${msg}</div></div>
+    <button class="alert-x" onclick="this.parentElement.remove()">✕</button>`;
+  wrap.appendChild(d);
+  setTimeout(()=>{ if(d.parentElement) d.remove(); }, 8000);
+}
+
+/* ── Inicializar ── */
+refreshAll();
 </script>
 
 </body>

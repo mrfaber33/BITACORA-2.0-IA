@@ -485,10 +485,7 @@ function calcTrade(trade){
   const points = trade.direction === "Long" ? exit - entry : entry - exit;
 const pnl = (trade.profit || 0) + (trade.swap || 0) - (trade.commission || 0);
   const base = Math.abs(entry * size) || 1;
-  const pnlPct = (pnl / base) * 100;
-  const riskPerUnit = trade.direction === "Long" ? entry - stop : stop - entry;
-  const totalRisk = Math.abs(riskPerUnit * size);
-  const r = totalRisk > 0 ? pnl / totalRisk : 0;
+const
   const accountSize = getAccountSize();
   const pnlPctAccount = accountSize > 0 ? (pnl / accountSize) * 100 : null;
   const riskPctAccount = accountSize > 0 ? (totalRisk / accountSize) * 100 : null;

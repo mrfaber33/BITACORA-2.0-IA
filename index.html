@@ -316,7 +316,17 @@ canvas{ width:100%; height:260px; background:#0d141d; border:1px solid var(--bor
         <div class="field"><label>Take Profit</label><input id="target" type="number" step="any" placeholder="0.00"/></div>
         <div class="field"><label>Tamaño Posición</label><input id="size" type="number" step="any" placeholder="1.00"/></div>
         <div class="field"><label>Comisión</label><input id="commission" type="number" step="any" placeholder="0.00"/></div>
+        <div class="field">
+  <label>Profit (MT5)</label>
+  <input id="profit" type="number" step="any" placeholder="32.35"/>
+</div>
+
+<div class="field">
+  <label>Swap</label>
+  <input id="swap" type="number" step="any" placeholder="-3.10"/>
+</div>
         <div class="field"><label>Estrategia</label><input id="strategy" type="text" placeholder="Q33, Breakout, Liquidez..."/></div>
+        
       </div>
       <div class="field">
         <label>Notas</label>
@@ -473,7 +483,7 @@ function calcTrade(trade){
   const entry = num(trade.entry), exit = num(trade.exit), stop = num(trade.stop);
   const size = num(trade.size || 1), commission = num(trade.commission || 0);
   const points = trade.direction === "Long" ? exit - entry : entry - exit;
-  const pnl = (points * size) - commission;
+const pnl = (trade.profit || 0) + (trade.swap || 0) - (trade.commission || 0);
   const base = Math.abs(entry * size) || 1;
   const pnlPct = (pnl / base) * 100;
   const riskPerUnit = trade.direction === "Long" ? entry - stop : stop - entry;
@@ -587,7 +597,6 @@ function renderTable(){
     tbody.appendChild(tr);
   });
 }
-
 function drawLineChart(canvas, values){
   const ctx = canvas.getContext("2d"), W=canvas.width, H=canvas.height;
   ctx.clearRect(0,0,W,H); ctx.fillStyle="#0d141d"; ctx.fillRect(0,0,W,H);
@@ -691,7 +700,9 @@ $("addBtn").addEventListener("click", ()=>{
     entry:num($("entry").value), exit:num($("exit").value),
     stop:num($("stop").value), target:num($("target").value),
     size:num($("size").value||1), commission:num($("commission").value||0),
-    strategy:$("strategy").value.trim(), notes:$("notes").value.trim()
+    strategy:$("strategy").value.trim(), notes:$("notes").value.trim(),
+    profit:num($("profit").value||0),
+swap:num($("swap").value||0),
   };
   if(!trade.asset){ alert("Pon el activo."); return; }
   if(!trade.entry||!trade.exit){ alert("Pon entrada y salida."); return; }

@@ -674,7 +674,116 @@ function getAccountSize(){ return num($("accountSize").value) || 0; }
 
 const savedAccount = localStorage.getItem(ACCOUNT_KEY);
 if(savedAccount) $("accountSize").value = savedAccount;
+/* ═══════════════════════════════════════
+   MENTOR33 — HOOK PARALELO (SEGURO)
+═══════════════════════════════════════ */
 
+// Anti spam de alertas
+let m33LastAlertTime = 0;
+
+function safeAlert(type, title, msg){
+  const now = Date.now();
+  if(now - m33LastAlertTime < 1500) return;
+  m33LastAlertTime = now;
+  showAlert(type, title, msg);
+}
+
+/* ── 1. MODO GUARDIA ── */
+function mentorGuardMode(allTrades){
+  const today = todayStr();
+  const todayTrades = allTrades.filter(t => t.date === today);
+
+  if(todayTrades.length >= 2){
+    safeAlert(
+      "warning",
+      "🛡️ Modo Guardia",
+      `Ya llevas ${todayTrades.length} trades hoy. Tu edge cae después de 2.`
+    );
+  }
+}
+
+/* ── 2. DETECCIÓN DE EDGE (SIN hindsight) ── */
+function detectEdge(trade){
+  if(!trade) return;
+
+  const hasStrategy = trade.strategy && trade.strategy.trim() !== "";
+  const isQ33 = hasStrategy && trade.strategy.toUpperCase().includes("Q33");
+  const hasSL = trade.stop && trade.stop !== 0;
+
+  if(!isQ33 || !hasSL){
+    safeAlert(
+      "warning",
+      "⚠️ Fuera de tu Edge",
+      "Este trade no cumple tu sistema Q33 o no tiene SL claro."
+    );
+  }
+}
+
+/* ── 3. SCORE DISCIPLINA ── */
+function calculateDisciplineScore(allTrades){
+  const today = todayStr();
+  const dayTrades = allTrades.filter(t => t.date === today);
+  if(!dayTrades.length) return;
+
+  let score = 50;
+
+  const computed = dayTrades.map(calcTrade);
+
+  computed.forEach(t => {
+    const isWin = t.pnl > 0;
+    const isQ33 = t.strategy?.toUpperCase().includes("Q33");
+
+    if(isWin && isQ33) score += 10;
+    if(isWin && !isQ33) score += 5;
+    if(!isWin && !isQ33) score -= 5;
+
+    if(t.riskPctAccount && t.riskPctAccount > 2){
+      score -= 10;
+    }
+  });
+
+  if(dayTrades.length > 2){
+    score -= 15;
+  }
+
+  score = Math.max(0, Math.min(100, score));
+
+  safeAlert(
+    "info",
+    "📊 Score del día",
+    `Disciplina: ${score}/100`
+  );
+}
+
+/* ── 4. ALERTA PREDICTIVA ── */
+function predictiveAlerts(allTrades){
+  if(allTrades.length < 3) return;
+
+  const last3 = allTrades.slice(-3).map(calcTrade);
+
+  if(last3.every(t => t.pnl < 0)){
+    safeAlert(
+      "danger",
+      "🚨 Riesgo alto",
+      "3 pérdidas seguidas. Probabilidad de seguir perdiendo aumenta. Detente."
+    );
+  }
+}
+
+/* ── HOOK PRINCIPAL (NO TOCA NADA EXISTENTE) ── */
+document.getElementById("addBtn").addEventListener("click", () => {
+  setTimeout(() => {
+
+    const allTrades = [...trades];
+    const lastTrade = allTrades[allTrades.length - 1];
+
+    mentorGuardMode(allTrades);
+    detectEdge(lastTrade);
+    calculateDisciplineScore(allTrades);
+    predictiveAlerts(allTrades);
+
+  }, 120);
+});
 $("accountSize").addEventListener("input", () => {
   localStorage.setItem(ACCOUNT_KEY, $("accountSize").value);
   refreshAll();

@@ -963,91 +963,12 @@ document.querySelectorAll(".tab").forEach(btn => {
 
 // ── CONFIG ──
 const M33 = {
-  
   OVERTRADE_LIMIT : 3,          // trades/día para alertar
   HIGH_RISK_PCT   : 2.0,        // % cuenta que se considera riesgo alto
   MIN_SAMPLE      : 5,          // mínimo de trades para patrones
   THINK_MS        : 2400,       // ms de "pensando"
   CARD_DELAY_MS   : 110,        // ms entre cada card al aparecer
 };
-// =============================
-// 🔥 FUNCIONES MENTOR33 PRO
-// =============================
-
-function m33CheckSample(m){
-  if(m.total < 10){
-    return {
-      type: "warning",
-      title: "Muestra insuficiente",
-      text: `Solo llevas ${m.total} trade(s). Aún no es suficiente para validar un sistema.`,
-      rec: "Necesitas mínimo 20-30 trades para confirmar tu edge."
-    };
-  }
-  return null;
-}
-
-function m33DetectEdgeQ33(rows){
-  const q33 = rows.filter(t => 
-    t.strategy && t.strategy.toLowerCase().includes("q33")
-  );
-
-  if(q33.length < 5) return null;
-
-  const wins = q33.filter(t => t.pnl > 0).length;
-  const winRate = (wins / q33.length) * 100;
-
-  if(winRate >= 60){
-    return {
-      type: "success",
-      title: "Edge detectado (Q33)",
-      text: `Tu sistema Q33 tiene ${winRate.toFixed(1)}% de win rate.`,
-      rec: "Este es tu edge. Enfócate solo en esto."
-    };
-  } else {
-    return {
-      type: "danger",
-      title: "Fallo en ejecución",
-      text: `Tu sistema Q33 tiene ${winRate.toFixed(1)}% de efectividad.`,
-      rec: "No estás ejecutando correctamente tu sistema."
-    };
-  }
-}
-
-function m33DetectTimePerformance(m){
-  const entries = Object.entries(m.byHour);
-  if(entries.length < 3) return null;
-
-  const worst = entries.sort((a,b) => a[1].pnl - b[1].pnl)[0];
-
-  if(worst[1].n >= 3 && worst[1].pnl < 0){
-    return {
-      type: "warning",
-      title: "Horario débil",
-      text: `Tus trades en la hora ${worst[0]}:00 están en pérdida.`,
-      rec: "Evita operar en ese horario."
-    };
-  }
-
-  return null;
-}
-
-function m33DetectOvertrading(m){
-  const days = Object.values(m.byDay);
-  const overDays = days.filter(d => d.n > 3);
-
-  if(overDays.length > 0){
-    return {
-      type: "danger",
-      title: "Sobreoperación",
-      text: "Estás haciendo más de 3 trades por día.",
-      rec: "Menos operaciones, más precisión."
-    };
-  }
-
-  return null;
-}
-
-  
 
 // ── PALETA POR TIPO ──
 const M33_PALETTE = {
@@ -1099,29 +1020,7 @@ function analyzeTrades(rows, m) {
 
   return { rows, m, last5, last10, firstHalf, secondHalf, bestDay, worstDay, bestStrat, worstStrat, overtradeDays, wr1, wr2, highRiskTrades, amTrades, pmTrades };
 }
-function analyzeTrades(rows, m) {
 
-  const insights = [];
-
-  // 🔥 CONEXIÓN MENTOR33
-  const sample = m33CheckSample(m);
-  if(sample) insights.push(sample);
-
-  const edge = m33DetectEdgeQ33(rows);
-  if(edge) insights.push(edge);
-
-  const time = m33DetectTimePerformance(m);
-  if(time) insights.push(time);
-
-  const over = m33DetectOvertrading(m);
-  if(over) insights.push(over);
-
-
-  // Últimos 5 trades
-  const last5 = rows.slice(-5);
-
-
-  
 function _hour(trade){
   if(trade.time) return parseInt(trade.time.split(":")[0], 10);
   return null;

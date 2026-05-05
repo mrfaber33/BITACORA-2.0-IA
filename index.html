@@ -1385,9 +1385,22 @@ function computeMetrics(rows){
   const winRate=total?(wins.length/total)*100:0;
   const pf=grossLossAbs===0?(grossProfit>0?999:0):grossProfit/grossLossAbs;
   const avgR=total?rows.reduce((a,b)=>a+b.r,0)/total:0;
-  let equity=0,peak=0,maxDD=0;
-  rows.forEach(t=>{ equity+=t.pnl; if(equity>peak)peak=equity; const dd=peak-equity; if(dd>maxDD)maxDD=dd; });
-  const maxDDPct=peak>0?(maxDD/peak)*100:0;
+ 
+  const accountSize = getAccountSize() || 10000;
+  let equity = accountSize;
+let peak = accountSize;
+let maxDD = 0;
+
+rows.forEach(t => {
+  equity += t.pnl;
+
+  if (equity > peak) peak = equity;
+
+  const dd = peak - equity;
+
+  if (dd > maxDD) maxDD = dd;
+}); 
+  const maxDDPct = accountSize > 0 ? (maxDD / accountSize) * 100 : 0;
   const avgWinR=wins.length?wins.reduce((a,b)=>a+b.r,0)/wins.length:0;
   const avgLossR=losses.length?Math.abs(losses.reduce((a,b)=>a+b.r,0)/losses.length):0;
   const expectancy=(winRate/100*avgWinR)-((100-winRate)/100*avgLossR);

@@ -177,25 +177,29 @@
       border-color: var(--border-2);
       box-shadow: 0 2px 12px rgba(0,0,0,.3);
     }
-    .tab.mentor-tab {
-      color: var(--green);
-    }
+    .tab.mentor-tab { color: var(--green); }
     .tab.mentor-tab.active {
       color: var(--green);
       background: var(--green-bg);
       border-color: rgba(0,232,122,.25);
       box-shadow: 0 0 16px rgba(0,232,122,.1);
     }
-    /* EDGE33 Calculadora Automática — tab estilo gold */
-    .tab.calc-tab {
-      color: var(--gold);
-    }
+    .tab.calc-tab { color: var(--gold); }
     .tab.calc-tab.active {
       color: var(--gold);
       background: var(--gold-bg);
       border-color: rgba(245,200,66,.25);
       box-shadow: 0 0 16px rgba(245,200,66,.1);
     }
+    /* ── Pestaña Calendario ── */
+    .tab.cal-tab { color: var(--blue); }
+    .tab.cal-tab.active {
+      color: var(--blue);
+      background: var(--blue-bg);
+      border-color: rgba(77,184,255,.25);
+      box-shadow: 0 0 16px rgba(77,184,255,.1);
+    }
+
     .tab-icon { font-size: 14px; }
     .mentor-dot-live {
       width: 6px; height: 6px;
@@ -246,10 +250,7 @@
       white-space: nowrap;
     }
 
-    .account-bar-input-wrap {
-      display: flex;
-      align-items: center;
-    }
+    .account-bar-input-wrap { display: flex; align-items: center; }
     .account-bar-prefix {
       background: rgba(0,232,122,.08);
       border: 1px solid rgba(0,232,122,.2);
@@ -277,10 +278,7 @@
     .account-size-input:focus { border-color: rgba(0,232,122,.35); }
     .account-size-input::placeholder { color: var(--text-3); }
 
-    .account-stats {
-      display: flex;
-      flex: 1;
-    }
+    .account-stats { display: flex; flex: 1; }
     .account-stat {
       flex: 1;
       text-align: center;
@@ -351,11 +349,7 @@
       gap: 12px;
       margin-bottom: 12px;
     }
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
+    .field { display: flex; flex-direction: column; gap: 7px; }
     label {
       font-size: 10px;
       color: var(--text-3);
@@ -1013,7 +1007,6 @@
 
     /* ═══════════════════════════════════════════
        ── CALCULADORA AUTOMÁTICA ──
-       EDGE33 Calculadora Automática
     ═══════════════════════════════════════════ */
     .calc-layout {
       display: grid;
@@ -1022,7 +1015,6 @@
       align-items: start;
     }
 
-    /* Presets de símbolo */
     .calc-presets {
       display: flex;
       gap: 8px;
@@ -1042,11 +1034,7 @@
       transition: all .15s;
       letter-spacing: .3px;
     }
-    .preset-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-      background: var(--gold-bg);
-    }
+    .preset-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-bg); }
     .preset-btn.active {
       border-color: rgba(245,200,66,.4);
       color: var(--gold);
@@ -1054,18 +1042,13 @@
       box-shadow: 0 0 10px rgba(245,200,66,.08);
     }
 
-    /* Form calculadora */
     .calc-form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
       margin-bottom: 16px;
     }
-    .calc-field {
-      display: flex;
-      flex-direction: column;
-      gap: 7px;
-    }
+    .calc-field { display: flex; flex-direction: column; gap: 7px; }
     .calc-field label {
       font-size: 10px;
       color: var(--text-3);
@@ -1074,7 +1057,6 @@
       font-family: var(--mono);
     }
 
-    /* Botón calcular */
     .btn-calc {
       width: 100%;
       background: var(--gold);
@@ -1094,7 +1076,6 @@
       transform: translateY(-1px);
     }
 
-    /* Resultados */
     .calc-results {
       background: var(--panel);
       border: 1px solid var(--border);
@@ -1102,7 +1083,6 @@
       overflow: hidden;
       box-shadow: var(--shadow);
     }
-
     .calc-results-header {
       padding: 16px 20px;
       background: linear-gradient(135deg, var(--panel-2), var(--panel-3));
@@ -1140,14 +1120,8 @@
       line-height: 1;
       transition: all .3s;
     }
-    .calc-lot-unit {
-      font-family: var(--mono);
-      font-size: 14px;
-      color: var(--text-3);
-      font-weight: 500;
-    }
+    .calc-lot-unit { font-family: var(--mono); font-size: 14px; color: var(--text-3); font-weight: 500; }
 
-    /* Grid de resultados secundarios */
     .calc-result-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1179,7 +1153,6 @@
     .calc-result-value.highlight-green { color: var(--green); }
     .calc-result-value.highlight-blue { color: var(--blue); }
 
-    /* Warning de riesgo alto */
     .calc-risk-warning {
       margin: 12px 20px;
       padding: 10px 14px;
@@ -1196,7 +1169,6 @@
     }
     .calc-risk-warning.visible { display: flex; }
 
-    /* Estado vacío resultados */
     .calc-empty {
       padding: 40px 20px;
       text-align: center;
@@ -1205,7 +1177,6 @@
     .calc-empty-icon { font-size: 32px; margin-bottom: 12px; opacity: .4; }
     .calc-empty-text { font-size: 12px; font-family: var(--mono); line-height: 1.6; }
 
-    /* Nota educativa */
     .calc-edu-box {
       margin: 0 20px 20px;
       padding: 12px 14px;
@@ -1222,6 +1193,353 @@
     .calc-edu-icon { flex-shrink: 0; font-size: 13px; }
 
     /* ═══════════════════════════════════════════
+       ── CALENDARIO ── (nuevo)
+    ═══════════════════════════════════════════ */
+
+    /* Header del calendario */
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .cal-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cal-nav-btn {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text-2);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .15s;
+      padding: 0;
+    }
+    .cal-nav-btn:hover {
+      background: var(--panel-2);
+      border-color: var(--border-2);
+      color: var(--text);
+    }
+
+    .cal-month-label {
+      font-family: var(--display);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -.2px;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    /* Switch dólares / porcentaje */
+    .cal-mode-switch {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .cal-mode-btn {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all .15s;
+      letter-spacing: .3px;
+    }
+    .cal-mode-btn:hover { color: var(--text-2); background: var(--panel-2); }
+    .cal-mode-btn.active {
+      background: var(--blue-bg);
+      color: var(--blue);
+      border-color: transparent;
+    }
+
+    /* Botón hoy */
+    .cal-today-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 8px 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all .15s;
+      letter-spacing: .4px;
+    }
+    .cal-today-btn:hover {
+      border-color: rgba(77,184,255,.35);
+      color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    /* Resumen mensual */
+    .cal-summary-bar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .cal-sum-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      transition: border-color .2s;
+    }
+    .cal-sum-card:hover { border-color: var(--border-2); }
+    .cal-sum-lbl {
+      font-size: 9px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      font-family: var(--mono);
+      margin-bottom: 6px;
+    }
+    .cal-sum-val {
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    /* Días de la semana */
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+    .cal-wd {
+      text-align: center;
+      font-size: 10px;
+      font-family: var(--mono);
+      font-weight: 600;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      padding: 6px 0;
+    }
+
+    /* Grid de días */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    /* Celda de día */
+    .cal-day {
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-sm);
+      padding: 10px 10px 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform .15s, border-color .15s, box-shadow .15s;
+      min-height: 80px;
+    }
+
+    /* Estado: vacío (sin trades) */
+    .cal-day.empty-day {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      cursor: default;
+    }
+
+    /* Estado: fuera del mes */
+    .cal-day.out-month {
+      background: transparent;
+      border: 1px solid rgba(30,46,63,.4);
+      opacity: .35;
+      cursor: default;
+    }
+
+    /* Estado: positivo */
+    .cal-day.positive-day {
+      background: rgba(0,232,122,.06);
+      border: 1px solid rgba(0,232,122,.22);
+      cursor: pointer;
+    }
+    .cal-day.positive-day:hover {
+      transform: translateY(-2px);
+      border-color: rgba(0,232,122,.5);
+      box-shadow: 0 6px 24px rgba(0,232,122,.15);
+      background: rgba(0,232,122,.1);
+    }
+
+    /* Estado: negativo */
+    .cal-day.negative-day {
+      background: rgba(255,77,106,.06);
+      border: 1px solid rgba(255,77,106,.22);
+      cursor: pointer;
+    }
+    .cal-day.negative-day:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,77,106,.5);
+      box-shadow: 0 6px 24px rgba(255,77,106,.15);
+      background: rgba(255,77,106,.1);
+    }
+
+    /* Hoy */
+    .cal-day.today-day {
+      box-shadow: inset 0 0 0 2px rgba(77,184,255,.5);
+    }
+    .cal-day.today-day .cal-day-num {
+      color: var(--blue);
+    }
+
+    /* Número del día */
+    .cal-day-num {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-3);
+      line-height: 1;
+    }
+    .cal-day.positive-day .cal-day-num { color: rgba(0,232,122,.7); }
+    .cal-day.negative-day .cal-day-num { color: rgba(255,77,106,.7); }
+
+    /* P&L del día */
+    .cal-day-pnl {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+      margin-top: auto;
+    }
+    .cal-day.positive-day .cal-day-pnl { color: var(--green); }
+    .cal-day.negative-day .cal-day-pnl { color: var(--red); }
+
+    /* Cantidad de trades */
+    .cal-day-trades {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--text-3);
+      letter-spacing: .4px;
+      margin-top: 3px;
+    }
+    .cal-day.positive-day .cal-day-trades { color: rgba(0,232,122,.5); }
+    .cal-day.negative-day .cal-day-trades { color: rgba(255,77,106,.5); }
+
+    /* Barra de indicador inferior */
+    .cal-day::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+      background: transparent;
+      transition: background .15s;
+    }
+    .cal-day.positive-day::after { background: rgba(0,232,122,.4); }
+    .cal-day.negative-day::after { background: rgba(255,77,106,.4); }
+
+    /* Tooltip de día al hover */
+    .cal-day-tooltip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--panel-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      white-space: nowrap;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-2);
+      line-height: 1.6;
+      z-index: 50;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .15s;
+      box-shadow: var(--shadow-lg);
+    }
+    .cal-day-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%; left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: var(--border-2);
+    }
+    .cal-day:hover .cal-day-tooltip { opacity: 1; }
+
+    /* Heatmap bar mensual (compacto) */
+    .cal-heatbar {
+      margin-top: 20px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+    }
+    .cal-heatbar-title {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-2);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cal-heatbar-lbl {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--text-3);
+      letter-spacing: .5px;
+    }
+    .cal-heat-row {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+      height: 48px;
+    }
+    .cal-heat-bar {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      min-height: 3px;
+      transition: all .2s;
+      cursor: default;
+      position: relative;
+    }
+    .cal-heat-bar:hover { opacity: .75; }
+
+    /* Estado vacío del calendario */
+    .cal-empty-state {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--text-3);
+    }
+    .cal-empty-icon { font-size: 40px; margin-bottom: 14px; opacity: .4; }
+    .cal-empty-text { font-size: 13px; font-family: var(--mono); line-height: 1.7; }
+
+    /* ═══════════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════════ */
     @media (max-width: 1200px) {
@@ -1233,18 +1551,33 @@
       .insights-grid    { grid-template-columns: 1fr; }
       .account-stats    { flex-wrap: wrap; }
       .calc-layout      { grid-template-columns: 1fr; }
+      .cal-summary-bar  { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 760px) {
-      .grid-metrics  { grid-template-columns: repeat(2, 1fr); }
-      .form-grid     { grid-template-columns: repeat(2, 1fr); }
-      .topbar        { flex-direction: column; align-items: flex-start; }
-      .tabs          { flex-wrap: wrap; }
-      .account-bar   { flex-wrap: wrap; }
+      .grid-metrics     { grid-template-columns: repeat(2, 1fr); }
+      .form-grid        { grid-template-columns: repeat(2, 1fr); }
+      .topbar           { flex-direction: column; align-items: flex-start; }
+      .tabs             { flex-wrap: wrap; }
+      .account-bar      { flex-wrap: wrap; }
       .account-size-input { width: 120px; }
-      .edge-card-inner { flex-wrap: wrap; }
-      .edge-status   { margin-left: 0; }
-      .calc-form-grid { grid-template-columns: 1fr; }
+      .edge-card-inner  { flex-wrap: wrap; }
+      .edge-status      { margin-left: 0; }
+      .calc-form-grid   { grid-template-columns: 1fr; }
       .calc-result-grid { grid-template-columns: 1fr; }
+      /* Calendario responsive */
+      .cal-summary-bar  { grid-template-columns: repeat(2, 1fr); }
+      .cal-header       { flex-direction: column; align-items: flex-start; }
+      .cal-month-label  { font-size: 18px; }
+      .cal-day          { min-height: 60px; padding: 7px 7px 6px; }
+      .cal-day-pnl      { font-size: 11px; }
+      .cal-day-num      { font-size: 11px; }
+      .cal-day-trades   { font-size: 8px; }
+    }
+    @media (max-width: 480px) {
+      .cal-summary-bar  { grid-template-columns: 1fr 1fr; }
+      .cal-day          { min-height: 50px; padding: 5px 5px 4px; }
+      .cal-day-pnl      { font-size: 10px; }
+      .cal-wd           { font-size: 8px; letter-spacing: .3px; }
     }
   </style>
 </head>
@@ -1274,9 +1607,12 @@
         <div class="mentor-dot-live"></div>
         🤖 Mentor33
       </button>
-      <!-- EDGE33 Calculadora Automática — nueva pestaña -->
       <button class="tab calc-tab" data-tab="calculadora">
         <span class="tab-icon">🧮</span> Calculadora
+      </button>
+      <!-- ✅ NUEVA PESTAÑA CALENDARIO -->
+      <button class="tab cal-tab" data-tab="calendario">
+        <span class="tab-icon">📅</span> Calendario
       </button>
     </div>
   </div>
@@ -1518,12 +1854,10 @@
 
   <!-- ══════════════════════════════════════════
        PANEL: CALCULADORA AUTOMÁTICA
-       EDGE33 Calculadora Automática
   ══════════════════════════════════════════ -->
   <section id="calculadora" class="panel">
     <div class="calc-layout">
 
-      <!-- Columna izquierda: Formulario -->
       <div>
         <div class="card">
           <div class="card-header">
@@ -1531,7 +1865,6 @@
           </div>
           <div class="card-body">
 
-            <!-- Presets rápidos de símbolo -->
             <div style="margin-bottom:10px;">
               <label style="display:block;margin-bottom:8px;">Presets rápidos</label>
               <div class="calc-presets">
@@ -1544,7 +1877,6 @@
 
             <div class="divider"></div>
 
-            <!-- Campos del formulario -->
             <div class="calc-form-grid">
               <div class="calc-field">
                 <label>Símbolo</label>
@@ -1579,7 +1911,6 @@
             <button class="btn-calc" onclick="calculateAutoLot()">⚡ Calcular lotaje</button>
           </div>
 
-          <!-- Nota educativa -->
           <div style="padding:0 20px 20px;">
             <div class="calc-edu-box">
               <span class="calc-edu-icon">💡</span>
@@ -1589,7 +1920,6 @@
         </div>
       </div>
 
-      <!-- Columna derecha: Resultados -->
       <div class="calc-results">
         <div class="calc-results-header">
           <div class="calc-results-title">Resultado calculado</div>
@@ -1599,19 +1929,16 @@
           </div>
         </div>
 
-        <!-- Warning riesgo alto -->
         <div class="calc-risk-warning" id="calc-risk-warning">
           <span>⚠️</span>
           <span>Riesgo alto para cuenta de fondeo. Se recomienda no superar el 2% de riesgo por operación.</span>
         </div>
 
-        <!-- Estado vacío -->
         <div class="calc-empty" id="calc-empty-state">
           <div class="calc-empty-icon">🎯</div>
           <div class="calc-empty-text">Ingresa los datos del formulario<br>y presiona "Calcular lotaje"<br>para ver los resultados aquí.</div>
         </div>
 
-        <!-- Grid de resultados -->
         <div class="calc-result-grid" id="calc-result-grid" style="display:none;">
           <div class="calc-result-item">
             <div class="calc-result-label">Riesgo en USD</div>
@@ -1631,14 +1958,82 @@
           </div>
         </div>
 
-        <!-- Nota educativa abajo -->
-        <div class="calc-edu-box" style="margin:16px 20px 20px;" id="calc-formula-box" style="display:none;">
+        <div class="calc-edu-box" style="margin:16px 20px 20px;" id="calc-formula-box">
           <span class="calc-edu-icon">📐</span>
           <span id="calc-formula-text">—</span>
         </div>
       </div>
 
     </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════
+       PANEL: CALENDARIO  ✅ NUEVO
+  ══════════════════════════════════════════ -->
+  <section id="calendario" class="panel">
+
+    <!-- Header: navegación + switch modo -->
+    <div class="cal-header">
+      <div class="cal-nav">
+        <button class="cal-nav-btn" id="calPrevBtn">‹</button>
+        <div class="cal-month-label" id="calMonthLabel">Mayo 2026</div>
+        <button class="cal-nav-btn" id="calNextBtn">›</button>
+        <button class="cal-today-btn" id="calTodayBtn">Hoy</button>
+      </div>
+
+      <div class="cal-mode-switch">
+        <button class="cal-mode-btn active" id="calModeDollar" onclick="setCalMode('dollar')">$ USD</button>
+        <button class="cal-mode-btn" id="calModePct" onclick="setCalMode('pct')">% Cuenta</button>
+      </div>
+    </div>
+
+    <!-- Resumen mensual -->
+    <div class="cal-summary-bar" id="calSummaryBar">
+      <div class="cal-sum-card">
+        <div class="cal-sum-lbl">P&L del Mes</div>
+        <div class="cal-sum-val" id="calSumPnl">—</div>
+      </div>
+      <div class="cal-sum-card">
+        <div class="cal-sum-lbl">Días positivos</div>
+        <div class="cal-sum-val green" id="calSumWinDays">—</div>
+      </div>
+      <div class="cal-sum-card">
+        <div class="cal-sum-lbl">Días negativos</div>
+        <div class="cal-sum-val red" id="calSumLossDays">—</div>
+      </div>
+      <div class="cal-sum-card">
+        <div class="cal-sum-lbl">Operaciones</div>
+        <div class="cal-sum-val blue" id="calSumTrades">—</div>
+      </div>
+      <div class="cal-sum-card">
+        <div class="cal-sum-lbl">Win Rate días</div>
+        <div class="cal-sum-val gold" id="calSumWinRate">—</div>
+      </div>
+    </div>
+
+    <!-- Días de la semana -->
+    <div class="cal-weekdays">
+      <div class="cal-wd">Lun</div>
+      <div class="cal-wd">Mar</div>
+      <div class="cal-wd">Mié</div>
+      <div class="cal-wd">Jue</div>
+      <div class="cal-wd">Vie</div>
+      <div class="cal-wd">Sáb</div>
+      <div class="cal-wd">Dom</div>
+    </div>
+
+    <!-- Grid del calendario -->
+    <div class="cal-grid" id="calGrid"></div>
+
+    <!-- Heatbar mensual -->
+    <div class="cal-heatbar" id="calHeatbar" style="display:none;">
+      <div class="cal-heatbar-title">
+        <span>Distribución diaria del mes</span>
+        <span class="cal-heatbar-lbl" id="calHeatbarLbl">P&L por día</span>
+      </div>
+      <div class="cal-heat-row" id="calHeatRow"></div>
+    </div>
+
   </section>
 
 </div><!-- /wrap -->
@@ -2032,7 +2427,13 @@ function resetForm(){
   $("direction").value="Long"; $("date").value=todayStr();
 }
 
-function refreshAll(){ updateMetrics(); renderTable(); renderCharts(); renderAnalysis(); }
+function refreshAll(){
+  updateMetrics();
+  renderTable();
+  renderCharts();
+  renderAnalysis();
+  renderCalendar(); // ✅ El calendario también se actualiza
+}
 
 /* ════════════════════════════════════════════════════════════
    EVENTS — Buttons
@@ -2102,6 +2503,8 @@ document.querySelectorAll(".tab").forEach(btn=>{
     const panel=document.getElementById(btn.dataset.tab);
     if(panel)panel.classList.add("active");
     renderCharts();
+    // Renderizar calendario al cambiar a esa pestaña
+    if(btn.dataset.tab === "calendario") renderCalendar();
   });
 });
 
@@ -2301,58 +2704,29 @@ function showAlert(type,title,msg){
 
 /* ════════════════════════════════════════════════════════════
    EDGE33 Calculadora Automática
-   Storage key para persistir configuración
 ════════════════════════════════════════════════════════════ */
 const CALC_STORAGE_KEY = "edge33_auto_calculator_v1";
 
-// Presets de símbolos
-// EDGE33 Calculadora Automática — tabla de presets
 const SYMBOL_PRESETS = {
-  XAUUSD: {
-    symbol:    "XAUUSD",
-    punto:     0.01,
-    valorPunto: 1,
-    loteMin:   0.01,
-  },
-  NAS100: {
-    symbol:    "NAS100",
-    punto:     1,
-    valorPunto: 1,
-    loteMin:   0.1,
-  },
-  BTCUSD: {
-    symbol:    "BTCUSD",
-    punto:     1,
-    valorPunto: 1,
-    loteMin:   0.01,
-  },
-  EURUSD: {
-    symbol:    "EURUSD",
-    punto:     0.0001,
-    valorPunto: 10,
-    loteMin:   0.01,
-  },
+  XAUUSD: { symbol:"XAUUSD", punto:0.01, valorPunto:1, loteMin:0.01 },
+  NAS100: { symbol:"NAS100", punto:1,    valorPunto:1, loteMin:0.1  },
+  BTCUSD: { symbol:"BTCUSD", punto:1,    valorPunto:1, loteMin:0.01 },
+  EURUSD: { symbol:"EURUSD", punto:0.0001,valorPunto:10,loteMin:0.01},
 };
 
-// EDGE33 Calculadora Automática — aplicar preset de símbolo
 function applySymbolPreset(key) {
   const preset = SYMBOL_PRESETS[key];
   if (!preset) return;
-
-  $("calc-symbol").value     = preset.symbol;
-  $("calc-punto").value      = preset.punto;
+  $("calc-symbol").value      = preset.symbol;
+  $("calc-punto").value       = preset.punto;
   $("calc-valor-punto").value = preset.valorPunto;
-  $("calc-lote-min").value   = preset.loteMin;
-
-  // Actualizar estado visual de botones
+  $("calc-lote-min").value    = preset.loteMin;
   document.querySelectorAll(".preset-btn").forEach(btn => {
     btn.classList.toggle("active", btn.dataset.preset === key);
   });
-
   saveAutoCalculatorSettings();
 }
 
-// EDGE33 Calculadora Automática — guardar settings en localStorage
 function saveAutoCalculatorSettings() {
   const settings = {
     symbol:     $("calc-symbol").value,
@@ -2366,15 +2740,10 @@ function saveAutoCalculatorSettings() {
   localStorage.setItem(CALC_STORAGE_KEY, JSON.stringify(settings));
 }
 
-// EDGE33 Calculadora Automática — cargar settings desde localStorage
 function loadAutoCalculatorSettings() {
   try {
     const raw = localStorage.getItem(CALC_STORAGE_KEY);
-    if (!raw) {
-      // Valores por defecto: XAUUSD
-      applySymbolPreset("XAUUSD");
-      return;
-    }
+    if (!raw) { applySymbolPreset("XAUUSD"); return; }
     const s = JSON.parse(raw);
     if (s.symbol)     $("calc-symbol").value      = s.symbol;
     if (s.balance)    $("calc-balance").value      = s.balance;
@@ -2383,20 +2752,14 @@ function loadAutoCalculatorSettings() {
     if (s.punto)      $("calc-punto").value        = s.punto;
     if (s.valorPunto) $("calc-valor-punto").value  = s.valorPunto;
     if (s.loteMin)    $("calc-lote-min").value     = s.loteMin;
-
-    // Marcar el preset activo si coincide
     const sym = (s.symbol || "").toUpperCase();
     document.querySelectorAll(".preset-btn").forEach(btn => {
       btn.classList.toggle("active", btn.dataset.preset === sym);
     });
-  } catch(e) {
-    applySymbolPreset("XAUUSD");
-  }
+  } catch(e) { applySymbolPreset("XAUUSD"); }
 }
 
-// EDGE33 Calculadora Automática — función principal de cálculo
 function calculateAutoLot() {
-  // Leer valores
   const balance    = parseFloat($("calc-balance").value);
   const riesgoPct  = parseFloat($("calc-riesgo").value);
   const distanciaSL = parseFloat($("calc-sl").value);
@@ -2404,101 +2767,333 @@ function calculateAutoLot() {
   const valPunto   = parseFloat($("calc-valor-punto").value);
   const loteMin    = parseFloat($("calc-lote-min").value);
 
-  // Validaciones
-  if (isNaN(balance) || balance <= 0) {
-    showAlert("warning", "⚠️ Dato faltante", "Ingresa el balance de la cuenta.");
-    return;
-  }
-  if (isNaN(riesgoPct) || riesgoPct <= 0) {
-    showAlert("warning", "⚠️ Dato faltante", "Ingresa el porcentaje de riesgo.");
-    return;
-  }
-  if (isNaN(distanciaSL) || distanciaSL <= 0) {
-    showAlert("warning", "⚠️ Stop Loss inválido", "La distancia del Stop Loss debe ser mayor a 0.");
-    return;
-  }
-  if (isNaN(tamPunto) || tamPunto <= 0) {
-    showAlert("warning", "⚠️ Dato faltante", "Ingresa el tamaño de punto.");
-    return;
-  }
-  if (isNaN(valPunto) || valPunto <= 0) {
-    showAlert("warning", "⚠️ Dato faltante", "Ingresa el valor por punto por lote.");
-    return;
-  }
-  if (isNaN(loteMin) || loteMin <= 0) {
-    showAlert("warning", "⚠️ Dato faltante", "Ingresa el tamaño mínimo de lote.");
-    return;
-  }
+  if (isNaN(balance)    || balance <= 0)     { showAlert("warning","⚠️ Dato faltante","Ingresa el balance de la cuenta."); return; }
+  if (isNaN(riesgoPct)  || riesgoPct <= 0)   { showAlert("warning","⚠️ Dato faltante","Ingresa el porcentaje de riesgo."); return; }
+  if (isNaN(distanciaSL)|| distanciaSL <= 0) { showAlert("warning","⚠️ Stop Loss inválido","La distancia del Stop Loss debe ser mayor a 0."); return; }
+  if (isNaN(tamPunto)   || tamPunto <= 0)    { showAlert("warning","⚠️ Dato faltante","Ingresa el tamaño de punto."); return; }
+  if (isNaN(valPunto)   || valPunto <= 0)    { showAlert("warning","⚠️ Dato faltante","Ingresa el valor por punto por lote."); return; }
+  if (isNaN(loteMin)    || loteMin <= 0)     { showAlert("warning","⚠️ Dato faltante","Ingresa el tamaño mínimo de lote."); return; }
 
-  // ── Fórmulas principales ──
-  // Riesgo en USD
-  const riesgoUSD = balance * (riesgoPct / 100);
-
-  // SL en puntos
-  const slPuntos = distanciaSL / tamPunto;
-
-  // Lotaje crudo
-  const lotajeCrudo = riesgoUSD / (slPuntos * valPunto);
-
-  // Redondear al lote mínimo (hacia abajo)
-  const decimalesMin = calcDecimals(loteMin);
-  const lotajeRedondeado = Math.floor(lotajeCrudo / loteMin) * loteMin;
-  const lotajeFinal = parseFloat(lotajeRedondeado.toFixed(decimalesMin));
-
-  // Pérdida aproximada con el lote final
-  const perdidaAprox = slPuntos * valPunto * lotajeFinal;
-
-  // Valor por punto con el lote calculado
+  const riesgoUSD       = balance * (riesgoPct / 100);
+  const slPuntos        = distanciaSL / tamPunto;
+  const lotajeCrudo     = riesgoUSD / (slPuntos * valPunto);
+  const decimalesMin    = calcDecimals(loteMin);
+  const lotajeRedondeado= Math.floor(lotajeCrudo / loteMin) * loteMin;
+  const lotajeFinal     = parseFloat(lotajeRedondeado.toFixed(decimalesMin));
+  const perdidaAprox    = slPuntos * valPunto * lotajeFinal;
   const valPuntoConLote = valPunto * lotajeFinal;
 
-  // Guardar settings
   saveAutoCalculatorSettings();
 
-  // ── Mostrar resultados ──
-  // Lote principal
-  $("calc-result-lot").textContent = lotajeFinal > 0 ? lotajeFinal.toFixed(decimalesMin) : "0";
+  $("calc-result-lot").textContent            = lotajeFinal > 0 ? lotajeFinal.toFixed(decimalesMin) : "0";
+  $("calc-res-riesgo-usd").textContent        = money(riesgoUSD);
+  $("calc-res-sl-puntos").textContent         = fmt(slPuntos, 0) + " pts";
+  $("calc-res-perdida").textContent           = money(perdidaAprox);
+  $("calc-res-valor-punto-lote").textContent  = money(valPuntoConLote) + "/pto";
 
-  // Grid de resultados secundarios
-  $("calc-res-riesgo-usd").textContent    = money(riesgoUSD);
-  $("calc-res-sl-puntos").textContent     = fmt(slPuntos, 0) + " pts";
-  $("calc-res-perdida").textContent       = money(perdidaAprox);
-  $("calc-res-valor-punto-lote").textContent = money(valPuntoConLote) + "/pto";
+  $("calc-empty-state").style.display  = "none";
+  $("calc-result-grid").style.display  = "grid";
 
-  // Mostrar/ocultar secciones
-  $("calc-empty-state").style.display = "none";
-  $("calc-result-grid").style.display = "grid";
-
-  // Fórmula detallada
   const formulaText = `Balance $${balance.toLocaleString()} × ${riesgoPct}% = ${money(riesgoUSD)} riesgo · SL: ${distanciaSL} ÷ ${tamPunto} = ${fmt(slPuntos,0)} pts · Lote = ${money(riesgoUSD)} ÷ (${fmt(slPuntos,0)} × $${valPunto}) = ${lotajeFinal.toFixed(decimalesMin)} lotes`;
-  $("calc-formula-text").textContent = formulaText;
-  $("calc-formula-box").style.display = "flex";
+  $("calc-formula-text").textContent   = formulaText;
+  $("calc-formula-box").style.display  = "flex";
 
-  // Warning si riesgo > 2%
-  const warningEl = $("calc-risk-warning");
-  warningEl.classList.toggle("visible", riesgoPct > 2);
-
-  // Alerta de éxito
-  showAlert("success", "✅ Cálculo completado", `Lotaje recomendado: ${lotajeFinal.toFixed(decimalesMin)} lotes para ${$("calc-symbol").value || "el activo"}.`);
+  $("calc-risk-warning").classList.toggle("visible", riesgoPct > 2);
+  showAlert("success","✅ Cálculo completado",`Lotaje recomendado: ${lotajeFinal.toFixed(decimalesMin)} lotes para ${$("calc-symbol").value || "el activo"}.`);
 }
 
-// Función auxiliar: contar decimales de un número (ej: 0.01 → 2, 0.10 → 2, 0.001 → 3)
 function calcDecimals(n) {
   const s = n.toString();
   const dot = s.indexOf(".");
   return dot === -1 ? 0 : s.length - dot - 1;
 }
 
-// Auto-guardar settings al cambiar cualquier campo de la calculadora
 ["calc-symbol","calc-balance","calc-riesgo","calc-sl","calc-punto","calc-valor-punto","calc-lote-min"].forEach(id => {
   const el = $(id);
   if (el) el.addEventListener("input", saveAutoCalculatorSettings);
 });
 
 /* ════════════════════════════════════════════════════════════
+   ██████╗  █████╗ ██╗     ███████╗███╗   ██╗██████╗  █████╗ ██████╗ ██╗ ██████╗
+   ██╔════╝██╔══██╗██║     ██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔══██╗██║██╔═══██╗
+   ██║     ███████║██║     █████╗  ██╔██╗ ██║██║  ██║███████║██████╔╝██║██║   ██║
+   ██║     ██╔══██║██║     ██╔══╝  ██║╚██╗██║██║  ██║██╔══██║██╔══██╗██║██║   ██║
+   ╚██████╗██║  ██║███████╗███████╗██║ ╚████║██████╔╝██║  ██║██║  ██║██║╚██████╔╝
+    ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝
+
+   EDGE33 — PESTAÑA CALENDARIO
+   Funciones nuevas:
+     · calState          → Estado del calendario (mes, año, modo)
+     · setCalMode()      → Alterna entre dólares y porcentaje
+     · buildDayMap()     → Agrupa trades por fecha y calcula P&L diario
+     · renderCalendar()  → Dibuja el calendario completo
+     · renderCalSummary()→ Tarjetas de resumen mensual
+     · renderHeatbar()   → Barra de distribución diaria
+     · calPrevBtn/Next   → Navegación mensual
+     · calTodayBtn       → Ir al mes actual
+════════════════════════════════════════════════════════════ */
+
+/* ── Estado del calendario ── */
+const calState = {
+  year:  new Date().getFullYear(),
+  month: new Date().getMonth(),   // 0-indexed
+  mode:  'dollar',                // 'dollar' | 'pct'
+};
+
+const CAL_MONTHS_ES = [
+  "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+  "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+];
+
+/* ── Cambiar modo dólares / porcentaje ── */
+function setCalMode(mode) {
+  calState.mode = mode;
+  $("calModeDollar").classList.toggle("active", mode === 'dollar');
+  $("calModePct").classList.toggle("active",    mode === 'pct');
+  renderCalendar();
+}
+
+/* ── Construir mapa de días: { "YYYY-MM-DD": { pnl, pnlPctAccount, count } } ── */
+function buildDayMap() {
+  const rows = getComputedTrades();
+  const map  = {};
+  rows.forEach(t => {
+    const key = t.date;
+    if (!key) return;
+    if (!map[key]) map[key] = { pnl: 0, pnlPctAccount: 0, count: 0 };
+    map[key].pnl            += t.pnl;
+    map[key].pnlPctAccount  += (t.pnlPctAccount || 0);
+    map[key].count          += 1;
+  });
+  return map;
+}
+
+/* ── Formatear valor según modo ── */
+function formatCalValue(dayData) {
+  if (!dayData) return '';
+  if (calState.mode === 'pct') {
+    const v = dayData.pnlPctAccount;
+    const sign = v >= 0 ? '+' : '';
+    return `${sign}${fmt(v, 2)}%`;
+  } else {
+    const v = dayData.pnl;
+    const sign = v >= 0 ? '+' : '';
+    const abs  = Math.abs(v);
+    // Formato compacto para valores grandes
+    if (abs >= 10000) return `${sign}$${(v/1000).toFixed(1)}k`;
+    return `${sign}${money(v)}`;
+  }
+}
+
+/* ── Renderizar resumen mensual ── */
+function renderCalSummary(dayMap, year, month) {
+  // Solo días de este mes
+  const prefix = `${year}-${String(month+1).padStart(2,'0')}-`;
+  const monthDays = Object.entries(dayMap).filter(([k]) => k.startsWith(prefix));
+
+  if (!monthDays.length) {
+    $("calSumPnl").textContent      = "—";
+    $("calSumPnl").className        = "cal-sum-val";
+    $("calSumWinDays").textContent  = "0";
+    $("calSumLossDays").textContent = "0";
+    $("calSumTrades").textContent   = "0";
+    $("calSumWinRate").textContent  = "—";
+    return;
+  }
+
+  let totalPnl   = 0;
+  let winDays    = 0;
+  let lossDays   = 0;
+  let totalTrades= 0;
+
+  monthDays.forEach(([, d]) => {
+    totalPnl    += d.pnl;
+    totalTrades += d.count;
+    if (d.pnl > 0) winDays++;
+    else if (d.pnl < 0) lossDays++;
+  });
+
+  const tradingDays = winDays + lossDays;
+  const winRateDays = tradingDays > 0 ? (winDays / tradingDays * 100) : 0;
+
+  // P&L del mes — mostrar según modo
+  const accountSize = getAccountSize();
+  if (calState.mode === 'pct' && accountSize > 0) {
+    const pnlPct = (totalPnl / accountSize) * 100;
+    const sign   = pnlPct >= 0 ? '+' : '';
+    $("calSumPnl").textContent = `${sign}${fmt(pnlPct, 2)}%`;
+  } else {
+    $("calSumPnl").textContent = (totalPnl >= 0 ? '+' : '') + money(totalPnl);
+  }
+  $("calSumPnl").className = `cal-sum-val ${totalPnl >= 0 ? 'green' : 'red'}`;
+
+  $("calSumWinDays").textContent  = winDays;
+  $("calSumLossDays").textContent = lossDays;
+  $("calSumTrades").textContent   = totalTrades;
+  $("calSumWinRate").textContent  = tradingDays > 0 ? `${fmt(winRateDays, 1)}%` : "—";
+}
+
+/* ── Renderizar heatbar ── */
+function renderHeatbar(dayMap, year, month) {
+  const prefix    = `${year}-${String(month+1).padStart(2,'0')}-`;
+  const monthDays = Object.entries(dayMap)
+    .filter(([k]) => k.startsWith(prefix))
+    .sort(([a],[b]) => a.localeCompare(b));
+
+  const heatbar = $("calHeatbar");
+  const heatRow = $("calHeatRow");
+
+  if (!monthDays.length) {
+    heatbar.style.display = "none";
+    return;
+  }
+  heatbar.style.display = "block";
+
+  const values = monthDays.map(([,d]) => d.pnl);
+  const maxAbs = Math.max(...values.map(Math.abs), 1);
+
+  heatRow.innerHTML = monthDays.map(([date, d]) => {
+    const ratio   = Math.abs(d.pnl) / maxAbs;
+    const heightPx= Math.max(4, Math.round(ratio * 44));
+    const color   = d.pnl >= 0 ? 'rgba(0,232,122,.7)' : 'rgba(255,77,106,.7)';
+    const dayNum  = date.split('-')[2];
+    const label   = calState.mode === 'pct'
+      ? `Día ${dayNum}: ${formatCalValue(d)}`
+      : `Día ${dayNum}: ${money(d.pnl)} (${d.count} trade${d.count!==1?'s':''})`;
+    return `<div class="cal-heat-bar"
+      style="height:${heightPx}px;background:${color};"
+      title="${label}"></div>`;
+  }).join('');
+
+  $("calHeatbarLbl").textContent = calState.mode === 'pct' ? '% cuenta por día' : 'P&L por día';
+}
+
+/* ── Renderizar el calendario completo ── */
+function renderCalendar() {
+  const { year, month } = calState;
+  const today           = new Date();
+  const dayMap          = buildDayMap();
+
+  // Label del mes
+  $("calMonthLabel").textContent = `${CAL_MONTHS_ES[month]} ${year}`;
+
+  // Primer día del mes (JS: 0=Dom … adaptamos a Lun=0)
+  const firstDay      = new Date(year, month, 1);
+  const lastDay       = new Date(year, month + 1, 0);
+  const daysInMonth   = lastDay.getDate();
+
+  // Offset: JS domingo=0, queremos lunes=0
+  let startOffset = firstDay.getDay() - 1;
+  if (startOffset < 0) startOffset = 6; // domingo → 6
+
+  // Último mes para rellenar celdas previas
+  const daysLastMonth = new Date(year, month, 0).getDate();
+
+  const grid = $("calGrid");
+  grid.innerHTML = '';
+
+  const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7;
+
+  for (let i = 0; i < totalCells; i++) {
+    const cell = document.createElement("div");
+
+    if (i < startOffset) {
+      // Días del mes anterior
+      const dayNum = daysLastMonth - startOffset + i + 1;
+      cell.className = "cal-day out-month";
+      cell.innerHTML = `<span class="cal-day-num">${dayNum}</span>`;
+
+    } else if (i >= startOffset + daysInMonth) {
+      // Días del mes siguiente
+      const dayNum = i - startOffset - daysInMonth + 1;
+      cell.className = "cal-day out-month";
+      cell.innerHTML = `<span class="cal-day-num">${dayNum}</span>`;
+
+    } else {
+      // Días del mes actual
+      const dayNum  = i - startOffset + 1;
+      const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;
+      const data    = dayMap[dateKey];
+
+      // ¿Es hoy?
+      const isToday = (
+        today.getFullYear() === year &&
+        today.getMonth()    === month &&
+        today.getDate()     === dayNum
+      );
+
+      let dayClass = "cal-day";
+      if (isToday) dayClass += " today-day";
+
+      if (data) {
+        if (data.pnl > 0)      dayClass += " positive-day";
+        else if (data.pnl < 0) dayClass += " negative-day";
+        else                   dayClass += " empty-day"; // breakeven
+      } else {
+        dayClass += " empty-day";
+      }
+
+      cell.className = dayClass;
+
+      // Tooltip con detalle
+      let tooltipHtml = '';
+      if (data) {
+        const pnlStr     = money(data.pnl);
+        const accountSize= getAccountSize();
+        const pctStr     = accountSize > 0
+          ? ` (${fmt((data.pnl/accountSize)*100, 2)}%)`
+          : '';
+        tooltipHtml = `<div class="cal-day-tooltip">
+          ${data.count} trade${data.count!==1?'s':''} · ${pnlStr}${pctStr}
+        </div>`;
+      }
+
+      // Valor a mostrar
+      const pnlDisplay = data ? formatCalValue(data) : '';
+      const tradesDisplay = data ? `${data.count} op${data.count!==1?'s':''}` : '';
+
+      cell.innerHTML = `
+        <span class="cal-day-num">${dayNum}</span>
+        ${pnlDisplay ? `<div class="cal-day-pnl">${pnlDisplay}</div>` : ''}
+        ${tradesDisplay ? `<div class="cal-day-trades">${tradesDisplay}</div>` : ''}
+        ${tooltipHtml}
+      `;
+    }
+
+    grid.appendChild(cell);
+  }
+
+  // Resumen mensual
+  renderCalSummary(dayMap, year, month);
+
+  // Heatbar
+  renderHeatbar(dayMap, year, month);
+}
+
+/* ── Navegación mensual ── */
+$("calPrevBtn").addEventListener("click", () => {
+  calState.month--;
+  if (calState.month < 0) { calState.month = 11; calState.year--; }
+  renderCalendar();
+});
+
+$("calNextBtn").addEventListener("click", () => {
+  calState.month++;
+  if (calState.month > 11) { calState.month = 0; calState.year++; }
+  renderCalendar();
+});
+
+$("calTodayBtn").addEventListener("click", () => {
+  const now = new Date();
+  calState.year  = now.getFullYear();
+  calState.month = now.getMonth();
+  renderCalendar();
+});
+
+/* ════════════════════════════════════════════════════════════
    INIT
 ════════════════════════════════════════════════════════════ */
 refreshAll();
-// EDGE33 Calculadora Automática — cargar configuración guardada al iniciar
 loadAutoCalculatorSettings();
 </script>
 </body>

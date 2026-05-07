@@ -1868,12 +1868,45 @@
             <div style="margin-bottom:10px;">
               <label style="display:block;margin-bottom:8px;">Presets rápidos</label>
               <div class="calc-presets">
-                <button class="preset-btn active" data-preset="XAUUSD" onclick="applySymbolPreset('XAUUSD')">🥇 XAUUSD / GOLD</button>
-                <button class="preset-btn" data-preset="NAS100" onclick="applySymbolPreset('NAS100')">📊 NAS100</button>
-                <button class="preset-btn" data-preset="BTCUSD" onclick="applySymbolPreset('BTCUSD')">₿ BTCUSD</button>
-                <button class="preset-btn" data-preset="EURUSD" onclick="applySymbolPreset('EURUSD')">💶 EURUSD</button>
-              </div>
-            </div>
+            <div class="calc-presets">
+
+  <button class="preset-btn active"
+    data-preset="XAUUSD"
+    onclick="applySymbolPreset('XAUUSD')">
+    🥇 XAUUSD / GOLD
+  </button>
+
+  <button class="preset-btn"
+    data-preset="NAS100"
+    onclick="applySymbolPreset('NAS100')">
+    📊 NAS100
+  </button>
+
+  <button class="preset-btn"
+    data-preset="US30"
+    onclick="applySymbolPreset('US30')">
+    🏛️ US30
+  </button>
+
+  <button class="preset-btn"
+    data-preset="SP500"
+    onclick="applySymbolPreset('SP500')">
+    📈 SP500
+  </button>
+
+  <button class="preset-btn"
+    data-preset="BTCUSD"
+    onclick="applySymbolPreset('BTCUSD')">
+    ₿ BTCUSD
+  </button>
+
+  <button class="preset-btn"
+    data-preset="EURUSD"
+    onclick="applySymbolPreset('EURUSD')">
+    💶 EURUSD
+  </button>
+
+</div>
 
             <div class="divider"></div>
 
@@ -2712,8 +2745,20 @@ const SYMBOL_PRESETS = {
   NAS100: { symbol:"NAS100", punto:1,    valorPunto:1, loteMin:0.1  },
   BTCUSD: { symbol:"BTCUSD", punto:1,    valorPunto:1, loteMin:0.01 },
   EURUSD: { symbol:"EURUSD", punto:0.0001,valorPunto:10,loteMin:0.01},
-};
+US30: {
+  symbol:"US30",
+  punto:1,
+  valorPunto:1,
+  loteMin:0.1
+},
 
+SP500: {
+  symbol:"SP500",
+  punto:0.1,
+  valorPunto:1,
+  loteMin:0.1
+},
+}
 function applySymbolPreset(key) {
   const preset = SYMBOL_PRESETS[key];
   if (!preset) return;

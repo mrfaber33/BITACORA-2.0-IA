@@ -191,7 +191,6 @@
       border-color: rgba(245,200,66,.25);
       box-shadow: 0 0 16px rgba(245,200,66,.1);
     }
-    /* ── Pestaña Calendario ── */
     .tab.cal-tab { color: var(--blue); }
     .tab.cal-tab.active {
       color: var(--blue);
@@ -212,7 +211,7 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
 
     /* ═══════════════════════════════════════════
-       ACCOUNT BAR
+       ACCOUNT BAR (balance original)
     ═══════════════════════════════════════════ */
     .account-bar {
       display: flex;
@@ -300,6 +299,294 @@
       text-transform: uppercase;
       letter-spacing: .8px;
       font-family: var(--mono);
+    }
+
+    /* ═══════════════════════════════════════════
+       ★ NUEVO — SISTEMA MULTICUENTA
+    ═══════════════════════════════════════════ */
+
+    /* Barra de selector de cuenta */
+    .accounts-selector-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+    }
+
+    .acc-bar-label {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-family: var(--mono);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .acc-selector-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 180px;
+      max-width: 280px;
+    }
+
+    .acc-selector {
+      width: 100%;
+      background: var(--bg-2);
+      color: var(--text);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-sm);
+      padding: 9px 36px 9px 12px;
+      outline: none;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      appearance: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .acc-selector:focus {
+      border-color: rgba(0,232,122,.4);
+      box-shadow: 0 0 0 3px rgba(0,232,122,.08);
+    }
+    .acc-selector-arrow {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-3);
+      pointer-events: none;
+      font-size: 11px;
+    }
+
+    .acc-type-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 5px;
+      letter-spacing: .3px;
+      white-space: nowrap;
+    }
+    .acc-type-badge.personal   { background: rgba(77,184,255,.1);   color: var(--blue);  border: 1px solid rgba(77,184,255,.2); }
+    .acc-type-badge.challenge  { background: rgba(245,200,66,.1);   color: var(--gold);  border: 1px solid rgba(245,200,66,.2); }
+    .acc-type-badge.fondeada   { background: rgba(0,232,122,.1);    color: var(--green); border: 1px solid rgba(0,232,122,.2); }
+    .acc-type-badge.demo       { background: rgba(255,255,255,.06); color: var(--text-3);border: 1px solid var(--border); }
+
+    .acc-bar-actions {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .btn-acc {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--panel-2);
+      color: var(--text-3);
+      cursor: pointer;
+      transition: all .15s;
+      letter-spacing: .2px;
+      white-space: nowrap;
+    }
+    .btn-acc:hover { color: var(--text); border-color: var(--border-2); background: var(--panel-3); }
+    .btn-acc.btn-acc-new {
+      color: var(--green);
+      border-color: rgba(0,232,122,.25);
+      background: var(--green-bg);
+    }
+    .btn-acc.btn-acc-new:hover {
+      background: rgba(0,232,122,.14);
+      border-color: rgba(0,232,122,.5);
+      box-shadow: 0 0 12px rgba(0,232,122,.1);
+    }
+    .btn-acc.btn-acc-global {
+      color: var(--blue);
+      border-color: rgba(77,184,255,.2);
+      background: var(--blue-bg);
+    }
+    .btn-acc.btn-acc-global:hover {
+      background: rgba(77,184,255,.12);
+      border-color: rgba(77,184,255,.4);
+    }
+    .btn-acc.btn-acc-del {
+      color: var(--red);
+      border-color: rgba(255,77,106,.2);
+      background: var(--red-bg);
+    }
+    .btn-acc.btn-acc-del:hover {
+      background: rgba(255,77,106,.14);
+      border-color: rgba(255,77,106,.4);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(4px);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: overlayIn .18s ease;
+    }
+    @keyframes overlayIn { from{opacity:0} to{opacity:1} }
+
+    .modal-box {
+      background: var(--panel);
+      border: 1px solid var(--border-2);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      box-shadow: var(--shadow-lg), 0 0 60px rgba(0,232,122,.06);
+      animation: modalIn .22s cubic-bezier(.34,1.3,.64,1);
+      overflow: hidden;
+    }
+    @keyframes modalIn { from{opacity:0;transform:scale(.94) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+    .modal-title {
+      font-family: var(--display);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -.1px;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-3);
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 8px;
+      line-height: 1;
+      transition: color .15s;
+    }
+    .modal-close:hover { color: var(--text); }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    .modal-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .modal-field { display: flex; flex-direction: column; gap: 7px; }
+    .modal-field.full { grid-column: 1 / -1; }
+    .modal-field label {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-family: var(--mono);
+    }
+    .modal-field input,
+    .modal-field select,
+    .modal-field textarea {
+      width: 100%;
+      background: var(--bg-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      outline: none;
+      font-family: var(--mono);
+      font-size: 13px;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .modal-field input:focus,
+    .modal-field select:focus,
+    .modal-field textarea:focus {
+      border-color: rgba(0,232,122,.35);
+      box-shadow: 0 0 0 3px rgba(0,232,122,.08);
+    }
+    .modal-field textarea { min-height: 70px; resize: vertical; }
+
+    .modal-footer {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      padding: 16px 24px 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── MODAL RESUMEN GLOBAL ── */
+    .global-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .global-stat {
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+    }
+    .global-stat-lbl {
+      font-size: 9px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-family: var(--mono);
+      margin-bottom: 6px;
+    }
+    .global-stat-val {
+      font-family: var(--mono);
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .global-acc-list {
+      display: grid;
+      gap: 8px;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .global-acc-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      transition: border-color .15s;
+    }
+    .global-acc-row:hover { border-color: var(--border-2); }
+    .global-acc-name {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      flex: 1;
+    }
+    .global-acc-meta {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-3);
     }
 
     /* ═══════════════════════════════════════════
@@ -1193,10 +1480,8 @@
     .calc-edu-icon { flex-shrink: 0; font-size: 13px; }
 
     /* ═══════════════════════════════════════════
-       ── CALENDARIO ── (nuevo)
+       ── CALENDARIO ──
     ═══════════════════════════════════════════ */
-
-    /* Header del calendario */
     .cal-header {
       display: flex;
       align-items: center;
@@ -1242,7 +1527,6 @@
       text-align: center;
     }
 
-    /* Switch dólares / porcentaje */
     .cal-mode-switch {
       display: flex;
       align-items: center;
@@ -1272,7 +1556,6 @@
       border-color: transparent;
     }
 
-    /* Botón hoy */
     .cal-today-btn {
       font-family: var(--mono);
       font-size: 11px;
@@ -1292,7 +1575,6 @@
       background: var(--blue-bg);
     }
 
-    /* Resumen mensual */
     .cal-summary-bar {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
@@ -1324,7 +1606,6 @@
       line-height: 1;
     }
 
-    /* Días de la semana */
     .cal-weekdays {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -1342,14 +1623,12 @@
       padding: 6px 0;
     }
 
-    /* Grid de días */
     .cal-grid {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
       gap: 4px;
     }
 
-    /* Celda de día */
     .cal-day {
       aspect-ratio: 1 / 1;
       border-radius: var(--radius-sm);
@@ -1363,14 +1642,12 @@
       min-height: 80px;
     }
 
-    /* Estado: vacío (sin trades) */
     .cal-day.empty-day {
       background: var(--panel);
       border: 1px solid var(--border);
       cursor: default;
     }
 
-    /* Estado: fuera del mes */
     .cal-day.out-month {
       background: transparent;
       border: 1px solid rgba(30,46,63,.4);
@@ -1378,7 +1655,6 @@
       cursor: default;
     }
 
-    /* Estado: positivo */
     .cal-day.positive-day {
       background: rgba(0,232,122,.06);
       border: 1px solid rgba(0,232,122,.22);
@@ -1391,7 +1667,6 @@
       background: rgba(0,232,122,.1);
     }
 
-    /* Estado: negativo */
     .cal-day.negative-day {
       background: rgba(255,77,106,.06);
       border: 1px solid rgba(255,77,106,.22);
@@ -1404,7 +1679,6 @@
       background: rgba(255,77,106,.1);
     }
 
-    /* Hoy */
     .cal-day.today-day {
       box-shadow: inset 0 0 0 2px rgba(77,184,255,.5);
     }
@@ -1412,7 +1686,6 @@
       color: var(--blue);
     }
 
-    /* Número del día */
     .cal-day-num {
       font-family: var(--mono);
       font-size: 13px;
@@ -1423,7 +1696,6 @@
     .cal-day.positive-day .cal-day-num { color: rgba(0,232,122,.7); }
     .cal-day.negative-day .cal-day-num { color: rgba(255,77,106,.7); }
 
-    /* P&L del día */
     .cal-day-pnl {
       font-family: var(--mono);
       font-size: 14px;
@@ -1434,7 +1706,6 @@
     .cal-day.positive-day .cal-day-pnl { color: var(--green); }
     .cal-day.negative-day .cal-day-pnl { color: var(--red); }
 
-    /* Cantidad de trades */
     .cal-day-trades {
       font-family: var(--mono);
       font-size: 9px;
@@ -1445,7 +1716,6 @@
     .cal-day.positive-day .cal-day-trades { color: rgba(0,232,122,.5); }
     .cal-day.negative-day .cal-day-trades { color: rgba(255,77,106,.5); }
 
-    /* Barra de indicador inferior */
     .cal-day::after {
       content: '';
       position: absolute;
@@ -1458,7 +1728,6 @@
     .cal-day.positive-day::after { background: rgba(0,232,122,.4); }
     .cal-day.negative-day::after { background: rgba(255,77,106,.4); }
 
-    /* Tooltip de día al hover */
     .cal-day-tooltip {
       position: absolute;
       bottom: calc(100% + 8px);
@@ -1489,7 +1758,6 @@
     }
     .cal-day:hover .cal-day-tooltip { opacity: 1; }
 
-    /* Heatmap bar mensual (compacto) */
     .cal-heatbar {
       margin-top: 20px;
       background: var(--panel);
@@ -1530,7 +1798,6 @@
     }
     .cal-heat-bar:hover { opacity: .75; }
 
-    /* Estado vacío del calendario */
     .cal-empty-state {
       text-align: center;
       padding: 60px 24px;
@@ -1564,7 +1831,6 @@
       .edge-status      { margin-left: 0; }
       .calc-form-grid   { grid-template-columns: 1fr; }
       .calc-result-grid { grid-template-columns: 1fr; }
-      /* Calendario responsive */
       .cal-summary-bar  { grid-template-columns: repeat(2, 1fr); }
       .cal-header       { flex-direction: column; align-items: flex-start; }
       .cal-month-label  { font-size: 18px; }
@@ -1572,6 +1838,9 @@
       .cal-day-pnl      { font-size: 11px; }
       .cal-day-num      { font-size: 11px; }
       .cal-day-trades   { font-size: 8px; }
+      .accounts-selector-bar { flex-direction: column; align-items: flex-start; }
+      .modal-form-grid  { grid-template-columns: 1fr; }
+      .global-grid      { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .cal-summary-bar  { grid-template-columns: 1fr 1fr; }
@@ -1610,7 +1879,6 @@
       <button class="tab calc-tab" data-tab="calculadora">
         <span class="tab-icon">🧮</span> Calculadora
       </button>
-      <!-- ✅ NUEVA PESTAÑA CALENDARIO -->
       <button class="tab cal-tab" data-tab="calendario">
         <span class="tab-icon">📅</span> Calendario
       </button>
@@ -1653,6 +1921,28 @@
        PANEL: REGISTRO
   ══════════════════════════════════════════ -->
   <section id="registro" class="panel active">
+
+    <!-- ★ SELECTOR DE CUENTA MULTICUENTA -->
+    <div class="accounts-selector-bar" id="accountsSelectorBar">
+      <span class="acc-bar-label">Cuenta activa</span>
+
+      <div class="acc-selector-wrap">
+        <select class="acc-selector" id="accountDropdown" onchange="switchAccount(this.value)">
+          <!-- Opciones generadas dinámicamente -->
+        </select>
+        <span class="acc-selector-arrow">▼</span>
+      </div>
+
+      <span class="acc-type-badge personal" id="activeAccTypeBadge">—</span>
+
+      <div class="acc-bar-actions">
+        <button class="btn-acc btn-acc-new" onclick="openNewAccountModal()">＋ Nueva cuenta</button>
+        <button class="btn-acc" onclick="openEditAccountModal()">✎ Editar</button>
+        <button class="btn-acc btn-acc-global" onclick="openGlobalSummaryModal()">🌐 Resumen global</button>
+        <button class="btn-acc btn-acc-del" onclick="deleteActiveAccount()">✕ Eliminar</button>
+      </div>
+    </div>
+
     <div class="card">
       <div class="card-header">
         <div class="card-title">Nueva Operación</div>
@@ -1701,7 +1991,7 @@
       </table>
       <div id="emptyState" class="empty-state" style="display:none">
         <div class="empty-icon">📭</div>
-        <p>No hay operaciones registradas todavía.<br>Agrega tu primer trade para comenzar a construir tu historial.</p>
+        <p>No hay operaciones registradas en esta cuenta todavía.<br>Agrega tu primer trade para comenzar a construir tu historial.</p>
       </div>
     </div>
   </section>
@@ -1857,88 +2147,34 @@
   ══════════════════════════════════════════ -->
   <section id="calculadora" class="panel">
     <div class="calc-layout">
-
       <div>
         <div class="card">
           <div class="card-header">
             <div class="card-title">🧮 Calculadora de Lotaje</div>
           </div>
           <div class="card-body">
-
             <div style="margin-bottom:10px;">
               <label style="display:block;margin-bottom:8px;">Presets rápidos</label>
               <div class="calc-presets">
-            <div class="calc-presets">
-
-  <button class="preset-btn active"
-    data-preset="XAUUSD"
-    onclick="applySymbolPreset('XAUUSD')">
-    🥇 XAUUSD / GOLD
-  </button>
-
-  <button class="preset-btn"
-    data-preset="NAS100"
-    onclick="applySymbolPreset('NAS100')">
-    📊 NAS100
-  </button>
-
-  <button class="preset-btn"
-    data-preset="US30"
-    onclick="applySymbolPreset('US30')">
-    🏛️ US30
-  </button>
-
-  <button class="preset-btn"
-    data-preset="SP500"
-    onclick="applySymbolPreset('SP500')">
-    📈 SP500
-  </button>
-
-  <button class="preset-btn"
-    data-preset="BTCUSD"
-    onclick="applySymbolPreset('BTCUSD')">
-    ₿ BTCUSD
-  </button>
-
-  <button class="preset-btn"
-    data-preset="EURUSD"
-    onclick="applySymbolPreset('EURUSD')">
-    💶 EURUSD
-  </button>
-
-</div>
+                <button class="preset-btn active" data-preset="XAUUSD" onclick="applySymbolPreset('XAUUSD')">🥇 XAUUSD / GOLD</button>
+                <button class="preset-btn" data-preset="NAS100" onclick="applySymbolPreset('NAS100')">📊 NAS100</button>
+                <button class="preset-btn" data-preset="US30" onclick="applySymbolPreset('US30')">🏛️ US30</button>
+                <button class="preset-btn" data-preset="SP500" onclick="applySymbolPreset('SP500')">📈 SP500</button>
+                <button class="preset-btn" data-preset="BTCUSD" onclick="applySymbolPreset('BTCUSD')">₿ BTCUSD</button>
+                <button class="preset-btn" data-preset="EURUSD" onclick="applySymbolPreset('EURUSD')">💶 EURUSD</button>
+              </div>
+            </div>
 
             <div class="divider"></div>
 
             <div class="calc-form-grid">
-              <div class="calc-field">
-                <label>Símbolo</label>
-                <input id="calc-symbol" type="text" placeholder="XAUUSD" />
-              </div>
-              <div class="calc-field">
-                <label>Balance de cuenta ($)</label>
-                <input id="calc-balance" type="number" step="any" placeholder="100000" min="1" />
-              </div>
-              <div class="calc-field">
-                <label>Riesgo por trade (%)</label>
-                <input id="calc-riesgo" type="number" step="0.01" placeholder="1.5" min="0.01" max="100" />
-              </div>
-              <div class="calc-field">
-                <label>Distancia Stop Loss</label>
-                <input id="calc-sl" type="number" step="any" placeholder="5.48" min="0" />
-              </div>
-              <div class="calc-field">
-                <label>Tamaño de punto</label>
-                <input id="calc-punto" type="number" step="any" placeholder="0.01" min="0.0001" />
-              </div>
-              <div class="calc-field">
-                <label>Valor por punto / lote ($)</label>
-                <input id="calc-valor-punto" type="number" step="any" placeholder="1" min="0" />
-              </div>
-              <div class="calc-field">
-                <label>Lote mínimo</label>
-                <input id="calc-lote-min" type="number" step="any" placeholder="0.01" min="0.0001" />
-              </div>
+              <div class="calc-field"><label>Símbolo</label><input id="calc-symbol" type="text" placeholder="XAUUSD" /></div>
+              <div class="calc-field"><label>Balance de cuenta ($)</label><input id="calc-balance" type="number" step="any" placeholder="100000" min="1" /></div>
+              <div class="calc-field"><label>Riesgo por trade (%)</label><input id="calc-riesgo" type="number" step="0.01" placeholder="1.5" min="0.01" max="100" /></div>
+              <div class="calc-field"><label>Distancia Stop Loss</label><input id="calc-sl" type="number" step="any" placeholder="5.48" min="0" /></div>
+              <div class="calc-field"><label>Tamaño de punto</label><input id="calc-punto" type="number" step="any" placeholder="0.01" min="0.0001" /></div>
+              <div class="calc-field"><label>Valor por punto / lote ($)</label><input id="calc-valor-punto" type="number" step="any" placeholder="1" min="0" /></div>
+              <div class="calc-field"><label>Lote mínimo</label><input id="calc-lote-min" type="number" step="any" placeholder="0.01" min="0.0001" /></div>
             </div>
 
             <button class="btn-calc" onclick="calculateAutoLot()">⚡ Calcular lotaje</button>
@@ -1973,22 +2209,10 @@
         </div>
 
         <div class="calc-result-grid" id="calc-result-grid" style="display:none;">
-          <div class="calc-result-item">
-            <div class="calc-result-label">Riesgo en USD</div>
-            <div class="calc-result-value highlight-red" id="calc-res-riesgo-usd">—</div>
-          </div>
-          <div class="calc-result-item">
-            <div class="calc-result-label">SL en puntos</div>
-            <div class="calc-result-value highlight-blue" id="calc-res-sl-puntos">—</div>
-          </div>
-          <div class="calc-result-item">
-            <div class="calc-result-label">Pérdida si toca SL</div>
-            <div class="calc-result-value highlight-red" id="calc-res-perdida">—</div>
-          </div>
-          <div class="calc-result-item">
-            <div class="calc-result-label">Valor/punto con lote</div>
-            <div class="calc-result-value highlight-green" id="calc-res-valor-punto-lote">—</div>
-          </div>
+          <div class="calc-result-item"><div class="calc-result-label">Riesgo en USD</div><div class="calc-result-value highlight-red" id="calc-res-riesgo-usd">—</div></div>
+          <div class="calc-result-item"><div class="calc-result-label">SL en puntos</div><div class="calc-result-value highlight-blue" id="calc-res-sl-puntos">—</div></div>
+          <div class="calc-result-item"><div class="calc-result-label">Pérdida si toca SL</div><div class="calc-result-value highlight-red" id="calc-res-perdida">—</div></div>
+          <div class="calc-result-item"><div class="calc-result-label">Valor/punto con lote</div><div class="calc-result-value highlight-green" id="calc-res-valor-punto-lote">—</div></div>
         </div>
 
         <div class="calc-edu-box" style="margin:16px 20px 20px;" id="calc-formula-box">
@@ -1996,16 +2220,13 @@
           <span id="calc-formula-text">—</span>
         </div>
       </div>
-
     </div>
   </section>
 
   <!-- ══════════════════════════════════════════
-       PANEL: CALENDARIO  ✅ NUEVO
+       PANEL: CALENDARIO
   ══════════════════════════════════════════ -->
   <section id="calendario" class="panel">
-
-    <!-- Header: navegación + switch modo -->
     <div class="cal-header">
       <div class="cal-nav">
         <button class="cal-nav-btn" id="calPrevBtn">‹</button>
@@ -2013,52 +2234,27 @@
         <button class="cal-nav-btn" id="calNextBtn">›</button>
         <button class="cal-today-btn" id="calTodayBtn">Hoy</button>
       </div>
-
       <div class="cal-mode-switch">
         <button class="cal-mode-btn active" id="calModeDollar" onclick="setCalMode('dollar')">$ USD</button>
         <button class="cal-mode-btn" id="calModePct" onclick="setCalMode('pct')">% Cuenta</button>
       </div>
     </div>
 
-    <!-- Resumen mensual -->
     <div class="cal-summary-bar" id="calSummaryBar">
-      <div class="cal-sum-card">
-        <div class="cal-sum-lbl">P&L del Mes</div>
-        <div class="cal-sum-val" id="calSumPnl">—</div>
-      </div>
-      <div class="cal-sum-card">
-        <div class="cal-sum-lbl">Días positivos</div>
-        <div class="cal-sum-val green" id="calSumWinDays">—</div>
-      </div>
-      <div class="cal-sum-card">
-        <div class="cal-sum-lbl">Días negativos</div>
-        <div class="cal-sum-val red" id="calSumLossDays">—</div>
-      </div>
-      <div class="cal-sum-card">
-        <div class="cal-sum-lbl">Operaciones</div>
-        <div class="cal-sum-val blue" id="calSumTrades">—</div>
-      </div>
-      <div class="cal-sum-card">
-        <div class="cal-sum-lbl">Win Rate días</div>
-        <div class="cal-sum-val gold" id="calSumWinRate">—</div>
-      </div>
+      <div class="cal-sum-card"><div class="cal-sum-lbl">P&L del Mes</div><div class="cal-sum-val" id="calSumPnl">—</div></div>
+      <div class="cal-sum-card"><div class="cal-sum-lbl">Días positivos</div><div class="cal-sum-val green" id="calSumWinDays">—</div></div>
+      <div class="cal-sum-card"><div class="cal-sum-lbl">Días negativos</div><div class="cal-sum-val red" id="calSumLossDays">—</div></div>
+      <div class="cal-sum-card"><div class="cal-sum-lbl">Operaciones</div><div class="cal-sum-val blue" id="calSumTrades">—</div></div>
+      <div class="cal-sum-card"><div class="cal-sum-lbl">Win Rate días</div><div class="cal-sum-val gold" id="calSumWinRate">—</div></div>
     </div>
 
-    <!-- Días de la semana -->
     <div class="cal-weekdays">
-      <div class="cal-wd">Lun</div>
-      <div class="cal-wd">Mar</div>
-      <div class="cal-wd">Mié</div>
-      <div class="cal-wd">Jue</div>
-      <div class="cal-wd">Vie</div>
-      <div class="cal-wd">Sáb</div>
-      <div class="cal-wd">Dom</div>
+      <div class="cal-wd">Lun</div><div class="cal-wd">Mar</div><div class="cal-wd">Mié</div>
+      <div class="cal-wd">Jue</div><div class="cal-wd">Vie</div><div class="cal-wd">Sáb</div><div class="cal-wd">Dom</div>
     </div>
 
-    <!-- Grid del calendario -->
     <div class="cal-grid" id="calGrid"></div>
 
-    <!-- Heatbar mensual -->
     <div class="cal-heatbar" id="calHeatbar" style="display:none;">
       <div class="cal-heatbar-title">
         <span>Distribución diaria del mes</span>
@@ -2066,43 +2262,414 @@
       </div>
       <div class="cal-heat-row" id="calHeatRow"></div>
     </div>
-
   </section>
 
 </div><!-- /wrap -->
+
+<!-- ═══════════════════════════════════
+     MODALES — Sistema Multicuenta
+═══════════════════════════════════ -->
+
+<!-- Modal Nueva / Editar Cuenta -->
+<div class="modal-overlay" id="modalAccount" style="display:none;" onclick="closeModalOnOverlay(event,'modalAccount')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modalAccountTitle">Nueva Cuenta</div>
+      <button class="modal-close" onclick="closeModal('modalAccount')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-form-grid">
+        <div class="modal-field full">
+          <label>Nombre de la cuenta *</label>
+          <input id="modal-acc-name" type="text" placeholder="FTMO 100K, Mi cuenta personal..."/>
+        </div>
+        <div class="modal-field">
+          <label>Broker</label>
+          <input id="modal-acc-broker" type="text" placeholder="FTMO, MyForexFunds, IC Markets..."/>
+        </div>
+        <div class="modal-field">
+          <label>Tipo de cuenta</label>
+          <select id="modal-acc-type">
+            <option value="Personal">Personal</option>
+            <option value="Challenge">Challenge</option>
+            <option value="Fondeada">Fondeada</option>
+            <option value="Demo">Demo</option>
+          </select>
+        </div>
+        <div class="modal-field full">
+          <label>Capital inicial ($)</label>
+          <input id="modal-acc-capital" type="number" step="any" placeholder="10000" min="1"/>
+        </div>
+        <div class="modal-field full">
+          <label>Notas</label>
+          <textarea id="modal-acc-notes" placeholder="Reglas de la cuenta, objetivo, notas..."></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal('modalAccount')">Cancelar</button>
+      <button class="btn-primary" id="modalAccountSaveBtn" onclick="saveAccountFromModal()">Crear cuenta</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Resumen Global -->
+<div class="modal-overlay" id="modalGlobal" style="display:none;" onclick="closeModalOnOverlay(event,'modalGlobal')">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title">🌐 Resumen Global</div>
+      <button class="modal-close" onclick="closeModal('modalGlobal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="global-grid" id="globalStatsGrid"></div>
+      <div style="margin-bottom:10px;margin-top:4px;">
+        <div style="font-size:10px;color:var(--text-3);text-transform:uppercase;letter-spacing:.8px;font-family:var(--mono);margin-bottom:10px;">Todas las cuentas</div>
+        <div class="global-acc-list" id="globalAccList"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal('modalGlobal')">Cerrar</button>
+    </div>
+  </div>
+</div>
 
 <div class="alerts-wrap" id="alertsWrap"></div>
 
 <script>
 /* ════════════════════════════════════════════════════════════
-   CORE — Storage & utilities
-════════════════════════════════════════════════════════════ */
-const STORAGE_KEY  = "edge33_trades_v1";
-const ACCOUNT_KEY  = "edge33_account_size_v1";
-let trades = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+   ★ SISTEMA MULTICUENTA — EDGE33
+   ────────────────────────────────────────────────────────────
+   CLAVES DE LOCALSTORAGE:
+   · edge33_accounts_v2      → array de cuentas
+   · edge33_active_account   → id de cuenta activa
+   ────────────────────────────────────────────────────────────
+   MIGRACIÓN AUTOMÁTICA:
+   · Si existe edge33_trades_v1 (formato antiguo), los datos se
+     migran a una cuenta "Cuenta Principal" automáticamente.
+   ════════════════════════════════════════════════════════════ */
 
+const ACCOUNTS_KEY      = "edge33_accounts_v2";
+const ACTIVE_ACC_KEY    = "edge33_active_account";
+const LEGACY_TRADES_KEY = "edge33_trades_v1";
+const LEGACY_ACC_KEY    = "edge33_account_size_v1";
+const CALC_STORAGE_KEY  = "edge33_auto_calculator_v1";
+
+/* ── Utilidades ── */
 const $ = (id) => document.getElementById(id);
-
 function money(n){ return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(Number(n||0)); }
 function pct(n){ return `${Number(n||0).toFixed(2)}%`; }
 function num(n){ return Number(n || 0); }
 function fmt(n, d=2){ return Number(n||0).toFixed(d); }
+function uid(){ return 'acc_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
 function todayStr(){
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
-$("date").value = todayStr();
 
-function getAccountSize(){ return num($("accountSize").value) || 0; }
+/* ════════════════════════════════════════════════════════════
+   MIGRACIÓN AUTOMÁTICA DE DATOS LEGACY
+════════════════════════════════════════════════════════════ */
+function migrateOldTradesToMainAccount() {
+  const legacyRaw = localStorage.getItem(LEGACY_TRADES_KEY);
+  if (!legacyRaw) return null;
 
-const savedAccount = localStorage.getItem(ACCOUNT_KEY);
-if(savedAccount) $("accountSize").value = savedAccount;
+  let legacyTrades = [];
+  try { legacyTrades = JSON.parse(legacyRaw); } catch(e) { return null; }
+  if (!Array.isArray(legacyTrades) || legacyTrades.length === 0) return null;
 
-$("accountSize").addEventListener("input", ()=>{
-  localStorage.setItem(ACCOUNT_KEY, $("accountSize").value);
+  const legacyCapital = parseFloat(localStorage.getItem(LEGACY_ACC_KEY) || "0") || 0;
+
+  const mainAccount = {
+    id:             uid(),
+    name:           "Cuenta Principal",
+    broker:         "",
+    type:           "Personal",
+    initialCapital: legacyCapital,
+    currentBalance: legacyCapital,
+    trades:         legacyTrades,
+    notes:          "",
+    metrics:        {},
+    createdAt:      new Date().toISOString(),
+    updatedAt:      new Date().toISOString()
+  };
+
+  // Limpiar legacy después de migrar
+  localStorage.removeItem(LEGACY_TRADES_KEY);
+  // NO eliminar LEGACY_ACC_KEY todavía — lo usaremos luego para sincronizar
+
+  return mainAccount;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CARGA Y GUARDADO DE CUENTAS
+════════════════════════════════════════════════════════════ */
+function loadAccounts() {
+  let accounts = [];
+  try {
+    const raw = localStorage.getItem(ACCOUNTS_KEY);
+    if (raw) accounts = JSON.parse(raw);
+  } catch(e) { accounts = []; }
+
+  // Si no hay cuentas, intentar migrar legacy
+  if (!accounts || accounts.length === 0) {
+    const migrated = migrateOldTradesToMainAccount();
+    if (migrated) {
+      accounts = [migrated];
+      saveAccounts(accounts);
+      localStorage.setItem(ACTIVE_ACC_KEY, migrated.id);
+      showAlert("success", "✅ Datos migrados", "Tus operaciones anteriores fueron migradas a 'Cuenta Principal'.");
+    } else {
+      // Crear cuenta vacía inicial
+      const initial = createDefaultAccount("Mi Cuenta", "Personal", 10000);
+      accounts = [initial];
+      saveAccounts(accounts);
+      localStorage.setItem(ACTIVE_ACC_KEY, initial.id);
+    }
+  }
+
+  return accounts;
+}
+
+function saveAccounts(accounts) {
+  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
+}
+
+function createDefaultAccount(name, type, capital) {
+  return {
+    id:             uid(),
+    name:           name,
+    broker:         "",
+    type:           type || "Personal",
+    initialCapital: capital || 0,
+    currentBalance: capital || 0,
+    trades:         [],
+    notes:          "",
+    metrics:        {},
+    createdAt:      new Date().toISOString(),
+    updatedAt:      new Date().toISOString()
+  };
+}
+
+/* ════════════════════════════════════════════════════════════
+   ESTADO GLOBAL DE CUENTAS
+════════════════════════════════════════════════════════════ */
+let accounts       = loadAccounts();
+let activeAccountId = localStorage.getItem(ACTIVE_ACC_KEY) || accounts[0]?.id || null;
+
+// Asegurar que el id activo existe
+if (!accounts.find(a => a.id === activeAccountId)) {
+  activeAccountId = accounts[0]?.id || null;
+  localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId || "");
+}
+
+function getActiveAccount() {
+  return accounts.find(a => a.id === activeAccountId) || accounts[0];
+}
+
+function updateActiveAccount(updates) {
+  const idx = accounts.findIndex(a => a.id === activeAccountId);
+  if (idx === -1) return;
+  accounts[idx] = { ...accounts[idx], ...updates, updatedAt: new Date().toISOString() };
+  saveAccounts(accounts);
+}
+
+/* ── trades apunta siempre a la cuenta activa ── */
+function getActiveTrades() {
+  const acc = getActiveAccount();
+  return acc ? (acc.trades || []) : [];
+}
+
+function setActiveTrades(newTrades) {
+  updateActiveAccount({ trades: newTrades });
+}
+
+/* ════════════════════════════════════════════════════════════
+   RENDER SELECTOR DE CUENTAS
+════════════════════════════════════════════════════════════ */
+function renderAccountSelector() {
+  const select = $("accountDropdown");
+  const acc    = getActiveAccount();
+
+  select.innerHTML = accounts.map(a =>
+    `<option value="${a.id}" ${a.id === activeAccountId ? 'selected' : ''}>${a.name}${a.broker ? ' · ' + a.broker : ''}</option>`
+  ).join('');
+
+  // Badge de tipo
+  if (acc) {
+    const badge = $("activeAccTypeBadge");
+    const typeClass = acc.type ? acc.type.toLowerCase() : 'personal';
+    badge.className = `acc-type-badge ${typeClass}`;
+    badge.textContent = acc.type || "Personal";
+  }
+
+  // Sincronizar capital inicial del account bar
+  if (acc && acc.initialCapital) {
+    $("accountSize").value = acc.initialCapital;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SWITCH / CREATE / EDIT / DELETE CUENTA
+════════════════════════════════════════════════════════════ */
+function switchAccount(id) {
+  if (!id) return;
+  activeAccountId = id;
+  localStorage.setItem(ACTIVE_ACC_KEY, id);
+
+  const acc = getActiveAccount();
+  if (acc && acc.initialCapital) {
+    $("accountSize").value = acc.initialCapital;
+    localStorage.setItem(LEGACY_ACC_KEY, acc.initialCapital);
+  }
+
+  renderAccountSelector();
   refreshAll();
-});
+  showAlert("info", "🔄 Cuenta activa", `Ahora en: ${acc?.name || id}`);
+}
+
+/* ─── MODAL Nueva / Editar ─── */
+let modalAccountMode = "new"; // "new" | "edit"
+
+function openNewAccountModal() {
+  modalAccountMode = "new";
+  $("modalAccountTitle").textContent = "Nueva Cuenta";
+  $("modalAccountSaveBtn").textContent = "Crear cuenta";
+  $("modal-acc-name").value    = "";
+  $("modal-acc-broker").value  = "";
+  $("modal-acc-type").value    = "Personal";
+  $("modal-acc-capital").value = "";
+  $("modal-acc-notes").value   = "";
+  $("modalAccount").style.display = "flex";
+  setTimeout(() => $("modal-acc-name").focus(), 100);
+}
+
+function openEditAccountModal() {
+  const acc = getActiveAccount();
+  if (!acc) return;
+  modalAccountMode = "edit";
+  $("modalAccountTitle").textContent = "Editar Cuenta";
+  $("modalAccountSaveBtn").textContent = "Guardar cambios";
+  $("modal-acc-name").value    = acc.name || "";
+  $("modal-acc-broker").value  = acc.broker || "";
+  $("modal-acc-type").value    = acc.type || "Personal";
+  $("modal-acc-capital").value = acc.initialCapital || "";
+  $("modal-acc-notes").value   = acc.notes || "";
+  $("modalAccount").style.display = "flex";
+}
+
+function saveAccountFromModal() {
+  const name    = $("modal-acc-name").value.trim();
+  const broker  = $("modal-acc-broker").value.trim();
+  const type    = $("modal-acc-type").value;
+  const capital = parseFloat($("modal-acc-capital").value) || 0;
+  const notes   = $("modal-acc-notes").value.trim();
+
+  if (!name) {
+    showAlert("warning", "⚠️ Nombre requerido", "La cuenta necesita un nombre.");
+    $("modal-acc-name").focus();
+    return;
+  }
+
+  if (modalAccountMode === "new") {
+    const newAcc = createDefaultAccount(name, type, capital);
+    newAcc.broker = broker;
+    newAcc.notes  = notes;
+    accounts.push(newAcc);
+    saveAccounts(accounts);
+    activeAccountId = newAcc.id;
+    localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId);
+    $("accountSize").value = capital || "";
+    showAlert("success", "✅ Cuenta creada", `"${name}" lista para usar.`);
+  } else {
+    updateActiveAccount({ name, broker, type, initialCapital: capital, notes });
+    if (capital) $("accountSize").value = capital;
+    showAlert("success", "✅ Cuenta actualizada", `"${name}" guardada correctamente.`);
+  }
+
+  closeModal("modalAccount");
+  renderAccountSelector();
+  refreshAll();
+}
+
+function deleteActiveAccount() {
+  if (accounts.length <= 1) {
+    showAlert("warning", "⚠️ Última cuenta", "No puedes eliminar la única cuenta existente.");
+    return;
+  }
+  const acc = getActiveAccount();
+  if (!acc) return;
+  if (!confirm(`¿Eliminar la cuenta "${acc.name}" y todas sus operaciones? Esta acción no se puede deshacer.`)) return;
+
+  accounts = accounts.filter(a => a.id !== activeAccountId);
+  saveAccounts(accounts);
+  activeAccountId = accounts[0].id;
+  localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId);
+
+  renderAccountSelector();
+  refreshAll();
+  showAlert("danger", "🗑️ Cuenta eliminada", `"${acc.name}" ha sido borrada.`);
+}
+
+/* ─── MODAL Global ─── */
+function openGlobalSummaryModal() {
+  let totalBalance = 0, totalPnl = 0, totalTrades = 0;
+  let bestAcc = null, bestPnl = -Infinity;
+  let worstAcc = null, worstDD = -Infinity;
+
+  const rows = accounts.map(acc => {
+    const trades = (acc.trades || []).map(t => calcTrade(t, acc.initialCapital));
+    const net    = trades.reduce((a, b) => a + b.pnl, 0);
+    const balance= (acc.initialCapital || 0) + net;
+
+    // max dd
+    let eq = 0, peak = 0, dd = 0;
+    trades.forEach(t => { eq += t.pnl; if(eq>peak)peak=eq; const d=peak-eq; if(d>dd)dd=d; });
+    const ddPct = peak > 0 ? (dd/peak)*100 : 0;
+
+    totalBalance += balance;
+    totalPnl     += net;
+    totalTrades  += trades.length;
+
+    if (net > bestPnl)    { bestPnl  = net;   bestAcc  = acc; }
+    if (ddPct > worstDD)  { worstDD  = ddPct; worstAcc = acc; }
+
+    return { acc, net, balance, ddPct, count: trades.length };
+  });
+
+  // Stats globales
+  $("globalStatsGrid").innerHTML = `
+    <div class="global-stat"><div class="global-stat-lbl">Cuentas</div><div class="global-stat-val">${accounts.length}</div></div>
+    <div class="global-stat"><div class="global-stat-lbl">Balance combinado</div><div class="global-stat-val ${totalBalance >= 0 ? 'green' : 'red'}">${money(totalBalance)}</div></div>
+    <div class="global-stat"><div class="global-stat-lbl">P&L total combinado</div><div class="global-stat-val ${totalPnl >= 0 ? 'green' : 'red'}">${totalPnl >= 0 ? '+' : ''}${money(totalPnl)}</div></div>
+    <div class="global-stat"><div class="global-stat-lbl">Operaciones totales</div><div class="global-stat-val blue">${totalTrades}</div></div>
+    <div class="global-stat"><div class="global-stat-lbl">Cuenta más rentable</div><div class="global-stat-val green">${bestAcc ? bestAcc.name : '—'}</div></div>
+    <div class="global-stat"><div class="global-stat-lbl">Mayor drawdown</div><div class="global-stat-val red">${worstAcc ? worstAcc.name : '—'}</div></div>
+  `;
+
+  $("globalAccList").innerHTML = rows.map(r => `
+    <div class="global-acc-row" onclick="switchAccount('${r.acc.id}');closeModal('modalGlobal');" style="cursor:pointer;">
+      <div>
+        <div class="global-acc-name">${r.acc.name}</div>
+        <div class="global-acc-meta">${r.acc.broker ? r.acc.broker + ' · ' : ''}${r.acc.type} · ${r.count} trades</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-family:var(--mono);font-size:13px;font-weight:500;" class="${r.net >= 0 ? 'green' : 'red'}">${r.net >= 0 ? '+' : ''}${money(r.net)}</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);">DD ${fmt(r.ddPct, 1)}%</div>
+      </div>
+    </div>
+  `).join('');
+
+  $("modalGlobal").style.display = "flex";
+}
+
+/* ─── Helpers modal ─── */
+function closeModal(id) {
+  $(id).style.display = "none";
+}
+function closeModalOnOverlay(e, id) {
+  if (e.target.classList.contains("modal-overlay")) closeModal(id);
+}
 
 /* ════════════════════════════════════════════════════════════
    POINT VALUE TABLE
@@ -2120,8 +2687,9 @@ function getPointValue(asset){ if(!asset)return 1; return POINT_VALUE[asset.toUp
 
 /* ════════════════════════════════════════════════════════════
    CALC TRADE — MT5-aligned
+   Acepta capital opcional (para resumen global)
 ════════════════════════════════════════════════════════════ */
-function calcTrade(trade){
+function calcTrade(trade, overrideCapital){
   const entry=num(trade.entry), exit=num(trade.exit), stop=num(trade.stop);
   const size=num(trade.size||1), commission=num(trade.commission||0), swap=num(trade.swap||0);
   const pv=getPointValue(trade.asset);
@@ -2133,17 +2701,47 @@ function calcTrade(trade){
   const riskPoints=trade.direction==="Long"?entry-stop:stop-entry;
   const totalRisk=Math.abs(riskPoints*size*pv);
   const r=totalRisk>0?pnl/totalRisk:0;
-  const accountSize=getAccountSize();
+  const accountSize = overrideCapital !== undefined ? overrideCapital : getAccountSize();
   const pnlPctAccount=accountSize>0?(pnl/accountSize)*100:null;
   const riskPctAccount=accountSize>0?(totalRisk/accountSize)*100:null;
   const result=pnl>0.005?"WIN":pnl<-0.005?"LOSS":"BE";
   return {...trade,pnl,pnlPct,pnlPctAccount,riskPctAccount,r,result};
 }
 
-function getComputedTrades(){ return trades.map(calcTrade); }
+function getComputedTrades(){
+  return getActiveTrades().map(t => calcTrade(t));
+}
 
 /* ════════════════════════════════════════════════════════════
-   COMPUTE METRICS
+   ACCOUNT BAR — sincronización con cuenta activa
+════════════════════════════════════════════════════════════ */
+function getAccountSize(){
+  return num($("accountSize").value) || 0;
+}
+
+// Al cambiar el capital en el input, sincronizar con cuenta activa
+$("accountSize").addEventListener("input", ()=>{
+  const val = parseFloat($("accountSize").value) || 0;
+  updateActiveAccount({ initialCapital: val });
+  localStorage.setItem(LEGACY_ACC_KEY, $("accountSize").value);
+  refreshAll();
+});
+
+// Cargar capital de la cuenta activa al iniciar
+(function syncCapitalFromActiveAccount() {
+  const acc = getActiveAccount();
+  if (acc && acc.initialCapital) {
+    $("accountSize").value = acc.initialCapital;
+  } else {
+    const saved = localStorage.getItem(LEGACY_ACC_KEY);
+    if (saved) $("accountSize").value = saved;
+  }
+})();
+
+$("date").value = todayStr();
+
+/* ════════════════════════════════════════════════════════════
+   COMPUTE METRICS (sin cambios — trabaja con los trades que le pases)
 ════════════════════════════════════════════════════════════ */
 function computeMetrics(rows){
   const total=rows.length;
@@ -2186,41 +2784,25 @@ function computeMetrics(rows){
    EDGE — automático
 ════════════════════════════════════════════════════════════ */
 function updateEdge(m){
-  const card   = $("edgeCard");
-  const valEl  = $("edgeValue");
-  const badge  = $("edgeBadge");
-  const desc   = $("edgeDesc");
-  const formula= $("edgeFormula");
-
-  if(m.total === 0){
-    valEl.textContent = "—";
-    valEl.style.color = "var(--text-3)";
-    badge.className   = "edge-badge";
-    badge.textContent = "— Sin datos";
-    card.className    = "edge-card";
-    desc.textContent  = "Registra trades para calcular tu ventaja estadística";
-    formula.textContent = "fórmula: (WinRate × R:R) − (1 − WinRate)";
+  const card=$("edgeCard"),valEl=$("edgeValue"),badge=$("edgeBadge"),desc=$("edgeDesc"),formula=$("edgeFormula");
+  if(m.total===0){
+    valEl.textContent="—";valEl.style.color="var(--text-3)";
+    badge.className="edge-badge";badge.textContent="— Sin datos";
+    card.className="edge-card";desc.textContent="Registra trades para calcular tu ventaja estadística";
+    formula.textContent="fórmula: (WinRate × R:R) − (1 − WinRate)";
     return;
   }
-
-  const wr   = m.winRate / 100;
-  const rr   = m.avgR;
-  const edge = (wr * rr) - (1 - wr);
-  const positive = edge > 0;
-
-  valEl.textContent = `${edge >= 0 ? '+' : ''}${fmt(edge, 3)}R`;
-  valEl.style.color = positive ? "var(--green)" : "var(--red)";
-
-  formula.textContent = `(${fmt(m.winRate,1)}% × ${fmt(rr,2)}R) − ${fmt((1-wr)*100,1)}% = ${fmt(edge,3)}R`;
-
-  card.className    = positive ? "edge-card positive" : "edge-card negative";
-  badge.className   = positive ? "edge-badge positive" : "edge-badge negative";
-  badge.textContent = positive ? "✅ Edge Positivo" : "⚠️ Sin Ventaja";
-
-  if(edge > 0.5)        desc.textContent = "Tu sistema tiene ventaja estadística sólida. Sigue ejecutando con consistencia.";
-  else if(edge > 0)     desc.textContent = "Ventaja leve. Asegura que la muestra sea suficiente (30+ trades).";
-  else if(edge > -0.2)  desc.textContent = "Edge marginal negativo. Revisa tu R:R o filtra mejor tus entradas.";
-  else                  desc.textContent = "El sistema no muestra ventaja estadística aún. Analiza tus setups con Mentor33.";
+  const wr=m.winRate/100,rr=m.avgR,edge=(wr*rr)-(1-wr),positive=edge>0;
+  valEl.textContent=`${edge>=0?'+':''}${fmt(edge,3)}R`;
+  valEl.style.color=positive?"var(--green)":"var(--red)";
+  formula.textContent=`(${fmt(m.winRate,1)}% × ${fmt(rr,2)}R) − ${fmt((1-wr)*100,1)}% = ${fmt(edge,3)}R`;
+  card.className=positive?"edge-card positive":"edge-card negative";
+  badge.className=positive?"edge-badge positive":"edge-badge negative";
+  badge.textContent=positive?"✅ Edge Positivo":"⚠️ Sin Ventaja";
+  if(edge>0.5)desc.textContent="Tu sistema tiene ventaja estadística sólida. Sigue ejecutando con consistencia.";
+  else if(edge>0)desc.textContent="Ventaja leve. Asegura que la muestra sea suficiente (30+ trades).";
+  else if(edge>-0.2)desc.textContent="Edge marginal negativo. Revisa tu R:R o filtra mejor tus entradas.";
+  else desc.textContent="El sistema no muestra ventaja estadística aún. Analiza tus setups con Mentor33.";
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -2229,7 +2811,6 @@ function updateEdge(m){
 function updateMetrics(){
   const rows=getComputedTrades();
   const m=computeMetrics(rows);
-
   $("m-pnl").textContent=money(m.net);
   $("m-pnl").className=`m-value ${m.net>=0?'green':'red'}`;
   $("m-pnl-pct").textContent=m.accountSize>0?`${pct(m.netPctAccount)} de la cuenta`:pct(m.netPct);
@@ -2241,7 +2822,6 @@ function updateMetrics(){
   $("m-dd-money").textContent=m.accountSize>0?`-${money(m.maxDD)} (${pct(m.maxDDPct)} pico)`:`-${money(m.maxDD)}`;
   $("m-exp").textContent=`${fmt(m.expectancy)}R`;
   $("m-exp").className=`m-value ${m.expectancy>=0?'green':'red'}`;
-
   if(m.accountSize>0){
     $("bar-pnl-pct").textContent=`${fmt(m.netPctAccount,2)}%`;
     $("bar-pnl-pct").className=`val ${m.net>=0?'green':'red'}`;
@@ -2250,12 +2830,11 @@ function updateMetrics(){
     $("bar-balance").textContent=money(m.balance);
     $("bar-balance").className=`val ${m.balance>=m.accountSize?'green':'red'}`;
   } else {
-    $("bar-pnl-pct").textContent="—"; $("bar-pnl-pct").className="val green";
+    $("bar-pnl-pct").textContent="—";$("bar-pnl-pct").className="val green";
     $("bar-dd-pct").textContent="—";
     $("bar-risk-per-trade").textContent="—";
-    $("bar-balance").textContent="—"; $("bar-balance").className="val blue";
+    $("bar-balance").textContent="—";$("bar-balance").className="val blue";
   }
-
   updateEdge(m);
   updateMentorAutoMsg(m);
 }
@@ -2264,32 +2843,16 @@ function updateMetrics(){
    MENTOR — análisis automático
 ════════════════════════════════════════════════════════════ */
 function updateMentorAutoMsg(m){
-  const el = $("mentorAutoText");
-  if(!el) return;
-  if(m.total === 0){
-    el.textContent = "Aún no hay trades registrados. Empieza a cargar operaciones para ver el diagnóstico en tiempo real.";
-    return;
-  }
-
-  const wr   = m.winRate / 100;
-  const edge = (wr * m.avgR) - (1 - wr);
-
-  let msg = "";
-  if(edge > 0.3){
-    msg = `🟢 Sistema con edge sólido (${fmt(edge,3)}R). Win Rate ${fmt(m.winRate,1)}% con R:R ${fmt(m.avgR,2)}. `;
-    msg += m.maxDDPct < 20 ? "Drawdown controlado. Sigue ejecutando con disciplina." : `Ojo con el drawdown del ${fmt(m.maxDDPct,1)}%. Revisa gestión de riesgo.`;
-  } else if(edge > 0){
-    msg = `🟡 Edge leve positivo (${fmt(edge,3)}R). Con ${m.total} trades la muestra aún puede ser pequeña. `;
-    msg += `Prioridad: aumentar R:R promedio (ahora ${fmt(m.avgR,2)}) o mejorar selectividad.`;
-  } else if(edge > -0.2){
-    msg = `🟠 Edge marginalmente negativo (${fmt(edge,3)}R). Win Rate ${fmt(m.winRate,1)}% con R:R ${fmt(m.avgR,2)}. `;
-    msg += "Revisa si estás cortando ganancias temprano o ampliando stops.";
-  } else {
-    msg = `🔴 Sistema sin ventaja estadística (${fmt(edge,3)}R). `;
-    msg += m.total < 20 ? "Con menos de 20 trades la muestra es aún muy pequeña." : "Necesitas revisar en profundidad entradas, exits y gestión. Usa el análisis IA.";
-  }
-
-  el.textContent = msg;
+  const el=$("mentorAutoText");
+  if(!el)return;
+  if(m.total===0){el.textContent="Aún no hay trades registrados. Empieza a cargar operaciones para ver el diagnóstico en tiempo real.";return;}
+  const wr=m.winRate/100,edge=(wr*m.avgR)-(1-wr);
+  let msg="";
+  if(edge>0.3){msg=`🟢 Sistema con edge sólido (${fmt(edge,3)}R). Win Rate ${fmt(m.winRate,1)}% con R:R ${fmt(m.avgR,2)}. `;msg+=m.maxDDPct<20?"Drawdown controlado. Sigue ejecutando con disciplina.":`Ojo con el drawdown del ${fmt(m.maxDDPct,1)}%. Revisa gestión de riesgo.`;}
+  else if(edge>0){msg=`🟡 Edge leve positivo (${fmt(edge,3)}R). Con ${m.total} trades la muestra aún puede ser pequeña. `;msg+=`Prioridad: aumentar R:R promedio (ahora ${fmt(m.avgR,2)}) o mejorar selectividad.`;}
+  else if(edge>-0.2){msg=`🟠 Edge marginalmente negativo (${fmt(edge,3)}R). Win Rate ${fmt(m.winRate,1)}% con R:R ${fmt(m.avgR,2)}. `;msg+="Revisa si estás cortando ganancias temprano o ampliando stops.";}
+  else{msg=`🔴 Sistema sin ventaja estadística (${fmt(edge,3)}R). `;msg+=m.total<20?"Con menos de 20 trades la muestra es aún muy pequeña.":"Necesitas revisar en profundidad entradas, exits y gestión. Usa el análisis IA.";}
+  el.textContent=msg;
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -2300,10 +2863,7 @@ function renderTable(){
   const tbody=$("tbody");
   tbody.innerHTML="";
   const emptyState=$("emptyState");
-  if(!rows.length){
-    emptyState.style.display="block";
-    return;
-  }
+  if(!rows.length){emptyState.style.display="block";return;}
   emptyState.style.display="none";
   const accountSize=getAccountSize();
   rows.forEach((row,i)=>{
@@ -2336,14 +2896,10 @@ function renderTable(){
 ════════════════════════════════════════════════════════════ */
 function drawLineChart(canvas,values){
   const ctx=canvas.getContext("2d"),W=canvas.width,H=canvas.height;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle="#0c1118";ctx.fillRect(0,0,W,H);
+  ctx.clearRect(0,0,W,H);ctx.fillStyle="#0c1118";ctx.fillRect(0,0,W,H);
   ctx.strokeStyle="rgba(255,255,255,.05)";ctx.lineWidth=1;
   for(let i=1;i<=4;i++){const y=i*H/5;ctx.beginPath();ctx.moveTo(40,y);ctx.lineTo(W-16,y);ctx.stroke();}
-  if(!values.length){
-    ctx.fillStyle="#5a7490";ctx.font="13px 'DM Mono',monospace";
-    ctx.fillText("Sin datos todavía",50,H/2);return;
-  }
+  if(!values.length){ctx.fillStyle="#5a7490";ctx.font="13px 'DM Mono',monospace";ctx.fillText("Sin datos todavía",50,H/2);return;}
   const min=Math.min(...values,0),max=Math.max(...values,0),range=(max-min)||1;
   const x0=40,y0=16,plotW=W-56,plotH=H-32;
   const zeroY=y0+plotH-((0-min)/range)*plotH;
@@ -2351,27 +2907,16 @@ function drawLineChart(canvas,values){
   ctx.beginPath();ctx.moveTo(x0,zeroY);ctx.lineTo(x0+plotW,zeroY);ctx.stroke();
   ctx.setLineDash([]);
   const grad=ctx.createLinearGradient(0,y0,0,y0+plotH);
-  grad.addColorStop(0,"rgba(0,232,122,.18)");
-  grad.addColorStop(1,"rgba(0,232,122,.0)");
+  grad.addColorStop(0,"rgba(0,232,122,.18)");grad.addColorStop(1,"rgba(0,232,122,.0)");
   ctx.beginPath();
-  values.forEach((v,i)=>{
-    const x=x0+(values.length===1?plotW/2:(i/(values.length-1))*plotW);
-    const y=y0+plotH-((v-min)/range)*plotH;
-    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  });
-  ctx.lineTo(x0+plotW,zeroY);ctx.lineTo(x0,zeroY);ctx.closePath();
-  ctx.fillStyle=grad;ctx.fill();
+  values.forEach((v,i)=>{const x=x0+(values.length===1?plotW/2:(i/(values.length-1))*plotW);const y=y0+plotH-((v-min)/range)*plotH;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
+  ctx.lineTo(x0+plotW,zeroY);ctx.lineTo(x0,zeroY);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
   ctx.strokeStyle="#00e87a";ctx.lineWidth=2;ctx.lineJoin="round";
   ctx.beginPath();
-  values.forEach((v,i)=>{
-    const x=x0+(values.length===1?plotW/2:(i/(values.length-1))*plotW);
-    const y=y0+plotH-((v-min)/range)*plotH;
-    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
-  });
+  values.forEach((v,i)=>{const x=x0+(values.length===1?plotW/2:(i/(values.length-1))*plotW);const y=y0+plotH-((v-min)/range)*plotH;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});
   ctx.stroke();
   ctx.fillStyle="#5a7490";ctx.font="11px 'DM Mono',monospace";
-  ctx.fillText(`▲ ${money(max)}`,48,18);
-  ctx.fillText(`▼ ${money(min)}`,48,H-8);
+  ctx.fillText(`▲ ${money(max)}`,48,18);ctx.fillText(`▼ ${money(min)}`,48,H-8);
 }
 
 function drawBarChart(canvas,values){
@@ -2382,17 +2927,14 @@ function drawBarChart(canvas,values){
   const x0=30,y0=16,plotW=W-46,plotH=H-32;
   const zeroY=y0+plotH-((0-min)/range)*plotH;
   ctx.strokeStyle="rgba(255,255,255,.1)";ctx.lineWidth=1;ctx.setLineDash([3,3]);
-  ctx.beginPath();ctx.moveTo(x0,zeroY);ctx.lineTo(x0+plotW,zeroY);ctx.stroke();
-  ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(x0,zeroY);ctx.lineTo(x0+plotW,zeroY);ctx.stroke();ctx.setLineDash([]);
   const barW=Math.max(6,plotW/values.length*0.65);
   values.forEach((v,i)=>{
     const x=x0+(i+0.15)*(plotW/values.length);
     const y=y0+plotH-((v-min)/range)*plotH;
     const h=Math.abs(zeroY-y);
     ctx.fillStyle=v>=0?"rgba(0,232,122,.85)":"rgba(255,77,106,.85)";
-    ctx.beginPath();
-    ctx.roundRect(x,v>=0?y:zeroY,barW,h||2,2);
-    ctx.fill();
+    ctx.beginPath();ctx.roundRect(x,v>=0?y:zeroY,barW,h||2,2);ctx.fill();
   });
 }
 
@@ -2411,17 +2953,17 @@ function renderAnalysis(){
   const rows=getComputedTrades();const m=computeMetrics(rows);
   const accountSize=getAccountSize();
   const stats=[
-    ["Total de operaciones", m.total],
-    ["Ganancias brutas", money(m.grossProfit)],
-    ["Pérdidas brutas", money(m.grossLossAbs)],
-    ["Promedio ganancia", money(m.avgWin)],
-    ["Promedio pérdida", money(m.avgLoss)],
-    ["Mejor racha", `${m.bestStreak} wins`],
-    ["Peor racha", `${m.worstStreak} losses`],
-    ["Expectancy", `${fmt(m.expectancy)}R`],
-    ["R promedio", `${fmt(m.avgR)}R`],
-    ["Profit Factor", m.pf===999?">10":fmt(m.pf)],
-    ["Max Drawdown", `${money(m.maxDD)} (${pct(m.maxDDPct)})`],
+    ["Total de operaciones",m.total],
+    ["Ganancias brutas",money(m.grossProfit)],
+    ["Pérdidas brutas",money(m.grossLossAbs)],
+    ["Promedio ganancia",money(m.avgWin)],
+    ["Promedio pérdida",money(m.avgLoss)],
+    ["Mejor racha",`${m.bestStreak} wins`],
+    ["Peor racha",`${m.worstStreak} losses`],
+    ["Expectancy",`${fmt(m.expectancy)}R`],
+    ["R promedio",`${fmt(m.avgR)}R`],
+    ["Profit Factor",m.pf===999?">10":fmt(m.pf)],
+    ["Max Drawdown",`${money(m.maxDD)} (${pct(m.maxDDPct)})`],
   ];
   if(accountSize>0){
     stats.push(["Tamaño de cuenta",money(accountSize)]);
@@ -2430,11 +2972,7 @@ function renderAnalysis(){
     stats.push(["DD / Cuenta",`${fmt(m.maxDDPctAccount,2)}%`]);
     if(m.avgRiskPctAccount!==null)stats.push(["Riesgo prom/trade",`${fmt(m.avgRiskPctAccount,3)}%`]);
   }
-  $("analysisStats").innerHTML=stats.map(([k,v])=>`
-    <div class="stat-row">
-      <span>${k}</span>
-      <strong>${v}</strong>
-    </div>`).join("");
+  $("analysisStats").innerHTML=stats.map(([k,v])=>`<div class="stat-row"><span>${k}</span><strong>${v}</strong></div>`).join("");
   $("sampleHintText").textContent=m.total<30
     ?"Muestra pequeña (< 30 trades). Las métricas son orientativas; necesitas más datos para conclusiones confiables."
     :"Muestra útil. Las métricas reflejan con mayor confianza el comportamiento real del sistema.";
@@ -2453,25 +2991,27 @@ function renderAnalysis(){
 /* ════════════════════════════════════════════════════════════
    SAVE / RESET / REFRESH
 ════════════════════════════════════════════════════════════ */
-function save(){ localStorage.setItem(STORAGE_KEY,JSON.stringify(trades)); }
-
-function resetForm(){
-  ["asset","entry","exit","stop","target","size","commission","strategy","notes"].forEach(id=>$(id).value="");
-  $("direction").value="Long"; $("date").value=todayStr();
-}
-
 function refreshAll(){
+  renderAccountSelector();
   updateMetrics();
   renderTable();
   renderCharts();
   renderAnalysis();
-  renderCalendar(); // ✅ El calendario también se actualiza
+  renderCalendar();
+}
+
+function resetForm(){
+  ["asset","entry","exit","stop","target","size","commission","strategy","notes"].forEach(id=>$(id).value="");
+  $("direction").value="Long";$("date").value=todayStr();
 }
 
 /* ════════════════════════════════════════════════════════════
    EVENTS — Buttons
 ════════════════════════════════════════════════════════════ */
 $("addBtn").addEventListener("click",()=>{
+  const acc = getActiveAccount();
+  if (!acc) { showAlert("warning","⚠️ Sin cuenta","Crea una cuenta antes de registrar operaciones."); return; }
+
   const trade={
     date:$("date").value||todayStr(),asset:$("asset").value.trim(),
     direction:$("direction").value,
@@ -2482,24 +3022,36 @@ $("addBtn").addEventListener("click",()=>{
   };
   if(!trade.asset){alert("Pon el activo.");return;}
   if(!trade.entry||!trade.exit){alert("Pon entrada y salida.");return;}
-  trades.push(trade);save();refreshAll();resetForm();
+
+  // Guardar trade en la cuenta activa
+  const currentTrades = getActiveTrades();
+  currentTrades.push(trade);
+  setActiveTrades(currentTrades);
+
+  refreshAll();
+  resetForm();
   checkSmartAlerts(trade);
 });
 
 window.removeTrade=function(index){
   if(!confirm("¿Eliminar esta operación?"))return;
-  trades.splice(index,1);save();refreshAll();
+  const currentTrades = getActiveTrades();
+  currentTrades.splice(index,1);
+  setActiveTrades(currentTrades);
+  refreshAll();
 };
 
 $("clearBtn").addEventListener("click",()=>{
-  if(!confirm("¿Seguro que quieres borrar toda la bitácora?"))return;
-  trades=[];save();refreshAll();
+  if(!confirm("¿Seguro que quieres borrar todas las operaciones de esta cuenta?"))return;
+  setActiveTrades([]);
+  refreshAll();
 });
 
 $("exportBtn").addEventListener("click",()=>{
-  const blob=new Blob([JSON.stringify(trades,null,2)],{type:"application/json"});
+  const acc = getActiveAccount();
+  const blob=new Blob([JSON.stringify(getActiveTrades(),null,2)],{type:"application/json"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);
-  a.download="edge33-trades.json";a.click();
+  a.download=`edge33-${acc?.name||'trades'}.json`;a.click();
 });
 
 $("csvBtn").addEventListener("click",()=>{
@@ -2508,7 +3060,7 @@ $("csvBtn").addEventListener("click",()=>{
   const csv=[headers.join(","),...rows.map(r=>headers.map(h=>`"${String(r[h]??"")}"`).join(","))].join("\n");
   const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);
-  a.download="edge33-trades.csv";a.click();
+  a.download=`edge33-${getActiveAccount()?.name||'trades'}.csv`;a.click();
 });
 
 $("importBtn").addEventListener("click",()=>$("importFile").click());
@@ -2519,7 +3071,9 @@ $("importFile").addEventListener("change",(e)=>{
     try{
       const data=JSON.parse(reader.result);
       if(!Array.isArray(data))throw new Error("Formato inválido");
-      trades=data;save();refreshAll();alert("Importación completada.");
+      setActiveTrades(data);
+      refreshAll();
+      showAlert("success","✅ Importación completada",`${data.length} operaciones cargadas en ${getActiveAccount()?.name}.`);
     }catch(err){alert("No pude importar ese archivo JSON.");}
   };
   reader.readAsText(file);
@@ -2536,8 +3090,7 @@ document.querySelectorAll(".tab").forEach(btn=>{
     const panel=document.getElementById(btn.dataset.tab);
     if(panel)panel.classList.add("active");
     renderCharts();
-    // Renderizar calendario al cambiar a esa pestaña
-    if(btn.dataset.tab === "calendario") renderCalendar();
+    if(btn.dataset.tab==="calendario")renderCalendar();
   });
 });
 
@@ -2552,8 +3105,7 @@ async function runAnalysis(){
   const m=computeMetrics(rows);
   const btn=$("analyzeBtn");
   btn.disabled=true;btn.innerHTML='<span class="spin"></span> Analizando...';
-  $("insightsWrap").innerHTML="";
-  $("mentorSummarySlot").innerHTML="";
+  $("insightsWrap").innerHTML="";$("mentorSummarySlot").innerHTML="";
   try{
     const prompt=buildPrompt(rows,m);
     const data=await callClaude(prompt);
@@ -2562,8 +3114,7 @@ async function runAnalysis(){
     showAlert("danger","Error de IA","No se pudo conectar con Mentor33. Verifica tu conexión.");
     console.error(e);
   }
-  btn.disabled=false;
-  btn.innerHTML='<span>⚡</span> Análisis profundo con IA';
+  btn.disabled=false;btn.innerHTML='<span>⚡</span> Análisis profundo con IA';
 }
 
 function buildPrompt(rows,m){
@@ -2572,9 +3123,10 @@ function buildPrompt(rows,m){
   const accountCtx=m.accountSize>0
     ?`Cuenta: ${money(m.accountSize)} | Balance: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount,2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount,2)}% | Riesgo prom/trade: ${m.avgRiskPctAccount!==null?fmt(m.avgRiskPctAccount,3)+'%':'N/A'}`
     :"Cuenta: no configurada";
-  const wr=m.winRate/100;
-  const edge=(wr*m.avgR)-(1-wr);
-  return `Eres Mentor33, mentor de trading profesional para Edge33. El sistema del trader es: "Altos y Bajos de H4 confirmados con Q33".
+  const wr=m.winRate/100,edge=(wr*m.avgR)-(1-wr);
+  const acc=getActiveAccount();
+  return `Eres Mentor33, mentor de trading profesional para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
+Cuenta analizada: ${acc?.name||'Sin nombre'} (${acc?.type||'Personal'})${acc?.broker?' · '+acc.broker:''}
 
 Analiza los siguientes datos reales del trader y responde ÚNICAMENTE con un JSON válido con exactamente este formato:
 {
@@ -2638,11 +3190,8 @@ function renderInsights(data){
    CHAT
 ════════════════════════════════════════════════════════════ */
 const chatHistory=[];
-
 $("chatSendBtn").addEventListener("click",sendChat);
-$("chatInp").addEventListener("keydown",(e)=>{
-  if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat();}
-});
+$("chatInp").addEventListener("keydown",(e)=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat();}});
 
 async function sendChat(){
   const inp=$("chatInp"),btn=$("chatSendBtn");
@@ -2652,12 +3201,13 @@ async function sendChat(){
   const typing=addTyping();
   const rows=getComputedTrades();
   const m=computeMetrics(rows);
-  const wr=m.winRate/100;
-  const edge=(wr*m.avgR)-(1-wr);
+  const wr=m.winRate/100,edge=(wr*m.avgR)-(1-wr);
   const accountCtx=m.accountSize>0
     ?`Cuenta: ${money(m.accountSize)} | Balance: ${money(m.balance)} | Rentabilidad: ${fmt(m.netPctAccount,2)}% | DD/Cuenta: ${fmt(m.maxDDPctAccount,2)}%`
     :"Cuenta: no configurada";
+  const acc=getActiveAccount();
   const system=`Eres Mentor33, mentor de trading para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
+Cuenta activa: ${acc?.name||'Sin nombre'} (${acc?.type||'Personal'})${acc?.broker?' · '+acc.broker:''}
 
 Datos actuales del trader:
 - ${m.total} trades registrados
@@ -2682,12 +3232,8 @@ Responde en español. Sé directo, claro y como mentor profesional de trading. M
     const data=await res.json();
     const reply=data.content?.find(b=>b.type==="text")?.text||"No pude generar respuesta.";
     chatHistory.push({role:"assistant",content:reply});
-    typing.remove();
-    addMsg("mentor",reply);
-  }catch(e){
-    typing.remove();
-    addMsg("mentor","Error de conexión. Verifica la configuración de la API.");
-  }
+    typing.remove();addMsg("mentor",reply);
+  }catch(e){typing.remove();addMsg("mentor","Error de conexión. Verifica la configuración de la API.");}
   btn.disabled=false;
 }
 
@@ -2695,27 +3241,23 @@ function addMsg(role,text){
   const msgs=$("chatMsgs");
   const d=document.createElement("div");d.className=`msg ${role}`;
   d.innerHTML=`<div class="msg-av">${role==="mentor"?"🤖":"👤"}</div><div class="msg-bbl">${text}</div>`;
-  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
-  return d;
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
 }
 
 function addTyping(){
   const msgs=$("chatMsgs");
   const d=document.createElement("div");d.className="msg mentor";
   d.innerHTML=`<div class="msg-av">🤖</div><div class="msg-bbl"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>`;
-  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
-  return d;
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d;
 }
 
 /* ════════════════════════════════════════════════════════════
    SMART ALERTS
 ════════════════════════════════════════════════════════════ */
 function checkSmartAlerts(t){
-  const todayTrades=trades.filter(x=>x.date===t.date);
-  if(todayTrades.length>=3)
-    showAlert("danger","🚨 Sobreoperación",`Llevas ${todayTrades.length} trades hoy. Revisa si estás siguiendo el plan.`);
-  if(!t.strategy)
-    showAlert("warning","⚠️ Sin estrategia","Registrar el setup ayuda a Mentor33 a detectar tu edge con más precisión.");
+  const todayTrades=getActiveTrades().filter(x=>x.date===t.date);
+  if(todayTrades.length>=3)showAlert("danger","🚨 Sobreoperación",`Llevas ${todayTrades.length} trades hoy. Revisa si estás siguiendo el plan.`);
+  if(!t.strategy)showAlert("warning","⚠️ Sin estrategia","Registrar el setup ayuda a Mentor33 a detectar tu edge con más precisión.");
   const accountSize=getAccountSize();
   if(accountSize>0){
     const computed=calcTrade(t);
@@ -2736,404 +3278,212 @@ function showAlert(type,title,msg){
 }
 
 /* ════════════════════════════════════════════════════════════
-   EDGE33 Calculadora Automática
+   CALCULADORA AUTOMÁTICA
 ════════════════════════════════════════════════════════════ */
-const CALC_STORAGE_KEY = "edge33_auto_calculator_v1";
-
 const SYMBOL_PRESETS = {
-  XAUUSD: { symbol:"XAUUSD", punto:0.01, valorPunto:1, loteMin:0.01 },
-  NAS100: { symbol:"NAS100", punto:1,    valorPunto:1, loteMin:0.1  },
-  BTCUSD: { symbol:"BTCUSD", punto:1,    valorPunto:1, loteMin:0.01 },
-  EURUSD: { symbol:"EURUSD", punto:0.0001,valorPunto:10,loteMin:0.01},
-US30: {
-  symbol:"US30",
-  punto:1,
-  valorPunto:1,
-  loteMin:0.1
-},
+  XAUUSD: { symbol:"XAUUSD", punto:0.01, valorPunto:1,  loteMin:0.01 },
+  NAS100: { symbol:"NAS100", punto:1,    valorPunto:1,  loteMin:0.1  },
+  BTCUSD: { symbol:"BTCUSD", punto:1,    valorPunto:1,  loteMin:0.01 },
+  EURUSD: { symbol:"EURUSD", punto:0.0001,valorPunto:10,loteMin:0.01 },
+  US30:   { symbol:"US30",   punto:1,    valorPunto:1,  loteMin:0.1  },
+  SP500:  { symbol:"SP500",  punto:0.1,  valorPunto:1,  loteMin:0.1  },
+};
 
-SP500: {
-  symbol:"SP500",
-  punto:0.1,
-  valorPunto:1,
-  loteMin:0.1
-},
-}
-function applySymbolPreset(key) {
-  const preset = SYMBOL_PRESETS[key];
-  if (!preset) return;
-  $("calc-symbol").value      = preset.symbol;
-  $("calc-punto").value       = preset.punto;
-  $("calc-valor-punto").value = preset.valorPunto;
-  $("calc-lote-min").value    = preset.loteMin;
-  document.querySelectorAll(".preset-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.dataset.preset === key);
-  });
+function applySymbolPreset(key){
+  const preset=SYMBOL_PRESETS[key];if(!preset)return;
+  $("calc-symbol").value=preset.symbol;$("calc-punto").value=preset.punto;
+  $("calc-valor-punto").value=preset.valorPunto;$("calc-lote-min").value=preset.loteMin;
+  document.querySelectorAll(".preset-btn").forEach(btn=>btn.classList.toggle("active",btn.dataset.preset===key));
   saveAutoCalculatorSettings();
 }
 
-function saveAutoCalculatorSettings() {
-  const settings = {
-    symbol:     $("calc-symbol").value,
-    balance:    $("calc-balance").value,
-    riesgo:     $("calc-riesgo").value,
-    sl:         $("calc-sl").value,
-    punto:      $("calc-punto").value,
-    valorPunto: $("calc-valor-punto").value,
-    loteMin:    $("calc-lote-min").value,
-  };
-  localStorage.setItem(CALC_STORAGE_KEY, JSON.stringify(settings));
+function saveAutoCalculatorSettings(){
+  const settings={symbol:$("calc-symbol").value,balance:$("calc-balance").value,riesgo:$("calc-riesgo").value,sl:$("calc-sl").value,punto:$("calc-punto").value,valorPunto:$("calc-valor-punto").value,loteMin:$("calc-lote-min").value};
+  localStorage.setItem(CALC_STORAGE_KEY,JSON.stringify(settings));
 }
 
-function loadAutoCalculatorSettings() {
-  try {
-    const raw = localStorage.getItem(CALC_STORAGE_KEY);
-    if (!raw) { applySymbolPreset("XAUUSD"); return; }
-    const s = JSON.parse(raw);
-    if (s.symbol)     $("calc-symbol").value      = s.symbol;
-    if (s.balance)    $("calc-balance").value      = s.balance;
-    if (s.riesgo)     $("calc-riesgo").value       = s.riesgo;
-    if (s.sl)         $("calc-sl").value           = s.sl;
-    if (s.punto)      $("calc-punto").value        = s.punto;
-    if (s.valorPunto) $("calc-valor-punto").value  = s.valorPunto;
-    if (s.loteMin)    $("calc-lote-min").value     = s.loteMin;
-    const sym = (s.symbol || "").toUpperCase();
-    document.querySelectorAll(".preset-btn").forEach(btn => {
-      btn.classList.toggle("active", btn.dataset.preset === sym);
-    });
-  } catch(e) { applySymbolPreset("XAUUSD"); }
+function loadAutoCalculatorSettings(){
+  try{
+    const raw=localStorage.getItem(CALC_STORAGE_KEY);
+    if(!raw){applySymbolPreset("XAUUSD");return;}
+    const s=JSON.parse(raw);
+    if(s.symbol)$("calc-symbol").value=s.symbol;if(s.balance)$("calc-balance").value=s.balance;
+    if(s.riesgo)$("calc-riesgo").value=s.riesgo;if(s.sl)$("calc-sl").value=s.sl;
+    if(s.punto)$("calc-punto").value=s.punto;if(s.valorPunto)$("calc-valor-punto").value=s.valorPunto;
+    if(s.loteMin)$("calc-lote-min").value=s.loteMin;
+    const sym=(s.symbol||"").toUpperCase();
+    document.querySelectorAll(".preset-btn").forEach(btn=>btn.classList.toggle("active",btn.dataset.preset===sym));
+  }catch(e){applySymbolPreset("XAUUSD");}
 }
 
-function calculateAutoLot() {
-  const balance    = parseFloat($("calc-balance").value);
-  const riesgoPct  = parseFloat($("calc-riesgo").value);
-  const distanciaSL = parseFloat($("calc-sl").value);
-  const tamPunto   = parseFloat($("calc-punto").value);
-  const valPunto   = parseFloat($("calc-valor-punto").value);
-  const loteMin    = parseFloat($("calc-lote-min").value);
-
-  if (isNaN(balance)    || balance <= 0)     { showAlert("warning","⚠️ Dato faltante","Ingresa el balance de la cuenta."); return; }
-  if (isNaN(riesgoPct)  || riesgoPct <= 0)   { showAlert("warning","⚠️ Dato faltante","Ingresa el porcentaje de riesgo."); return; }
-  if (isNaN(distanciaSL)|| distanciaSL <= 0) { showAlert("warning","⚠️ Stop Loss inválido","La distancia del Stop Loss debe ser mayor a 0."); return; }
-  if (isNaN(tamPunto)   || tamPunto <= 0)    { showAlert("warning","⚠️ Dato faltante","Ingresa el tamaño de punto."); return; }
-  if (isNaN(valPunto)   || valPunto <= 0)    { showAlert("warning","⚠️ Dato faltante","Ingresa el valor por punto por lote."); return; }
-  if (isNaN(loteMin)    || loteMin <= 0)     { showAlert("warning","⚠️ Dato faltante","Ingresa el tamaño mínimo de lote."); return; }
-
-  const riesgoUSD       = balance * (riesgoPct / 100);
-  const slPuntos        = distanciaSL / tamPunto;
-  const lotajeCrudo     = riesgoUSD / (slPuntos * valPunto);
-  const decimalesMin    = calcDecimals(loteMin);
-  const lotajeRedondeado= Math.floor(lotajeCrudo / loteMin) * loteMin;
-  const lotajeFinal     = parseFloat(lotajeRedondeado.toFixed(decimalesMin));
-  const perdidaAprox    = slPuntos * valPunto * lotajeFinal;
-  const valPuntoConLote = valPunto * lotajeFinal;
-
+function calculateAutoLot(){
+  const balance=parseFloat($("calc-balance").value);
+  const riesgoPct=parseFloat($("calc-riesgo").value);
+  const distanciaSL=parseFloat($("calc-sl").value);
+  const tamPunto=parseFloat($("calc-punto").value);
+  const valPunto=parseFloat($("calc-valor-punto").value);
+  const loteMin=parseFloat($("calc-lote-min").value);
+  if(isNaN(balance)||balance<=0){showAlert("warning","⚠️ Dato faltante","Ingresa el balance de la cuenta.");return;}
+  if(isNaN(riesgoPct)||riesgoPct<=0){showAlert("warning","⚠️ Dato faltante","Ingresa el porcentaje de riesgo.");return;}
+  if(isNaN(distanciaSL)||distanciaSL<=0){showAlert("warning","⚠️ Stop Loss inválido","La distancia del Stop Loss debe ser mayor a 0.");return;}
+  if(isNaN(tamPunto)||tamPunto<=0){showAlert("warning","⚠️ Dato faltante","Ingresa el tamaño de punto.");return;}
+  if(isNaN(valPunto)||valPunto<=0){showAlert("warning","⚠️ Dato faltante","Ingresa el valor por punto por lote.");return;}
+  if(isNaN(loteMin)||loteMin<=0){showAlert("warning","⚠️ Dato faltante","Ingresa el tamaño mínimo de lote.");return;}
+  const riesgoUSD=balance*(riesgoPct/100);
+  const slPuntos=distanciaSL/tamPunto;
+  const lotajeCrudo=riesgoUSD/(slPuntos*valPunto);
+  const decimalesMin=calcDecimals(loteMin);
+  const lotajeRedondeado=Math.floor(lotajeCrudo/loteMin)*loteMin;
+  const lotajeFinal=parseFloat(lotajeRedondeado.toFixed(decimalesMin));
+  const perdidaAprox=slPuntos*valPunto*lotajeFinal;
+  const valPuntoConLote=valPunto*lotajeFinal;
   saveAutoCalculatorSettings();
-
-  $("calc-result-lot").textContent            = lotajeFinal > 0 ? lotajeFinal.toFixed(decimalesMin) : "0";
-  $("calc-res-riesgo-usd").textContent        = money(riesgoUSD);
-  $("calc-res-sl-puntos").textContent         = fmt(slPuntos, 0) + " pts";
-  $("calc-res-perdida").textContent           = money(perdidaAprox);
-  $("calc-res-valor-punto-lote").textContent  = money(valPuntoConLote) + "/pto";
-
-  $("calc-empty-state").style.display  = "none";
-  $("calc-result-grid").style.display  = "grid";
-
-  const formulaText = `Balance $${balance.toLocaleString()} × ${riesgoPct}% = ${money(riesgoUSD)} riesgo · SL: ${distanciaSL} ÷ ${tamPunto} = ${fmt(slPuntos,0)} pts · Lote = ${money(riesgoUSD)} ÷ (${fmt(slPuntos,0)} × $${valPunto}) = ${lotajeFinal.toFixed(decimalesMin)} lotes`;
-  $("calc-formula-text").textContent   = formulaText;
-  $("calc-formula-box").style.display  = "flex";
-
-  $("calc-risk-warning").classList.toggle("visible", riesgoPct > 2);
-  showAlert("success","✅ Cálculo completado",`Lotaje recomendado: ${lotajeFinal.toFixed(decimalesMin)} lotes para ${$("calc-symbol").value || "el activo"}.`);
+  $("calc-result-lot").textContent=lotajeFinal>0?lotajeFinal.toFixed(decimalesMin):"0";
+  $("calc-res-riesgo-usd").textContent=money(riesgoUSD);
+  $("calc-res-sl-puntos").textContent=fmt(slPuntos,0)+" pts";
+  $("calc-res-perdida").textContent=money(perdidaAprox);
+  $("calc-res-valor-punto-lote").textContent=money(valPuntoConLote)+"/pto";
+  $("calc-empty-state").style.display="none";
+  $("calc-result-grid").style.display="grid";
+  const formulaText=`Balance $${balance.toLocaleString()} × ${riesgoPct}% = ${money(riesgoUSD)} riesgo · SL: ${distanciaSL} ÷ ${tamPunto} = ${fmt(slPuntos,0)} pts · Lote = ${money(riesgoUSD)} ÷ (${fmt(slPuntos,0)} × $${valPunto}) = ${lotajeFinal.toFixed(decimalesMin)} lotes`;
+  $("calc-formula-text").textContent=formulaText;
+  $("calc-formula-box").style.display="flex";
+  $("calc-risk-warning").classList.toggle("visible",riesgoPct>2);
+  showAlert("success","✅ Cálculo completado",`Lotaje recomendado: ${lotajeFinal.toFixed(decimalesMin)} lotes para ${$("calc-symbol").value||"el activo"}.`);
 }
 
-function calcDecimals(n) {
-  const s = n.toString();
-  const dot = s.indexOf(".");
-  return dot === -1 ? 0 : s.length - dot - 1;
-}
+function calcDecimals(n){const s=n.toString();const dot=s.indexOf(".");return dot===-1?0:s.length-dot-1;}
 
-["calc-symbol","calc-balance","calc-riesgo","calc-sl","calc-punto","calc-valor-punto","calc-lote-min"].forEach(id => {
-  const el = $(id);
-  if (el) el.addEventListener("input", saveAutoCalculatorSettings);
+["calc-symbol","calc-balance","calc-riesgo","calc-sl","calc-punto","calc-valor-punto","calc-lote-min"].forEach(id=>{
+  const el=$(id);if(el)el.addEventListener("input",saveAutoCalculatorSettings);
 });
 
 /* ════════════════════════════════════════════════════════════
-   ██████╗  █████╗ ██╗     ███████╗███╗   ██╗██████╗  █████╗ ██████╗ ██╗ ██████╗
-   ██╔════╝██╔══██╗██║     ██╔════╝████╗  ██║██╔══██╗██╔══██╗██╔══██╗██║██╔═══██╗
-   ██║     ███████║██║     █████╗  ██╔██╗ ██║██║  ██║███████║██████╔╝██║██║   ██║
-   ██║     ██╔══██║██║     ██╔══╝  ██║╚██╗██║██║  ██║██╔══██║██╔══██╗██║██║   ██║
-   ╚██████╗██║  ██║███████╗███████╗██║ ╚████║██████╔╝██║  ██║██║  ██║██║╚██████╔╝
-    ╚═════╝╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═══╝╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝ ╚═════╝
-
-   EDGE33 — PESTAÑA CALENDARIO
-   Funciones nuevas:
-     · calState          → Estado del calendario (mes, año, modo)
-     · setCalMode()      → Alterna entre dólares y porcentaje
-     · buildDayMap()     → Agrupa trades por fecha y calcula P&L diario
-     · renderCalendar()  → Dibuja el calendario completo
-     · renderCalSummary()→ Tarjetas de resumen mensual
-     · renderHeatbar()   → Barra de distribución diaria
-     · calPrevBtn/Next   → Navegación mensual
-     · calTodayBtn       → Ir al mes actual
+   CALENDARIO
 ════════════════════════════════════════════════════════════ */
+const calState={year:new Date().getFullYear(),month:new Date().getMonth(),mode:'dollar'};
+const CAL_MONTHS_ES=["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
-/* ── Estado del calendario ── */
-const calState = {
-  year:  new Date().getFullYear(),
-  month: new Date().getMonth(),   // 0-indexed
-  mode:  'dollar',                // 'dollar' | 'pct'
-};
-
-const CAL_MONTHS_ES = [
-  "Enero","Febrero","Marzo","Abril","Mayo","Junio",
-  "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
-];
-
-/* ── Cambiar modo dólares / porcentaje ── */
-function setCalMode(mode) {
-  calState.mode = mode;
-  $("calModeDollar").classList.toggle("active", mode === 'dollar');
-  $("calModePct").classList.toggle("active",    mode === 'pct');
+function setCalMode(mode){
+  calState.mode=mode;
+  $("calModeDollar").classList.toggle("active",mode==='dollar');
+  $("calModePct").classList.toggle("active",mode==='pct');
   renderCalendar();
 }
 
-/* ── Construir mapa de días: { "YYYY-MM-DD": { pnl, pnlPctAccount, count } } ── */
-function buildDayMap() {
-  const rows = getComputedTrades();
-  const map  = {};
-  rows.forEach(t => {
-    const key = t.date;
-    if (!key) return;
-    if (!map[key]) map[key] = { pnl: 0, pnlPctAccount: 0, count: 0 };
-    map[key].pnl            += t.pnl;
-    map[key].pnlPctAccount  += (t.pnlPctAccount || 0);
-    map[key].count          += 1;
+function buildDayMap(){
+  const rows=getComputedTrades();
+  const map={};
+  rows.forEach(t=>{
+    const key=t.date;if(!key)return;
+    if(!map[key])map[key]={pnl:0,pnlPctAccount:0,count:0};
+    map[key].pnl+=t.pnl;
+    map[key].pnlPctAccount+=(t.pnlPctAccount||0);
+    map[key].count+=1;
   });
   return map;
 }
 
-/* ── Formatear valor según modo ── */
-function formatCalValue(dayData) {
-  if (!dayData) return '';
-  if (calState.mode === 'pct') {
-    const v = dayData.pnlPctAccount;
-    const sign = v >= 0 ? '+' : '';
-    return `${sign}${fmt(v, 2)}%`;
-  } else {
-    const v = dayData.pnl;
-    const sign = v >= 0 ? '+' : '';
-    const abs  = Math.abs(v);
-    // Formato compacto para valores grandes
-    if (abs >= 10000) return `${sign}$${(v/1000).toFixed(1)}k`;
-    return `${sign}${money(v)}`;
-  }
+function formatCalValue(dayData){
+  if(!dayData)return'';
+  if(calState.mode==='pct'){const v=dayData.pnlPctAccount;const sign=v>=0?'+':'';return`${sign}${fmt(v,2)}%`;}
+  else{const v=dayData.pnl;const sign=v>=0?'+':'';const abs=Math.abs(v);if(abs>=10000)return`${sign}$${(v/1000).toFixed(1)}k`;return`${sign}${money(v)}`;}
 }
 
-/* ── Renderizar resumen mensual ── */
-function renderCalSummary(dayMap, year, month) {
-  // Solo días de este mes
-  const prefix = `${year}-${String(month+1).padStart(2,'0')}-`;
-  const monthDays = Object.entries(dayMap).filter(([k]) => k.startsWith(prefix));
-
-  if (!monthDays.length) {
-    $("calSumPnl").textContent      = "—";
-    $("calSumPnl").className        = "cal-sum-val";
-    $("calSumWinDays").textContent  = "0";
-    $("calSumLossDays").textContent = "0";
-    $("calSumTrades").textContent   = "0";
-    $("calSumWinRate").textContent  = "—";
-    return;
+function renderCalSummary(dayMap,year,month){
+  const prefix=`${year}-${String(month+1).padStart(2,'0')}-`;
+  const monthDays=Object.entries(dayMap).filter(([k])=>k.startsWith(prefix));
+  if(!monthDays.length){
+    $("calSumPnl").textContent="—";$("calSumPnl").className="cal-sum-val";
+    $("calSumWinDays").textContent="0";$("calSumLossDays").textContent="0";
+    $("calSumTrades").textContent="0";$("calSumWinRate").textContent="—";return;
   }
-
-  let totalPnl   = 0;
-  let winDays    = 0;
-  let lossDays   = 0;
-  let totalTrades= 0;
-
-  monthDays.forEach(([, d]) => {
-    totalPnl    += d.pnl;
-    totalTrades += d.count;
-    if (d.pnl > 0) winDays++;
-    else if (d.pnl < 0) lossDays++;
-  });
-
-  const tradingDays = winDays + lossDays;
-  const winRateDays = tradingDays > 0 ? (winDays / tradingDays * 100) : 0;
-
-  // P&L del mes — mostrar según modo
-  const accountSize = getAccountSize();
-  if (calState.mode === 'pct' && accountSize > 0) {
-    const pnlPct = (totalPnl / accountSize) * 100;
-    const sign   = pnlPct >= 0 ? '+' : '';
-    $("calSumPnl").textContent = `${sign}${fmt(pnlPct, 2)}%`;
-  } else {
-    $("calSumPnl").textContent = (totalPnl >= 0 ? '+' : '') + money(totalPnl);
-  }
-  $("calSumPnl").className = `cal-sum-val ${totalPnl >= 0 ? 'green' : 'red'}`;
-
-  $("calSumWinDays").textContent  = winDays;
-  $("calSumLossDays").textContent = lossDays;
-  $("calSumTrades").textContent   = totalTrades;
-  $("calSumWinRate").textContent  = tradingDays > 0 ? `${fmt(winRateDays, 1)}%` : "—";
+  let totalPnl=0,winDays=0,lossDays=0,totalTrades=0;
+  monthDays.forEach(([,d])=>{totalPnl+=d.pnl;totalTrades+=d.count;if(d.pnl>0)winDays++;else if(d.pnl<0)lossDays++;});
+  const tradingDays=winDays+lossDays;
+  const winRateDays=tradingDays>0?(winDays/tradingDays*100):0;
+  const accountSize=getAccountSize();
+  if(calState.mode==='pct'&&accountSize>0){const pnlPct=(totalPnl/accountSize)*100;const sign=pnlPct>=0?'+':'';$("calSumPnl").textContent=`${sign}${fmt(pnlPct,2)}%`;}
+  else{$("calSumPnl").textContent=(totalPnl>=0?'+':'')+money(totalPnl);}
+  $("calSumPnl").className=`cal-sum-val ${totalPnl>=0?'green':'red'}`;
+  $("calSumWinDays").textContent=winDays;$("calSumLossDays").textContent=lossDays;
+  $("calSumTrades").textContent=totalTrades;
+  $("calSumWinRate").textContent=tradingDays>0?`${fmt(winRateDays,1)}%`:"—";
 }
 
-/* ── Renderizar heatbar ── */
-function renderHeatbar(dayMap, year, month) {
-  const prefix    = `${year}-${String(month+1).padStart(2,'0')}-`;
-  const monthDays = Object.entries(dayMap)
-    .filter(([k]) => k.startsWith(prefix))
-    .sort(([a],[b]) => a.localeCompare(b));
-
-  const heatbar = $("calHeatbar");
-  const heatRow = $("calHeatRow");
-
-  if (!monthDays.length) {
-    heatbar.style.display = "none";
-    return;
-  }
-  heatbar.style.display = "block";
-
-  const values = monthDays.map(([,d]) => d.pnl);
-  const maxAbs = Math.max(...values.map(Math.abs), 1);
-
-  heatRow.innerHTML = monthDays.map(([date, d]) => {
-    const ratio   = Math.abs(d.pnl) / maxAbs;
-    const heightPx= Math.max(4, Math.round(ratio * 44));
-    const color   = d.pnl >= 0 ? 'rgba(0,232,122,.7)' : 'rgba(255,77,106,.7)';
-    const dayNum  = date.split('-')[2];
-    const label   = calState.mode === 'pct'
-      ? `Día ${dayNum}: ${formatCalValue(d)}`
-      : `Día ${dayNum}: ${money(d.pnl)} (${d.count} trade${d.count!==1?'s':''})`;
-    return `<div class="cal-heat-bar"
-      style="height:${heightPx}px;background:${color};"
-      title="${label}"></div>`;
+function renderHeatbar(dayMap,year,month){
+  const prefix=`${year}-${String(month+1).padStart(2,'0')}-`;
+  const monthDays=Object.entries(dayMap).filter(([k])=>k.startsWith(prefix)).sort(([a],[b])=>a.localeCompare(b));
+  const heatbar=$("calHeatbar"),heatRow=$("calHeatRow");
+  if(!monthDays.length){heatbar.style.display="none";return;}
+  heatbar.style.display="block";
+  const values=monthDays.map(([,d])=>d.pnl);
+  const maxAbs=Math.max(...values.map(Math.abs),1);
+  heatRow.innerHTML=monthDays.map(([date,d])=>{
+    const ratio=Math.abs(d.pnl)/maxAbs;
+    const heightPx=Math.max(4,Math.round(ratio*44));
+    const color=d.pnl>=0?'rgba(0,232,122,.7)':'rgba(255,77,106,.7)';
+    const dayNum=date.split('-')[2];
+    const label=calState.mode==='pct'?`Día ${dayNum}: ${formatCalValue(d)}`:`Día ${dayNum}: ${money(d.pnl)} (${d.count} trade${d.count!==1?'s':''})`;
+    return`<div class="cal-heat-bar" style="height:${heightPx}px;background:${color};" title="${label}"></div>`;
   }).join('');
-
-  $("calHeatbarLbl").textContent = calState.mode === 'pct' ? '% cuenta por día' : 'P&L por día';
+  $("calHeatbarLbl").textContent=calState.mode==='pct'?'% cuenta por día':'P&L por día';
 }
 
-/* ── Renderizar el calendario completo ── */
-function renderCalendar() {
-  const { year, month } = calState;
-  const today           = new Date();
-  const dayMap          = buildDayMap();
-
-  // Label del mes
-  $("calMonthLabel").textContent = `${CAL_MONTHS_ES[month]} ${year}`;
-
-  // Primer día del mes (JS: 0=Dom … adaptamos a Lun=0)
-  const firstDay      = new Date(year, month, 1);
-  const lastDay       = new Date(year, month + 1, 0);
-  const daysInMonth   = lastDay.getDate();
-
-  // Offset: JS domingo=0, queremos lunes=0
-  let startOffset = firstDay.getDay() - 1;
-  if (startOffset < 0) startOffset = 6; // domingo → 6
-
-  // Último mes para rellenar celdas previas
-  const daysLastMonth = new Date(year, month, 0).getDate();
-
-  const grid = $("calGrid");
-  grid.innerHTML = '';
-
-  const totalCells = Math.ceil((startOffset + daysInMonth) / 7) * 7;
-
-  for (let i = 0; i < totalCells; i++) {
-    const cell = document.createElement("div");
-
-    if (i < startOffset) {
-      // Días del mes anterior
-      const dayNum = daysLastMonth - startOffset + i + 1;
-      cell.className = "cal-day out-month";
-      cell.innerHTML = `<span class="cal-day-num">${dayNum}</span>`;
-
-    } else if (i >= startOffset + daysInMonth) {
-      // Días del mes siguiente
-      const dayNum = i - startOffset - daysInMonth + 1;
-      cell.className = "cal-day out-month";
-      cell.innerHTML = `<span class="cal-day-num">${dayNum}</span>`;
-
-    } else {
-      // Días del mes actual
-      const dayNum  = i - startOffset + 1;
-      const dateKey = `${year}-${String(month+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;
-      const data    = dayMap[dateKey];
-
-      // ¿Es hoy?
-      const isToday = (
-        today.getFullYear() === year &&
-        today.getMonth()    === month &&
-        today.getDate()     === dayNum
-      );
-
-      let dayClass = "cal-day";
-      if (isToday) dayClass += " today-day";
-
-      if (data) {
-        if (data.pnl > 0)      dayClass += " positive-day";
-        else if (data.pnl < 0) dayClass += " negative-day";
-        else                   dayClass += " empty-day"; // breakeven
-      } else {
-        dayClass += " empty-day";
+function renderCalendar(){
+  const{year,month}=calState;
+  const today=new Date();
+  const dayMap=buildDayMap();
+  $("calMonthLabel").textContent=`${CAL_MONTHS_ES[month]} ${year}`;
+  const firstDay=new Date(year,month,1);
+  const lastDay=new Date(year,month+1,0);
+  const daysInMonth=lastDay.getDate();
+  let startOffset=firstDay.getDay()-1;
+  if(startOffset<0)startOffset=6;
+  const daysLastMonth=new Date(year,month,0).getDate();
+  const grid=$("calGrid");
+  grid.innerHTML='';
+  const totalCells=Math.ceil((startOffset+daysInMonth)/7)*7;
+  for(let i=0;i<totalCells;i++){
+    const cell=document.createElement("div");
+    if(i<startOffset){
+      const dayNum=daysLastMonth-startOffset+i+1;
+      cell.className="cal-day out-month";
+      cell.innerHTML=`<span class="cal-day-num">${dayNum}</span>`;
+    }else if(i>=startOffset+daysInMonth){
+      const dayNum=i-startOffset-daysInMonth+1;
+      cell.className="cal-day out-month";
+      cell.innerHTML=`<span class="cal-day-num">${dayNum}</span>`;
+    }else{
+      const dayNum=i-startOffset+1;
+      const dateKey=`${year}-${String(month+1).padStart(2,'0')}-${String(dayNum).padStart(2,'0')}`;
+      const data=dayMap[dateKey];
+      const isToday=(today.getFullYear()===year&&today.getMonth()===month&&today.getDate()===dayNum);
+      let dayClass="cal-day";
+      if(isToday)dayClass+=" today-day";
+      if(data){if(data.pnl>0)dayClass+=" positive-day";else if(data.pnl<0)dayClass+=" negative-day";else dayClass+=" empty-day";}
+      else{dayClass+=" empty-day";}
+      cell.className=dayClass;
+      let tooltipHtml='';
+      if(data){
+        const pnlStr=money(data.pnl);
+        const accountSize=getAccountSize();
+        const pctStr=accountSize>0?` (${fmt((data.pnl/accountSize)*100,2)}%)`:'';
+        tooltipHtml=`<div class="cal-day-tooltip">${data.count} trade${data.count!==1?'s':''} · ${pnlStr}${pctStr}</div>`;
       }
-
-      cell.className = dayClass;
-
-      // Tooltip con detalle
-      let tooltipHtml = '';
-      if (data) {
-        const pnlStr     = money(data.pnl);
-        const accountSize= getAccountSize();
-        const pctStr     = accountSize > 0
-          ? ` (${fmt((data.pnl/accountSize)*100, 2)}%)`
-          : '';
-        tooltipHtml = `<div class="cal-day-tooltip">
-          ${data.count} trade${data.count!==1?'s':''} · ${pnlStr}${pctStr}
-        </div>`;
-      }
-
-      // Valor a mostrar
-      const pnlDisplay = data ? formatCalValue(data) : '';
-      const tradesDisplay = data ? `${data.count} op${data.count!==1?'s':''}` : '';
-
-      cell.innerHTML = `
-        <span class="cal-day-num">${dayNum}</span>
-        ${pnlDisplay ? `<div class="cal-day-pnl">${pnlDisplay}</div>` : ''}
-        ${tradesDisplay ? `<div class="cal-day-trades">${tradesDisplay}</div>` : ''}
-        ${tooltipHtml}
-      `;
+      const pnlDisplay=data?formatCalValue(data):'';
+      const tradesDisplay=data?`${data.count} op${data.count!==1?'s':''}`:'';
+      cell.innerHTML=`<span class="cal-day-num">${dayNum}</span>${pnlDisplay?`<div class="cal-day-pnl">${pnlDisplay}</div>`:''}${tradesDisplay?`<div class="cal-day-trades">${tradesDisplay}</div>`:''}${tooltipHtml}`;
     }
-
     grid.appendChild(cell);
   }
-
-  // Resumen mensual
-  renderCalSummary(dayMap, year, month);
-
-  // Heatbar
-  renderHeatbar(dayMap, year, month);
+  renderCalSummary(dayMap,year,month);
+  renderHeatbar(dayMap,year,month);
 }
 
-/* ── Navegación mensual ── */
-$("calPrevBtn").addEventListener("click", () => {
-  calState.month--;
-  if (calState.month < 0) { calState.month = 11; calState.year--; }
-  renderCalendar();
-});
-
-$("calNextBtn").addEventListener("click", () => {
-  calState.month++;
-  if (calState.month > 11) { calState.month = 0; calState.year++; }
-  renderCalendar();
-});
-
-$("calTodayBtn").addEventListener("click", () => {
-  const now = new Date();
-  calState.year  = now.getFullYear();
-  calState.month = now.getMonth();
-  renderCalendar();
-});
+$("calPrevBtn").addEventListener("click",()=>{calState.month--;if(calState.month<0){calState.month=11;calState.year--;}renderCalendar();});
+$("calNextBtn").addEventListener("click",()=>{calState.month++;if(calState.month>11){calState.month=0;calState.year++;}renderCalendar();});
+$("calTodayBtn").addEventListener("click",()=>{const now=new Date();calState.year=now.getFullYear();calState.month=now.getMonth();renderCalendar();});
 
 /* ════════════════════════════════════════════════════════════
    INIT

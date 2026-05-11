@@ -1,3 +1,4 @@
+cat > /mnt/user-data/outputs/edge33-v2.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -211,7 +212,7 @@
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
 
     /* ═══════════════════════════════════════════
-       ACCOUNT BAR (balance original)
+       ACCOUNT BAR
     ═══════════════════════════════════════════ */
     .account-bar {
       display: flex;
@@ -302,10 +303,8 @@
     }
 
     /* ═══════════════════════════════════════════
-       ★ NUEVO — SISTEMA MULTICUENTA
+       SISTEMA MULTICUENTA
     ═══════════════════════════════════════════ */
-
-    /* Barra de selector de cuenta */
     .accounts-selector-bar {
       display: flex;
       align-items: center;
@@ -484,6 +483,8 @@
 
     .modal-body {
       padding: 24px;
+      max-height: 75vh;
+      overflow-y: auto;
     }
 
     .modal-form-grid {
@@ -530,6 +531,9 @@
       padding: 16px 24px 20px;
       border-top: 1px solid var(--border);
     }
+
+    /* Modal wider for MT5 import */
+    .modal-box.modal-wide { max-width: 680px; }
 
     /* ── MODAL RESUMEN GLOBAL ── */
     .global-grid {
@@ -627,7 +631,7 @@
     .card-full { padding: 20px; }
 
     /* ═══════════════════════════════════════════
-       ── REGISTRO ──
+       REGISTRO
     ═══════════════════════════════════════════ */
     .form-section { margin-bottom: 16px; }
     .form-grid {
@@ -705,6 +709,20 @@
     }
     .btn-danger:hover { background: rgba(255,77,106,.14); border-color: rgba(255,77,106,.4); color: var(--red); }
 
+    /* ★ MT5 Import button */
+    .btn-mt5 {
+      background: rgba(77,184,255,.08);
+      color: var(--blue);
+      border-color: rgba(77,184,255,.25);
+      font-weight: 700;
+    }
+    .btn-mt5:hover {
+      background: rgba(77,184,255,.15);
+      border-color: rgba(77,184,255,.5);
+      color: var(--blue);
+      box-shadow: 0 0 14px rgba(77,184,255,.12);
+    }
+
     .footer-note {
       padding: 10px 20px 14px;
       font-size: 11px;
@@ -775,7 +793,28 @@
     .empty-state p { font-size: 13px; line-height: 1.6; font-family: var(--mono); }
 
     /* ═══════════════════════════════════════════
-       ── ANÁLISIS ──
+       ★ OVERTRADING BANNER (nuevo)
+    ═══════════════════════════════════════════ */
+    .overtrading-banner {
+      display: none;
+      margin-bottom: 14px;
+      padding: 12px 18px;
+      background: rgba(255,77,106,.07);
+      border: 1px solid rgba(255,77,106,.3);
+      border-radius: var(--radius);
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--red);
+      line-height: 1.6;
+      animation: panelIn .3s ease;
+    }
+    .overtrading-banner.visible { display: flex; align-items: flex-start; gap: 10px; }
+    .overtrading-banner .ot-ico { font-size: 18px; flex-shrink: 0; }
+    .overtrading-banner .ot-list { display: flex; flex-direction: column; gap: 4px; }
+    .overtrading-banner .ot-item { display: flex; align-items: center; gap: 6px; }
+
+    /* ═══════════════════════════════════════════
+       ANÁLISIS
     ═══════════════════════════════════════════ */
     .edge-card {
       background: var(--panel);
@@ -941,7 +980,7 @@
     }
 
     /* ═══════════════════════════════════════════
-       ── GRÁFICAS ──
+       GRÁFICAS
     ═══════════════════════════════════════════ */
     .chart-grid {
       display: grid;
@@ -970,7 +1009,7 @@
     }
 
     /* ═══════════════════════════════════════════
-       ── MENTOR33 ──
+       MENTOR33
     ═══════════════════════════════════════════ */
     .mentor-layout {
       display: grid;
@@ -1076,6 +1115,35 @@
     }
     .analyze-btn:hover { background: var(--green-dim); box-shadow: 0 6px 28px rgba(0,232,122,.35); transform: translateY(-1px); color: #021409; }
     .analyze-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* ★ Mentor Patterns Section */
+    .mentor-patterns {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--panel-2);
+    }
+    .mentor-patterns-title {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .9px;
+      color: var(--text-3);
+      font-family: var(--mono);
+      margin-bottom: 10px;
+    }
+    .pattern-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pattern-chip {
+      font-family: var(--mono);
+      font-size: 10px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid;
+      cursor: default;
+      line-height: 1.4;
+    }
+    .pattern-chip.warning { color: var(--gold); border-color: rgba(245,200,66,.3); background: var(--gold-bg); }
+    .pattern-chip.danger  { color: var(--red);  border-color: rgba(255,77,106,.3); background: var(--red-bg); }
+    .pattern-chip.success { color: var(--green);border-color: rgba(0,232,122,.3);  background: var(--green-bg); }
+    .pattern-chip.info    { color: var(--blue); border-color: rgba(77,184,255,.3); background: var(--blue-bg); }
 
     .insights-wrap { padding: 20px; }
     .insights-grid {
@@ -1244,6 +1312,80 @@
     @keyframes tdBlink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
 
     /* ═══════════════════════════════════════════
+       ★ MT5 IMPORT MODAL
+    ═══════════════════════════════════════════ */
+    .mt5-drop-zone {
+      border: 2px dashed var(--border-2);
+      border-radius: var(--radius);
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      background: var(--bg-2);
+      position: relative;
+    }
+    .mt5-drop-zone:hover,
+    .mt5-drop-zone.drag-over {
+      border-color: rgba(77,184,255,.5);
+      background: rgba(77,184,255,.04);
+    }
+    .mt5-drop-icon { font-size: 32px; margin-bottom: 10px; opacity: .7; }
+    .mt5-drop-title { font-family: var(--display); font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .mt5-drop-sub { font-size: 11px; color: var(--text-3); font-family: var(--mono); }
+    .mt5-drop-input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+
+    .mt5-preview {
+      margin-top: 14px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: none;
+    }
+    .mt5-preview.visible { display: block; }
+    .mt5-preview-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--panel-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .mt5-preview-title { font-family: var(--mono); font-size: 12px; font-weight: 600; color: var(--green); }
+    .mt5-preview-count { font-family: var(--mono); font-size: 11px; color: var(--text-3); }
+    .mt5-preview-list {
+      max-height: 200px;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+    .mt5-preview-row {
+      display: grid;
+      grid-template-columns: 80px 70px 60px 1fr 80px;
+      gap: 8px;
+      padding: 6px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.03);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+    .mt5-preview-row:hover { background: rgba(255,255,255,.02); }
+    .mt5-preview-row .col-head { color: var(--text-3); text-transform: uppercase; letter-spacing: .5px; font-size: 9px; }
+
+    .mt5-options {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .mt5-option-label {
+      font-size: 10px;
+      color: var(--text-3);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      font-family: var(--mono);
+      margin-bottom: 6px;
+    }
+
+    /* ═══════════════════════════════════════════
        ALERTS
     ═══════════════════════════════════════════ */
     .alerts-wrap {
@@ -1293,7 +1435,7 @@
     .mt-18 { margin-top: 18px; }
 
     /* ═══════════════════════════════════════════
-       ── CALCULADORA AUTOMÁTICA ──
+       CALCULADORA
     ═══════════════════════════════════════════ */
     .calc-layout {
       display: grid;
@@ -1480,7 +1622,7 @@
     .calc-edu-icon { flex-shrink: 0; font-size: 13px; }
 
     /* ═══════════════════════════════════════════
-       ── CALENDARIO ──
+       CALENDARIO
     ═══════════════════════════════════════════ */
     .cal-header {
       display: flex;
@@ -1798,14 +1940,6 @@
     }
     .cal-heat-bar:hover { opacity: .75; }
 
-    .cal-empty-state {
-      text-align: center;
-      padding: 60px 24px;
-      color: var(--text-3);
-    }
-    .cal-empty-icon { font-size: 40px; margin-bottom: 14px; opacity: .4; }
-    .cal-empty-text { font-size: 13px; font-family: var(--mono); line-height: 1.7; }
-
     /* ═══════════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════════ */
@@ -1841,6 +1975,7 @@
       .accounts-selector-bar { flex-direction: column; align-items: flex-start; }
       .modal-form-grid  { grid-template-columns: 1fr; }
       .global-grid      { grid-template-columns: 1fr; }
+      .mt5-options      { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
       .cal-summary-bar  { grid-template-columns: 1fr 1fr; }
@@ -1853,7 +1988,7 @@
 <body>
 <div class="wrap">
 
-  <!-- ═══════════════════ TOPBAR ═══════════════════ -->
+  <!-- TOPBAR -->
   <div class="topbar">
     <div class="brand">
       <div class="logo"><img src="./q33.png" alt="Edge33"></div>
@@ -1863,78 +1998,50 @@
       </div>
     </div>
     <div class="tabs">
-      <button class="tab active" data-tab="registro">
-        <span class="tab-icon">📋</span> Registro
-      </button>
-      <button class="tab" data-tab="graficas">
-        <span class="tab-icon">📈</span> Gráficas
-      </button>
-      <button class="tab" data-tab="analisis">
-        <span class="tab-icon">🔬</span> Análisis
-      </button>
-      <button class="tab mentor-tab" data-tab="mentor">
-        <div class="mentor-dot-live"></div>
-        🤖 Mentor33
-      </button>
-      <button class="tab calc-tab" data-tab="calculadora">
-        <span class="tab-icon">🧮</span> Calculadora
-      </button>
-      <button class="tab cal-tab" data-tab="calendario">
-        <span class="tab-icon">📅</span> Calendario
-      </button>
+      <button class="tab active" data-tab="registro"><span class="tab-icon">📋</span> Registro</button>
+      <button class="tab" data-tab="graficas"><span class="tab-icon">📈</span> Gráficas</button>
+      <button class="tab" data-tab="analisis"><span class="tab-icon">🔬</span> Análisis</button>
+      <button class="tab mentor-tab" data-tab="mentor"><div class="mentor-dot-live"></div>🤖 Mentor33</button>
+      <button class="tab calc-tab" data-tab="calculadora"><span class="tab-icon">🧮</span> Calculadora</button>
+      <button class="tab cal-tab" data-tab="calendario"><span class="tab-icon">📅</span> Calendario</button>
     </div>
   </div>
 
-  <!-- ═══════════════════ ACCOUNT BAR ═══════════════════ -->
+  <!-- ACCOUNT BAR -->
   <div class="account-bar">
     <div class="account-bar-section input-section">
       <div class="account-bar-ico">💰</div>
-      <div>
-        <div class="account-bar-label">Capital inicial</div>
-      </div>
+      <div><div class="account-bar-label">Capital inicial</div></div>
       <div class="account-bar-input-wrap">
         <div class="account-bar-prefix">$</div>
         <input class="account-size-input" id="accountSize" type="number" step="any" placeholder="10,000" min="1"/>
       </div>
     </div>
     <div class="account-stats">
-      <div class="account-stat">
-        <div class="val green" id="bar-pnl-pct">—</div>
-        <div class="lbl">Rentabilidad</div>
-      </div>
-      <div class="account-stat">
-        <div class="val red" id="bar-dd-pct">—</div>
-        <div class="lbl">Drawdown</div>
-      </div>
-      <div class="account-stat">
-        <div class="val gold" id="bar-risk-per-trade">—</div>
-        <div class="lbl">Riesgo / Trade</div>
-      </div>
-      <div class="account-stat">
-        <div class="val blue" id="bar-balance">—</div>
-        <div class="lbl">Balance</div>
-      </div>
+      <div class="account-stat"><div class="val green" id="bar-pnl-pct">—</div><div class="lbl">Rentabilidad</div></div>
+      <div class="account-stat"><div class="val red" id="bar-dd-pct">—</div><div class="lbl">Drawdown</div></div>
+      <div class="account-stat"><div class="val gold" id="bar-risk-per-trade">—</div><div class="lbl">Riesgo / Trade</div></div>
+      <div class="account-stat"><div class="val blue" id="bar-balance">—</div><div class="lbl">Balance</div></div>
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════
-       PANEL: REGISTRO
-  ══════════════════════════════════════════ -->
+  <!-- ═══════════════ PANEL: REGISTRO ═══════════════ -->
   <section id="registro" class="panel active">
 
-    <!-- ★ SELECTOR DE CUENTA MULTICUENTA -->
+    <!-- OVERTRADING BANNER -->
+    <div class="overtrading-banner" id="overtradingBanner">
+      <div class="ot-ico">🚨</div>
+      <div class="ot-list" id="overtradingList"></div>
+    </div>
+
+    <!-- SELECTOR MULTICUENTA -->
     <div class="accounts-selector-bar" id="accountsSelectorBar">
       <span class="acc-bar-label">Cuenta activa</span>
-
       <div class="acc-selector-wrap">
-        <select class="acc-selector" id="accountDropdown" onchange="switchAccount(this.value)">
-          <!-- Opciones generadas dinámicamente -->
-        </select>
+        <select class="acc-selector" id="accountDropdown" onchange="switchAccount(this.value)"></select>
         <span class="acc-selector-arrow">▼</span>
       </div>
-
       <span class="acc-type-badge personal" id="activeAccTypeBadge">—</span>
-
       <div class="acc-bar-actions">
         <button class="btn-acc btn-acc-new" onclick="openNewAccountModal()">＋ Nueva cuenta</button>
         <button class="btn-acc" onclick="openEditAccountModal()">✎ Editar</button>
@@ -1944,9 +2051,7 @@
     </div>
 
     <div class="card">
-      <div class="card-header">
-        <div class="card-title">Nueva Operación</div>
-      </div>
+      <div class="card-header"><div class="card-title">Nueva Operación</div></div>
       <div class="card-body">
         <div class="form-grid">
           <div class="field"><label>Fecha</label><input id="date" type="date"/></div>
@@ -1967,13 +2072,14 @@
       </div>
       <div class="actions">
         <button class="btn-primary" id="addBtn">+ Agregar operación</button>
+        <button class="btn-mt5" id="mt5ImportBtn">📥 Importar MT5</button>
         <button id="exportBtn">↓ JSON</button>
         <button id="csvBtn">↓ CSV</button>
-        <button id="importBtn">↑ Importar</button>
+        <button id="importBtn">↑ Importar JSON</button>
         <input id="importFile" type="file" accept=".json" style="display:none"/>
         <button class="btn-danger" id="clearBtn">Limpiar todo</button>
       </div>
-      <div class="footer-note">Los datos se guardan en tu navegador (localStorage). Exporta regularmente como respaldo.</div>
+      <div class="footer-note">Los datos se guardan en tu navegador (localStorage). Exporta regularmente como respaldo. · Importa historiales de MT5 en formato HTML o CSV.</div>
     </div>
 
     <div class="table-wrap mt-18">
@@ -1991,14 +2097,12 @@
       </table>
       <div id="emptyState" class="empty-state" style="display:none">
         <div class="empty-icon">📭</div>
-        <p>No hay operaciones registradas en esta cuenta todavía.<br>Agrega tu primer trade para comenzar a construir tu historial.</p>
+        <p>No hay operaciones registradas en esta cuenta todavía.<br>Agrega tu primer trade o importa tu historial de MT5 para comenzar.</p>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       PANEL: GRÁFICAS
-  ══════════════════════════════════════════ -->
+  <!-- ═══════════════ PANEL: GRÁFICAS ═══════════════ -->
   <section id="graficas" class="panel">
     <div class="chart-grid">
       <div class="card chart-card">
@@ -2014,11 +2118,8 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       PANEL: ANÁLISIS
-  ══════════════════════════════════════════ -->
+  <!-- ═══════════════ PANEL: ANÁLISIS ═══════════════ -->
   <section id="analisis" class="panel">
-
     <div class="edge-card" id="edgeCard">
       <div class="edge-card-inner">
         <div class="edge-icon">⚡</div>
@@ -2035,36 +2136,12 @@
     </div>
 
     <div class="grid-metrics">
-      <div class="metric-card">
-        <div class="m-label">P&L Total</div>
-        <div class="m-value" id="m-pnl">$0.00</div>
-        <div class="m-sub" id="m-pnl-pct">0.00%</div>
-      </div>
-      <div class="metric-card">
-        <div class="m-label">Win Rate</div>
-        <div class="m-value green" id="m-winrate">0.0%</div>
-        <div class="m-sub" id="m-wl">0W / 0L</div>
-      </div>
-      <div class="metric-card">
-        <div class="m-label">Profit Factor</div>
-        <div class="m-value blue" id="m-pf">0.00</div>
-        <div class="m-sub">ganancia bruta / pérdida bruta</div>
-      </div>
-      <div class="metric-card">
-        <div class="m-label">R:R Promedio</div>
-        <div class="m-value gold" id="m-rr">0.00R</div>
-        <div class="m-sub">resultado promedio por operación</div>
-      </div>
-      <div class="metric-card">
-        <div class="m-label">Max Drawdown</div>
-        <div class="m-value red" id="m-dd">0.00%</div>
-        <div class="m-sub" id="m-dd-money">$0.00</div>
-      </div>
-      <div class="metric-card">
-        <div class="m-label">Expectancy</div>
-        <div class="m-value" id="m-exp">0.00R</div>
-        <div class="m-sub">ventaja esperada por trade</div>
-      </div>
+      <div class="metric-card"><div class="m-label">P&L Total</div><div class="m-value" id="m-pnl">$0.00</div><div class="m-sub" id="m-pnl-pct">0.00%</div></div>
+      <div class="metric-card"><div class="m-label">Win Rate</div><div class="m-value green" id="m-winrate">0.0%</div><div class="m-sub" id="m-wl">0W / 0L</div></div>
+      <div class="metric-card"><div class="m-label">Profit Factor</div><div class="m-value blue" id="m-pf">0.00</div><div class="m-sub">ganancia bruta / pérdida bruta</div></div>
+      <div class="metric-card"><div class="m-label">R:R Promedio</div><div class="m-value gold" id="m-rr">0.00R</div><div class="m-sub">resultado promedio por operación</div></div>
+      <div class="metric-card"><div class="m-label">Max Drawdown</div><div class="m-value red" id="m-dd">0.00%</div><div class="m-sub" id="m-dd-money">$0.00</div></div>
+      <div class="metric-card"><div class="m-label">Expectancy</div><div class="m-value" id="m-exp">0.00R</div><div class="m-sub">ventaja esperada por trade</div></div>
     </div>
 
     <div class="analysis-grid">
@@ -2081,17 +2158,13 @@
       <div class="card">
         <div class="card-header"><div class="card-title">Diagnóstico rápido</div></div>
         <div class="card-body">
-          <div class="quick-read-box" id="quickRead">
-            Todavía no hay operaciones cargadas. Empieza registrando tus trades para ver la lectura automática del sistema.
-          </div>
+          <div class="quick-read-box" id="quickRead">Todavía no hay operaciones cargadas. Empieza registrando tus trades para ver la lectura automática del sistema.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       PANEL: MENTOR33
-  ══════════════════════════════════════════ -->
+  <!-- ═══════════════ PANEL: MENTOR33 ═══════════════ -->
   <section id="mentor" class="panel">
     <div class="mentor-layout">
       <div>
@@ -2100,7 +2173,7 @@
             <div class="mentor-header">
               <div class="mentor-avatar">🤖</div>
               <div>
-                <div class="mentor-name">Mentor33 <span class="mentor-ver">AI v1.0</span></div>
+                <div class="mentor-name">Mentor33 <span class="mentor-ver">AI v2.0</span></div>
                 <div class="mentor-tagline">Tu mentor inteligente de trading. Analizo tu bitácora en tiempo real, detecto patrones y te guío para desarrollar tu edge real con el sistema Q33.</div>
               </div>
             </div>
@@ -2108,10 +2181,15 @@
               <span class="auto-lbl">📊 Estado del sistema — en vivo</span>
               <span id="mentorAutoText">Cargando análisis automático...</span>
             </div>
-            <button class="analyze-btn" id="analyzeBtn">
-              <span>⚡</span> Análisis profundo con IA
-            </button>
+            <button class="analyze-btn" id="analyzeBtn"><span>⚡</span> Análisis profundo con IA</button>
           </div>
+
+          <!-- ★ PATTERNS — detección automática sin IA -->
+          <div class="mentor-patterns" id="mentorPatternsSection" style="display:none;">
+            <div class="mentor-patterns-title">🔍 Patrones detectados automáticamente</div>
+            <div class="pattern-chips" id="mentorPatternChips"></div>
+          </div>
+
           <div class="insights-wrap" id="insightsWrap"></div>
           <div id="mentorSummarySlot"></div>
         </div>
@@ -2128,10 +2206,7 @@
         <div class="chat-msgs" id="chatMsgs">
           <div class="msg mentor">
             <div class="msg-av">🤖</div>
-            <div class="msg-bbl">
-              ¡Hola! Soy Mentor33, tu mentor de trading con IA.<br><br>
-              Analizo tu bitácora y te ayudo a encontrar tu edge real. Pregúntame sobre métricas, patrones o cualquier aspecto de tu performance. ¿Por dónde empezamos?
-            </div>
+            <div class="msg-bbl">¡Hola! Soy Mentor33, tu mentor de trading con IA.<br><br>Analizo tu bitácora y te ayudo a encontrar tu edge real. Pregúntame sobre métricas, patrones o cualquier aspecto de tu performance. ¿Por dónde empezamos?</div>
           </div>
         </div>
         <div class="chat-inp-row">
@@ -2142,16 +2217,12 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       PANEL: CALCULADORA AUTOMÁTICA
-  ══════════════════════════════════════════ -->
+  <!-- ═══════════════ PANEL: CALCULADORA ═══════════════ -->
   <section id="calculadora" class="panel">
     <div class="calc-layout">
       <div>
         <div class="card">
-          <div class="card-header">
-            <div class="card-title">🧮 Calculadora de Lotaje</div>
-          </div>
+          <div class="card-header"><div class="card-title">🧮 Calculadora de Lotaje</div></div>
           <div class="card-body">
             <div style="margin-bottom:10px;">
               <label style="display:block;margin-bottom:8px;">Presets rápidos</label>
@@ -2164,9 +2235,7 @@
                 <button class="preset-btn" data-preset="EURUSD" onclick="applySymbolPreset('EURUSD')">💶 EURUSD</button>
               </div>
             </div>
-
             <div class="divider"></div>
-
             <div class="calc-form-grid">
               <div class="calc-field"><label>Símbolo</label><input id="calc-symbol" type="text" placeholder="XAUUSD" /></div>
               <div class="calc-field"><label>Balance de cuenta ($)</label><input id="calc-balance" type="number" step="any" placeholder="100000" min="1" /></div>
@@ -2176,10 +2245,8 @@
               <div class="calc-field"><label>Valor por punto / lote ($)</label><input id="calc-valor-punto" type="number" step="any" placeholder="1" min="0" /></div>
               <div class="calc-field"><label>Lote mínimo</label><input id="calc-lote-min" type="number" step="any" placeholder="0.01" min="0.0001" /></div>
             </div>
-
             <button class="btn-calc" onclick="calculateAutoLot()">⚡ Calcular lotaje</button>
           </div>
-
           <div style="padding:0 20px 20px;">
             <div class="calc-edu-box">
               <span class="calc-edu-icon">💡</span>
@@ -2197,24 +2264,20 @@
             <div class="calc-lot-unit" id="calc-result-lot-unit">lotes</div>
           </div>
         </div>
-
         <div class="calc-risk-warning" id="calc-risk-warning">
           <span>⚠️</span>
           <span>Riesgo alto para cuenta de fondeo. Se recomienda no superar el 2% de riesgo por operación.</span>
         </div>
-
         <div class="calc-empty" id="calc-empty-state">
           <div class="calc-empty-icon">🎯</div>
           <div class="calc-empty-text">Ingresa los datos del formulario<br>y presiona "Calcular lotaje"<br>para ver los resultados aquí.</div>
         </div>
-
         <div class="calc-result-grid" id="calc-result-grid" style="display:none;">
           <div class="calc-result-item"><div class="calc-result-label">Riesgo en USD</div><div class="calc-result-value highlight-red" id="calc-res-riesgo-usd">—</div></div>
           <div class="calc-result-item"><div class="calc-result-label">SL en puntos</div><div class="calc-result-value highlight-blue" id="calc-res-sl-puntos">—</div></div>
           <div class="calc-result-item"><div class="calc-result-label">Pérdida si toca SL</div><div class="calc-result-value highlight-red" id="calc-res-perdida">—</div></div>
           <div class="calc-result-item"><div class="calc-result-label">Valor/punto con lote</div><div class="calc-result-value highlight-green" id="calc-res-valor-punto-lote">—</div></div>
         </div>
-
         <div class="calc-edu-box" style="margin:16px 20px 20px;" id="calc-formula-box">
           <span class="calc-edu-icon">📐</span>
           <span id="calc-formula-text">—</span>
@@ -2223,9 +2286,7 @@
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════
-       PANEL: CALENDARIO
-  ══════════════════════════════════════════ -->
+  <!-- ═══════════════ PANEL: CALENDARIO ═══════════════ -->
   <section id="calendario" class="panel">
     <div class="cal-header">
       <div class="cal-nav">
@@ -2266,9 +2327,7 @@
 
 </div><!-- /wrap -->
 
-<!-- ═══════════════════════════════════
-     MODALES — Sistema Multicuenta
-═══════════════════════════════════ -->
+<!-- ══════════════ MODALES ══════════════ -->
 
 <!-- Modal Nueva / Editar Cuenta -->
 <div class="modal-overlay" id="modalAccount" style="display:none;" onclick="closeModalOnOverlay(event,'modalAccount')">
@@ -2279,16 +2338,9 @@
     </div>
     <div class="modal-body">
       <div class="modal-form-grid">
-        <div class="modal-field full">
-          <label>Nombre de la cuenta *</label>
-          <input id="modal-acc-name" type="text" placeholder="FTMO 100K, Mi cuenta personal..."/>
-        </div>
-        <div class="modal-field">
-          <label>Broker</label>
-          <input id="modal-acc-broker" type="text" placeholder="FTMO, MyForexFunds, IC Markets..."/>
-        </div>
-        <div class="modal-field">
-          <label>Tipo de cuenta</label>
+        <div class="modal-field full"><label>Nombre de la cuenta *</label><input id="modal-acc-name" type="text" placeholder="FTMO 100K, Mi cuenta personal..."/></div>
+        <div class="modal-field"><label>Broker</label><input id="modal-acc-broker" type="text" placeholder="FTMO, MyForexFunds, IC Markets..."/></div>
+        <div class="modal-field"><label>Tipo de cuenta</label>
           <select id="modal-acc-type">
             <option value="Personal">Personal</option>
             <option value="Challenge">Challenge</option>
@@ -2296,14 +2348,8 @@
             <option value="Demo">Demo</option>
           </select>
         </div>
-        <div class="modal-field full">
-          <label>Capital inicial ($)</label>
-          <input id="modal-acc-capital" type="number" step="any" placeholder="10000" min="1"/>
-        </div>
-        <div class="modal-field full">
-          <label>Notas</label>
-          <textarea id="modal-acc-notes" placeholder="Reglas de la cuenta, objetivo, notas..."></textarea>
-        </div>
+        <div class="modal-field full"><label>Capital inicial ($)</label><input id="modal-acc-capital" type="number" step="any" placeholder="10000" min="1"/></div>
+        <div class="modal-field full"><label>Notas</label><textarea id="modal-acc-notes" placeholder="Reglas de la cuenta, objetivo, notas..."></textarea></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -2327,8 +2373,58 @@
         <div class="global-acc-list" id="globalAccList"></div>
       </div>
     </div>
+    <div class="modal-footer"><button onclick="closeModal('modalGlobal')">Cerrar</button></div>
+  </div>
+</div>
+
+<!-- ★ Modal MT5 Import -->
+<div class="modal-overlay" id="modalMT5" style="display:none;" onclick="closeModalOnOverlay(event,'modalMT5')">
+  <div class="modal-box modal-wide">
+    <div class="modal-header">
+      <div class="modal-title">📥 Importar desde MetaTrader 5</div>
+      <button class="modal-close" onclick="closeModal('modalMT5')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="mt5-drop-zone" id="mt5DropZone">
+        <input type="file" class="mt5-drop-input" id="mt5FileInput" accept=".html,.htm,.csv"/>
+        <div class="mt5-drop-icon">📂</div>
+        <div class="mt5-drop-title">Arrastra tu archivo MT5 aquí</div>
+        <div class="mt5-drop-sub">Formatos aceptados: HTML (Reporte de cuenta) · CSV (Historial de trading)<br>Exporta desde MT5: Menú Ver → Terminal → Historial → clic derecho → Guardar como</div>
+      </div>
+
+      <div class="mt5-options">
+        <div>
+          <div class="mt5-option-label">Modo de importación</div>
+          <select id="mt5ImportMode" style="width:100%">
+            <option value="append">Agregar a trades existentes</option>
+            <option value="replace">Reemplazar todos los trades</option>
+          </select>
+        </div>
+        <div>
+          <div class="mt5-option-label">Comisión por defecto ($)</div>
+          <input id="mt5DefaultCommission" type="number" step="any" placeholder="0.00 (opcional)" style="width:100%"/>
+        </div>
+      </div>
+
+      <div class="mt5-preview" id="mt5Preview">
+        <div class="mt5-preview-header">
+          <div class="mt5-preview-title" id="mt5PreviewTitle">Vista previa</div>
+          <div class="mt5-preview-count" id="mt5PreviewCount">0 trades detectados</div>
+        </div>
+        <div class="mt5-preview-list" id="mt5PreviewList">
+          <div class="mt5-preview-row">
+            <span class="col-head">Fecha</span>
+            <span class="col-head">Activo</span>
+            <span class="col-head">Dir.</span>
+            <span class="col-head">Entrada → Salida</span>
+            <span class="col-head">P&L</span>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="modal-footer">
-      <button onclick="closeModal('modalGlobal')">Cerrar</button>
+      <button onclick="closeModal('modalMT5')">Cancelar</button>
+      <button class="btn-primary" id="mt5ConfirmBtn" onclick="confirmMT5Import()" disabled>Importar trades</button>
     </div>
   </div>
 </div>
@@ -2337,17 +2433,8 @@
 
 <script>
 /* ════════════════════════════════════════════════════════════
-   ★ SISTEMA MULTICUENTA — EDGE33
-   ────────────────────────────────────────────────────────────
-   CLAVES DE LOCALSTORAGE:
-   · edge33_accounts_v2      → array de cuentas
-   · edge33_active_account   → id de cuenta activa
-   ────────────────────────────────────────────────────────────
-   MIGRACIÓN AUTOMÁTICA:
-   · Si existe edge33_trades_v1 (formato antiguo), los datos se
-     migran a una cuenta "Cuenta Principal" automáticamente.
-   ════════════════════════════════════════════════════════════ */
-
+   STORAGE KEYS
+════════════════════════════════════════════════════════════ */
 const ACCOUNTS_KEY      = "edge33_accounts_v2";
 const ACTIVE_ACC_KEY    = "edge33_active_account";
 const LEGACY_TRADES_KEY = "edge33_trades_v1";
@@ -2361,57 +2448,37 @@ function pct(n){ return `${Number(n||0).toFixed(2)}%`; }
 function num(n){ return Number(n || 0); }
 function fmt(n, d=2){ return Number(n||0).toFixed(d); }
 function uid(){ return 'acc_' + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
-
 function todayStr(){
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
 /* ════════════════════════════════════════════════════════════
-   MIGRACIÓN AUTOMÁTICA DE DATOS LEGACY
+   MIGRACIÓN LEGACY
 ════════════════════════════════════════════════════════════ */
 function migrateOldTradesToMainAccount() {
   const legacyRaw = localStorage.getItem(LEGACY_TRADES_KEY);
   if (!legacyRaw) return null;
-
   let legacyTrades = [];
   try { legacyTrades = JSON.parse(legacyRaw); } catch(e) { return null; }
   if (!Array.isArray(legacyTrades) || legacyTrades.length === 0) return null;
-
   const legacyCapital = parseFloat(localStorage.getItem(LEGACY_ACC_KEY) || "0") || 0;
-
   const mainAccount = {
-    id:             uid(),
-    name:           "Cuenta Principal",
-    broker:         "",
-    type:           "Personal",
-    initialCapital: legacyCapital,
-    currentBalance: legacyCapital,
-    trades:         legacyTrades,
-    notes:          "",
-    metrics:        {},
-    createdAt:      new Date().toISOString(),
-    updatedAt:      new Date().toISOString()
+    id: uid(), name: "Cuenta Principal", broker: "", type: "Personal",
+    initialCapital: legacyCapital, currentBalance: legacyCapital,
+    trades: legacyTrades, notes: "", metrics: {},
+    createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()
   };
-
-  // Limpiar legacy después de migrar
   localStorage.removeItem(LEGACY_TRADES_KEY);
-  // NO eliminar LEGACY_ACC_KEY todavía — lo usaremos luego para sincronizar
-
   return mainAccount;
 }
 
 /* ════════════════════════════════════════════════════════════
-   CARGA Y GUARDADO DE CUENTAS
+   CUENTAS
 ════════════════════════════════════════════════════════════ */
 function loadAccounts() {
   let accounts = [];
-  try {
-    const raw = localStorage.getItem(ACCOUNTS_KEY);
-    if (raw) accounts = JSON.parse(raw);
-  } catch(e) { accounts = []; }
-
-  // Si no hay cuentas, intentar migrar legacy
+  try { const raw = localStorage.getItem(ACCOUNTS_KEY); if (raw) accounts = JSON.parse(raw); } catch(e) { accounts = []; }
   if (!accounts || accounts.length === 0) {
     const migrated = migrateOldTradesToMainAccount();
     if (migrated) {
@@ -2420,165 +2487,101 @@ function loadAccounts() {
       localStorage.setItem(ACTIVE_ACC_KEY, migrated.id);
       showAlert("success", "✅ Datos migrados", "Tus operaciones anteriores fueron migradas a 'Cuenta Principal'.");
     } else {
-      // Crear cuenta vacía inicial
       const initial = createDefaultAccount("Mi Cuenta", "Personal", 10000);
       accounts = [initial];
       saveAccounts(accounts);
       localStorage.setItem(ACTIVE_ACC_KEY, initial.id);
     }
   }
-
   return accounts;
 }
 
-function saveAccounts(accounts) {
-  localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
-}
+function saveAccounts(accounts) { localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts)); }
 
 function createDefaultAccount(name, type, capital) {
-  return {
-    id:             uid(),
-    name:           name,
-    broker:         "",
-    type:           type || "Personal",
-    initialCapital: capital || 0,
-    currentBalance: capital || 0,
-    trades:         [],
-    notes:          "",
-    metrics:        {},
-    createdAt:      new Date().toISOString(),
-    updatedAt:      new Date().toISOString()
-  };
+  return { id: uid(), name, broker: "", type: type || "Personal", initialCapital: capital || 0, currentBalance: capital || 0, trades: [], notes: "", metrics: {}, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
 }
 
-/* ════════════════════════════════════════════════════════════
-   ESTADO GLOBAL DE CUENTAS
-════════════════════════════════════════════════════════════ */
-let accounts       = loadAccounts();
+let accounts = loadAccounts();
 let activeAccountId = localStorage.getItem(ACTIVE_ACC_KEY) || accounts[0]?.id || null;
+if (!accounts.find(a => a.id === activeAccountId)) { activeAccountId = accounts[0]?.id || null; localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId || ""); }
 
-// Asegurar que el id activo existe
-if (!accounts.find(a => a.id === activeAccountId)) {
-  activeAccountId = accounts[0]?.id || null;
-  localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId || "");
-}
-
-function getActiveAccount() {
-  return accounts.find(a => a.id === activeAccountId) || accounts[0];
-}
-
+function getActiveAccount() { return accounts.find(a => a.id === activeAccountId) || accounts[0]; }
 function updateActiveAccount(updates) {
   const idx = accounts.findIndex(a => a.id === activeAccountId);
   if (idx === -1) return;
   accounts[idx] = { ...accounts[idx], ...updates, updatedAt: new Date().toISOString() };
   saveAccounts(accounts);
 }
-
-/* ── trades apunta siempre a la cuenta activa ── */
-function getActiveTrades() {
-  const acc = getActiveAccount();
-  return acc ? (acc.trades || []) : [];
-}
-
-function setActiveTrades(newTrades) {
-  updateActiveAccount({ trades: newTrades });
-}
+function getActiveTrades() { const acc = getActiveAccount(); return acc ? (acc.trades || []) : []; }
+function setActiveTrades(newTrades) { updateActiveAccount({ trades: newTrades }); }
 
 /* ════════════════════════════════════════════════════════════
-   RENDER SELECTOR DE CUENTAS
+   RENDER SELECTOR
 ════════════════════════════════════════════════════════════ */
 function renderAccountSelector() {
   const select = $("accountDropdown");
-  const acc    = getActiveAccount();
-
-  select.innerHTML = accounts.map(a =>
-    `<option value="${a.id}" ${a.id === activeAccountId ? 'selected' : ''}>${a.name}${a.broker ? ' · ' + a.broker : ''}</option>`
-  ).join('');
-
-  // Badge de tipo
+  const acc = getActiveAccount();
+  select.innerHTML = accounts.map(a => `<option value="${a.id}" ${a.id === activeAccountId ? 'selected' : ''}>${a.name}${a.broker ? ' · ' + a.broker : ''}</option>`).join('');
   if (acc) {
     const badge = $("activeAccTypeBadge");
-    const typeClass = acc.type ? acc.type.toLowerCase() : 'personal';
-    badge.className = `acc-type-badge ${typeClass}`;
+    badge.className = `acc-type-badge ${(acc.type || 'personal').toLowerCase()}`;
     badge.textContent = acc.type || "Personal";
   }
-
-  // Sincronizar capital inicial del account bar
-  if (acc && acc.initialCapital) {
-    $("accountSize").value = acc.initialCapital;
-  }
+  if (acc && acc.initialCapital) $("accountSize").value = acc.initialCapital;
 }
 
 /* ════════════════════════════════════════════════════════════
-   SWITCH / CREATE / EDIT / DELETE CUENTA
+   SWITCH / CREATE / EDIT / DELETE
 ════════════════════════════════════════════════════════════ */
 function switchAccount(id) {
   if (!id) return;
   activeAccountId = id;
   localStorage.setItem(ACTIVE_ACC_KEY, id);
-
   const acc = getActiveAccount();
-  if (acc && acc.initialCapital) {
-    $("accountSize").value = acc.initialCapital;
-    localStorage.setItem(LEGACY_ACC_KEY, acc.initialCapital);
-  }
-
+  if (acc && acc.initialCapital) { $("accountSize").value = acc.initialCapital; localStorage.setItem(LEGACY_ACC_KEY, acc.initialCapital); }
   renderAccountSelector();
   refreshAll();
   showAlert("info", "🔄 Cuenta activa", `Ahora en: ${acc?.name || id}`);
 }
 
-/* ─── MODAL Nueva / Editar ─── */
-let modalAccountMode = "new"; // "new" | "edit"
+let modalAccountMode = "new";
 
 function openNewAccountModal() {
   modalAccountMode = "new";
   $("modalAccountTitle").textContent = "Nueva Cuenta";
   $("modalAccountSaveBtn").textContent = "Crear cuenta";
-  $("modal-acc-name").value    = "";
-  $("modal-acc-broker").value  = "";
-  $("modal-acc-type").value    = "Personal";
-  $("modal-acc-capital").value = "";
-  $("modal-acc-notes").value   = "";
+  ["modal-acc-name","modal-acc-broker","modal-acc-capital","modal-acc-notes"].forEach(id => $(id).value = "");
+  $("modal-acc-type").value = "Personal";
   $("modalAccount").style.display = "flex";
   setTimeout(() => $("modal-acc-name").focus(), 100);
 }
 
 function openEditAccountModal() {
-  const acc = getActiveAccount();
-  if (!acc) return;
+  const acc = getActiveAccount(); if (!acc) return;
   modalAccountMode = "edit";
   $("modalAccountTitle").textContent = "Editar Cuenta";
   $("modalAccountSaveBtn").textContent = "Guardar cambios";
-  $("modal-acc-name").value    = acc.name || "";
-  $("modal-acc-broker").value  = acc.broker || "";
-  $("modal-acc-type").value    = acc.type || "Personal";
+  $("modal-acc-name").value = acc.name || "";
+  $("modal-acc-broker").value = acc.broker || "";
+  $("modal-acc-type").value = acc.type || "Personal";
   $("modal-acc-capital").value = acc.initialCapital || "";
-  $("modal-acc-notes").value   = acc.notes || "";
+  $("modal-acc-notes").value = acc.notes || "";
   $("modalAccount").style.display = "flex";
 }
 
 function saveAccountFromModal() {
-  const name    = $("modal-acc-name").value.trim();
-  const broker  = $("modal-acc-broker").value.trim();
-  const type    = $("modal-acc-type").value;
+  const name = $("modal-acc-name").value.trim();
+  const broker = $("modal-acc-broker").value.trim();
+  const type = $("modal-acc-type").value;
   const capital = parseFloat($("modal-acc-capital").value) || 0;
-  const notes   = $("modal-acc-notes").value.trim();
-
-  if (!name) {
-    showAlert("warning", "⚠️ Nombre requerido", "La cuenta necesita un nombre.");
-    $("modal-acc-name").focus();
-    return;
-  }
-
+  const notes = $("modal-acc-notes").value.trim();
+  if (!name) { showAlert("warning","⚠️ Nombre requerido","La cuenta necesita un nombre."); $("modal-acc-name").focus(); return; }
   if (modalAccountMode === "new") {
     const newAcc = createDefaultAccount(name, type, capital);
-    newAcc.broker = broker;
-    newAcc.notes  = notes;
-    accounts.push(newAcc);
-    saveAccounts(accounts);
-    activeAccountId = newAcc.id;
-    localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId);
+    newAcc.broker = broker; newAcc.notes = notes;
+    accounts.push(newAcc); saveAccounts(accounts);
+    activeAccountId = newAcc.id; localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId);
     $("accountSize").value = capital || "";
     showAlert("success", "✅ Cuenta creada", `"${name}" lista para usar.`);
   } else {
@@ -2586,90 +2589,56 @@ function saveAccountFromModal() {
     if (capital) $("accountSize").value = capital;
     showAlert("success", "✅ Cuenta actualizada", `"${name}" guardada correctamente.`);
   }
-
-  closeModal("modalAccount");
-  renderAccountSelector();
-  refreshAll();
+  closeModal("modalAccount"); renderAccountSelector(); refreshAll();
 }
 
 function deleteActiveAccount() {
-  if (accounts.length <= 1) {
-    showAlert("warning", "⚠️ Última cuenta", "No puedes eliminar la única cuenta existente.");
-    return;
-  }
-  const acc = getActiveAccount();
-  if (!acc) return;
+  if (accounts.length <= 1) { showAlert("warning","⚠️ Última cuenta","No puedes eliminar la única cuenta existente."); return; }
+  const acc = getActiveAccount(); if (!acc) return;
   if (!confirm(`¿Eliminar la cuenta "${acc.name}" y todas sus operaciones? Esta acción no se puede deshacer.`)) return;
-
   accounts = accounts.filter(a => a.id !== activeAccountId);
   saveAccounts(accounts);
   activeAccountId = accounts[0].id;
   localStorage.setItem(ACTIVE_ACC_KEY, activeAccountId);
-
-  renderAccountSelector();
-  refreshAll();
-  showAlert("danger", "🗑️ Cuenta eliminada", `"${acc.name}" ha sido borrada.`);
+  renderAccountSelector(); refreshAll();
+  showAlert("danger","🗑️ Cuenta eliminada",`"${acc.name}" ha sido borrada.`);
 }
 
-/* ─── MODAL Global ─── */
 function openGlobalSummaryModal() {
   let totalBalance = 0, totalPnl = 0, totalTrades = 0;
-  let bestAcc = null, bestPnl = -Infinity;
-  let worstAcc = null, worstDD = -Infinity;
-
+  let bestAcc = null, bestPnl = -Infinity, worstAcc = null, worstDD = -Infinity;
   const rows = accounts.map(acc => {
     const trades = (acc.trades || []).map(t => calcTrade(t, acc.initialCapital));
-    const net    = trades.reduce((a, b) => a + b.pnl, 0);
-    const balance= (acc.initialCapital || 0) + net;
-
-    // max dd
+    const net = trades.reduce((a, b) => a + b.pnl, 0);
+    const balance = (acc.initialCapital || 0) + net;
     let eq = 0, peak = 0, dd = 0;
     trades.forEach(t => { eq += t.pnl; if(eq>peak)peak=eq; const d=peak-eq; if(d>dd)dd=d; });
     const ddPct = peak > 0 ? (dd/peak)*100 : 0;
-
-    totalBalance += balance;
-    totalPnl     += net;
-    totalTrades  += trades.length;
-
-    if (net > bestPnl)    { bestPnl  = net;   bestAcc  = acc; }
-    if (ddPct > worstDD)  { worstDD  = ddPct; worstAcc = acc; }
-
+    totalBalance += balance; totalPnl += net; totalTrades += trades.length;
+    if (net > bestPnl) { bestPnl = net; bestAcc = acc; }
+    if (ddPct > worstDD) { worstDD = ddPct; worstAcc = acc; }
     return { acc, net, balance, ddPct, count: trades.length };
   });
-
-  // Stats globales
   $("globalStatsGrid").innerHTML = `
     <div class="global-stat"><div class="global-stat-lbl">Cuentas</div><div class="global-stat-val">${accounts.length}</div></div>
     <div class="global-stat"><div class="global-stat-lbl">Balance combinado</div><div class="global-stat-val ${totalBalance >= 0 ? 'green' : 'red'}">${money(totalBalance)}</div></div>
     <div class="global-stat"><div class="global-stat-lbl">P&L total combinado</div><div class="global-stat-val ${totalPnl >= 0 ? 'green' : 'red'}">${totalPnl >= 0 ? '+' : ''}${money(totalPnl)}</div></div>
     <div class="global-stat"><div class="global-stat-lbl">Operaciones totales</div><div class="global-stat-val blue">${totalTrades}</div></div>
     <div class="global-stat"><div class="global-stat-lbl">Cuenta más rentable</div><div class="global-stat-val green">${bestAcc ? bestAcc.name : '—'}</div></div>
-    <div class="global-stat"><div class="global-stat-lbl">Mayor drawdown</div><div class="global-stat-val red">${worstAcc ? worstAcc.name : '—'}</div></div>
-  `;
-
+    <div class="global-stat"><div class="global-stat-lbl">Mayor drawdown</div><div class="global-stat-val red">${worstAcc ? worstAcc.name : '—'}</div></div>`;
   $("globalAccList").innerHTML = rows.map(r => `
     <div class="global-acc-row" onclick="switchAccount('${r.acc.id}');closeModal('modalGlobal');" style="cursor:pointer;">
-      <div>
-        <div class="global-acc-name">${r.acc.name}</div>
-        <div class="global-acc-meta">${r.acc.broker ? r.acc.broker + ' · ' : ''}${r.acc.type} · ${r.count} trades</div>
-      </div>
+      <div><div class="global-acc-name">${r.acc.name}</div><div class="global-acc-meta">${r.acc.broker ? r.acc.broker + ' · ' : ''}${r.acc.type} · ${r.count} trades</div></div>
       <div style="text-align:right;">
         <div style="font-family:var(--mono);font-size:13px;font-weight:500;" class="${r.net >= 0 ? 'green' : 'red'}">${r.net >= 0 ? '+' : ''}${money(r.net)}</div>
         <div style="font-family:var(--mono);font-size:10px;color:var(--text-3);">DD ${fmt(r.ddPct, 1)}%</div>
       </div>
-    </div>
-  `).join('');
-
+    </div>`).join('');
   $("modalGlobal").style.display = "flex";
 }
 
-/* ─── Helpers modal ─── */
-function closeModal(id) {
-  $(id).style.display = "none";
-}
-function closeModalOnOverlay(e, id) {
-  if (e.target.classList.contains("modal-overlay")) closeModal(id);
-}
+function closeModal(id) { $(id).style.display = "none"; }
+function closeModalOnOverlay(e, id) { if (e.target.classList.contains("modal-overlay")) closeModal(id); }
 
 /* ════════════════════════════════════════════════════════════
    POINT VALUE TABLE
@@ -2686,8 +2655,7 @@ const POINT_VALUE = {
 function getPointValue(asset){ if(!asset)return 1; return POINT_VALUE[asset.toUpperCase().trim()]??1; }
 
 /* ════════════════════════════════════════════════════════════
-   CALC TRADE — MT5-aligned
-   Acepta capital opcional (para resumen global)
+   CALC TRADE
 ════════════════════════════════════════════════════════════ */
 function calcTrade(trade, overrideCapital){
   const entry=num(trade.entry), exit=num(trade.exit), stop=num(trade.stop);
@@ -2708,18 +2676,13 @@ function calcTrade(trade, overrideCapital){
   return {...trade,pnl,pnlPct,pnlPctAccount,riskPctAccount,r,result};
 }
 
-function getComputedTrades(){
-  return getActiveTrades().map(t => calcTrade(t));
-}
+function getComputedTrades(){ return getActiveTrades().map(t => calcTrade(t)); }
 
 /* ════════════════════════════════════════════════════════════
-   ACCOUNT BAR — sincronización con cuenta activa
+   ACCOUNT BAR SYNC
 ════════════════════════════════════════════════════════════ */
-function getAccountSize(){
-  return num($("accountSize").value) || 0;
-}
+function getAccountSize(){ return num($("accountSize").value) || 0; }
 
-// Al cambiar el capital en el input, sincronizar con cuenta activa
 $("accountSize").addEventListener("input", ()=>{
   const val = parseFloat($("accountSize").value) || 0;
   updateActiveAccount({ initialCapital: val });
@@ -2727,21 +2690,16 @@ $("accountSize").addEventListener("input", ()=>{
   refreshAll();
 });
 
-// Cargar capital de la cuenta activa al iniciar
 (function syncCapitalFromActiveAccount() {
   const acc = getActiveAccount();
-  if (acc && acc.initialCapital) {
-    $("accountSize").value = acc.initialCapital;
-  } else {
-    const saved = localStorage.getItem(LEGACY_ACC_KEY);
-    if (saved) $("accountSize").value = saved;
-  }
+  if (acc && acc.initialCapital) $("accountSize").value = acc.initialCapital;
+  else { const saved = localStorage.getItem(LEGACY_ACC_KEY); if (saved) $("accountSize").value = saved; }
 })();
 
 $("date").value = todayStr();
 
 /* ════════════════════════════════════════════════════════════
-   COMPUTE METRICS (sin cambios — trabaja con los trades que le pases)
+   ★ MOTOR DE MÉTRICAS — INSTITUCIONAL
 ════════════════════════════════════════════════════════════ */
 function computeMetrics(rows){
   const total=rows.length;
@@ -2754,18 +2712,32 @@ function computeMetrics(rows){
   const winRate=total?(wins.length/total)*100:0;
   const pf=grossLossAbs===0?(grossProfit>0?999:0):grossProfit/grossLossAbs;
   const avgR=total?rows.reduce((a,b)=>a+b.r,0)/total:0;
-  let equity=0,peak=0,maxDD=0;
-  rows.forEach(t=>{ equity+=t.pnl; if(equity>peak)peak=equity; const dd=peak-equity; if(dd>maxDD)maxDD=dd; });
-  const maxDDPct=peak>0?(maxDD/peak)*100:0;
+
+  // Drawdown — pico sobre equity curve
+  let equity=0,peak=0,maxDD=0,maxDDPeak=0;
+  rows.forEach(t=>{
+    equity+=t.pnl;
+    if(equity>peak)peak=equity;
+    const dd=peak-equity;
+    if(dd>maxDD){maxDD=dd;maxDDPeak=peak;}
+  });
+  const maxDDPct=maxDDPeak>0?(maxDD/maxDDPeak)*100:0;
+
+  // R stats
   const avgWinR=wins.length?wins.reduce((a,b)=>a+b.r,0)/wins.length:0;
   const avgLossR=losses.length?Math.abs(losses.reduce((a,b)=>a+b.r,0)/losses.length):0;
+
+  // Expectancy: E = (WR × avgWinR) − (LR × avgLossR)
   const expectancy=(winRate/100*avgWinR)-((100-winRate)/100*avgLossR);
+
+  // Rachas
   let bestStreak=0,worstStreak=0,curWin=0,curLoss=0;
   rows.forEach(t=>{
     if(t.pnl>0){curWin++;curLoss=0;}else if(t.pnl<0){curLoss++;curWin=0;}else{curWin=0;curLoss=0;}
     if(curWin>bestStreak)bestStreak=curWin;
     if(curLoss>worstStreak)worstStreak=curLoss;
   });
+
   const avgWin=wins.length?grossProfit/wins.length:0;
   const avgLoss=losses.length?Math.abs(losses.reduce((a,b)=>a+b.pnl,0))/losses.length:0;
   const accountSize=getAccountSize();
@@ -2773,11 +2745,193 @@ function computeMetrics(rows){
   const netPctAccount=accountSize>0?(net/accountSize)*100:null;
   const maxDDPctAccount=accountSize>0?(maxDD/accountSize)*100:null;
   const balance=accountSize>0?accountSize+net:null;
+
+  // Por horario
   const byHour={};
   rows.forEach(t=>{ if(t.timeOpen){const h=parseInt(t.timeOpen);if(!byHour[h])byHour[h]={pnl:0,n:0,w:0};byHour[h].pnl+=t.pnl;byHour[h].n++;if(t.pnl>0)byHour[h].w++;} });
+
+  // Por estrategia
   const byStrat={};
   rows.forEach(t=>{ if(t.strategy){if(!byStrat[t.strategy])byStrat[t.strategy]={n:0,w:0,pnl:0};byStrat[t.strategy].n++;if(t.pnl>0)byStrat[t.strategy].w++;byStrat[t.strategy].pnl+=t.pnl;} });
-  return {total,wins:wins.length,losses:losses.length,grossProfit,grossLossAbs,net,netPct,winRate,pf,avgR,maxDD,maxDDPct,expectancy,bestStreak,worstStreak,avgWin,avgLoss,byHour,byStrat,accountSize,netPctAccount,maxDDPctAccount,balance,avgRiskPctAccount};
+
+  // Por dirección (Long/Short)
+  const byDir={Long:{n:0,w:0,pnl:0},Short:{n:0,w:0,pnl:0}};
+  rows.forEach(t=>{
+    const d=t.direction==="Long"?"Long":"Short";
+    byDir[d].n++;byDir[d].pnl+=t.pnl;if(t.pnl>0)byDir[d].w++;
+  });
+
+  // Por día de semana
+  const byWeekday={};
+  rows.forEach(t=>{
+    if(t.date){
+      const wd=new Date(t.date+'T12:00:00').getDay();
+      if(!byWeekday[wd])byWeekday[wd]={n:0,w:0,pnl:0};
+      byWeekday[wd].n++;byWeekday[wd].pnl+=t.pnl;if(t.pnl>0)byWeekday[wd].w++;
+    }
+  });
+
+  // Riesgo inconsistente — coeficiente de variación del riesgo
+  const riskList=rows.map(t=>t.riskPctAccount||0).filter(r=>r>0);
+  let riskCV=0;
+  if(riskList.length>1){
+    const mean=riskList.reduce((a,b)=>a+b,0)/riskList.length;
+    const std=Math.sqrt(riskList.reduce((a,b)=>a+(b-mean)**2,0)/riskList.length);
+    riskCV=mean>0?std/mean:0;
+  }
+
+  // Tiempo entre trades (minutos) — para detección de impulso
+  const sortedByDate=[...rows].sort((a,b)=>(a.date||"").localeCompare(b.date||""));
+  const tradeDates=sortedByDate.map(t=>t.date).filter(Boolean);
+  const tradeDayGroups={};
+  tradeDates.forEach(d=>{tradeDayGroups[d]=(tradeDayGroups[d]||0)+1;});
+  const maxTradesInADay=Math.max(...Object.values(tradeDayGroups),0);
+  const avgTradesPerDay=total/Math.max(Object.keys(tradeDayGroups).length,1);
+
+  // Pérdida tras pérdida
+  let lossAfterLoss=0,lossAfterLossOpp=0;
+  for(let i=1;i<rows.length;i++){
+    if(rows[i-1].pnl<0){ lossAfterLossOpp++; if(rows[i].pnl<0)lossAfterLoss++; }
+  }
+  const lossAfterLossRate=lossAfterLossOpp>0?lossAfterLoss/lossAfterLossOpp:0;
+
+  return {
+    total,wins:wins.length,losses:losses.length,grossProfit,grossLossAbs,net,netPct,winRate,pf,avgR,
+    maxDD,maxDDPct,expectancy,bestStreak,worstStreak,avgWin,avgLoss,
+    byHour,byStrat,byDir,byWeekday,
+    accountSize,netPctAccount,maxDDPctAccount,balance,avgRiskPctAccount,
+    riskCV,maxTradesInADay,avgTradesPerDay,lossAfterLossRate,
+    avgWinR,avgLossR
+  };
+}
+
+/* ════════════════════════════════════════════════════════════
+   ★ MENTOR33 — DETECCIÓN DE PATRONES (sin IA externa)
+════════════════════════════════════════════════════════════ */
+function detectPatterns(rows, m) {
+  const patterns = [];
+  if (m.total < 5) return patterns;
+
+  // 1. Overtrading por sesión
+  if (m.maxTradesInADay >= 5)
+    patterns.push({ type: 'danger', label: `🚨 Overtrading (máx ${m.maxTradesInADay} trades/día)` });
+  else if (m.maxTradesInADay >= 3)
+    patterns.push({ type: 'warning', label: `⚠️ Alta frecuencia (${m.maxTradesInADay} trades en 1 día)` });
+
+  // 2. Rachas de pérdidas
+  if (m.worstStreak >= 5)
+    patterns.push({ type: 'danger', label: `🔴 Racha de ${m.worstStreak} pérdidas seguidas` });
+  else if (m.worstStreak >= 3)
+    patterns.push({ type: 'warning', label: `🟡 Racha de ${m.worstStreak} pérdidas consecutivas` });
+
+  // 3. Pérdida tras pérdida (revenge trading)
+  if (m.lossAfterLossRate > 0.6 && m.losses >= 4)
+    patterns.push({ type: 'danger', label: `🎯 Revenge trading: pierde ${fmt(m.lossAfterLossRate*100,0)}% después de pérdida` });
+  else if (m.lossAfterLossRate > 0.45 && m.losses >= 3)
+    patterns.push({ type: 'warning', label: `🎯 Tendencia a operar impulsivo tras pérdida` });
+
+  // 4. Long vs Short winrate
+  const longWR = m.byDir.Long.n > 0 ? m.byDir.Long.w / m.byDir.Long.n * 100 : null;
+  const shortWR = m.byDir.Short.n > 0 ? m.byDir.Short.w / m.byDir.Short.n * 100 : null;
+  if (longWR !== null && shortWR !== null && m.byDir.Long.n >= 3 && m.byDir.Short.n >= 3) {
+    const diff = Math.abs(longWR - shortWR);
+    if (diff >= 25) {
+      const better = longWR > shortWR ? 'Long' : 'Short';
+      const worse  = longWR > shortWR ? 'Short' : 'Long';
+      patterns.push({ type: 'info', label: `↕️ ${better}s (${fmt(Math.max(longWR,shortWR),0)}% WR) > ${worse}s (${fmt(Math.min(longWR,shortWR),0)}% WR)` });
+    }
+  }
+
+  // 5. Riesgo inconsistente
+  if (m.riskCV > 0.6 && m.avgRiskPctAccount)
+    patterns.push({ type: 'warning', label: `📐 Riesgo muy inconsistente (CV ${fmt(m.riskCV,2)})` });
+
+  // 6. Sin stop loss
+  const noSL = rows.filter(t => !num(t.stop)).length;
+  if (noSL > 0)
+    patterns.push({ type: 'danger', label: `❌ ${noSL} trade${noSL>1?'s':''} sin Stop Loss registrado` });
+
+  // 7. R:R bajo vs winrate
+  if (m.avgR < 0.8 && m.winRate < 55 && m.total >= 10)
+    patterns.push({ type: 'danger', label: `⚡ R:R ${fmt(m.avgR,2)} + WR ${fmt(m.winRate,1)}% = sin edge` });
+  else if (m.avgR > 1.5 && m.winRate > 50)
+    patterns.push({ type: 'success', label: `✅ Excelente R:R ${fmt(m.avgR,2)} con WR ${fmt(m.winRate,1)}%` });
+
+  // 8. Profit factor fuerte
+  if (m.pf > 2 && m.total >= 10)
+    patterns.push({ type: 'success', label: `💪 Profit Factor sólido: ${fmt(m.pf,2)}` });
+
+  // 9. Sin estrategia registrada
+  const noStrategy = rows.filter(t => !t.strategy?.trim()).length;
+  if (noStrategy > m.total * 0.5)
+    patterns.push({ type: 'info', label: `📝 ${noStrategy} trades sin estrategia registrada` });
+
+  // 10. Mejor día de la semana
+  const DAYS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const weekdayEntries = Object.entries(m.byWeekday).filter(([,v])=>v.n>=3);
+  if (weekdayEntries.length > 1) {
+    const best = weekdayEntries.sort((a,b) => b[1].pnl - a[1].pnl)[0];
+    const worst = weekdayEntries.sort((a,b) => a[1].pnl - b[1].pnl)[0];
+    if (best && best[1].pnl > 0) patterns.push({ type: 'success', label: `📅 Mejor día: ${DAYS[best[0]]} (${money(best[1].pnl)})` });
+    if (worst && worst[1].pnl < 0) patterns.push({ type: 'warning', label: `📅 Peor día: ${DAYS[worst[0]]} (${money(worst[1].pnl)})` });
+  }
+
+  return patterns;
+}
+
+function renderPatterns(patterns) {
+  const section = $("mentorPatternsSection");
+  const chipsEl = $("mentorPatternChips");
+  if (!patterns.length) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  chipsEl.innerHTML = patterns.map(p =>
+    `<span class="pattern-chip ${p.type}">${p.label}</span>`
+  ).join('');
+}
+
+/* ════════════════════════════════════════════════════════════
+   ★ OVERTRADING DETECTOR
+════════════════════════════════════════════════════════════ */
+function runOvertradingDetector() {
+  const trades = getActiveTrades();
+  const banner = $("overtradingBanner");
+  const list   = $("overtradingList");
+  const today  = todayStr();
+  const alerts = [];
+
+  // 1. Trades por día hoy
+  const todayTrades = trades.filter(t => t.date === today);
+  if (todayTrades.length >= 5)
+    alerts.push(`🚨 Llevas <strong>${todayTrades.length} trades hoy</strong> — posible overtrading`);
+  else if (todayTrades.length >= 3)
+    alerts.push(`⚠️ ${todayTrades.length} trades hoy — revisa si sigues el plan`);
+
+  // 2. Rachas de pérdidas recientes (últimos 5 trades)
+  const recent = trades.slice(-5);
+  const consecLoss = (() => {
+    let c = 0;
+    for (let i = recent.length - 1; i >= 0; i--) {
+      const t = calcTrade(recent[i]);
+      if (t.pnl < 0) c++; else break;
+    }
+    return c;
+  })();
+  if (consecLoss >= 3)
+    alerts.push(`🔴 <strong>${consecLoss} pérdidas consecutivas</strong> — considera pausar y revisar`);
+
+  // 3. Riesgo elevado último trade
+  if (trades.length > 0) {
+    const last = calcTrade(trades[trades.length - 1]);
+    if (last.riskPctAccount !== null && last.riskPctAccount > 3)
+      alerts.push(`⚠️ Último trade con riesgo del <strong>${fmt(last.riskPctAccount, 2)}%</strong> — supera el límite recomendado`);
+  }
+
+  if (alerts.length > 0) {
+    list.innerHTML = alerts.map(a => `<div class="ot-item">${a}</div>`).join('');
+    banner.classList.add('visible');
+  } else {
+    banner.classList.remove('visible');
+  }
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -2831,20 +2985,23 @@ function updateMetrics(){
     $("bar-balance").className=`val ${m.balance>=m.accountSize?'green':'red'}`;
   } else {
     $("bar-pnl-pct").textContent="—";$("bar-pnl-pct").className="val green";
-    $("bar-dd-pct").textContent="—";
-    $("bar-risk-per-trade").textContent="—";
+    $("bar-dd-pct").textContent="—";$("bar-risk-per-trade").textContent="—";
     $("bar-balance").textContent="—";$("bar-balance").className="val blue";
   }
   updateEdge(m);
   updateMentorAutoMsg(m);
+  // ★ Render patterns in mentor tab
+  const patterns = detectPatterns(rows, m);
+  renderPatterns(patterns);
+  // ★ Overtrading detector
+  runOvertradingDetector();
 }
 
 /* ════════════════════════════════════════════════════════════
    MENTOR — análisis automático
 ════════════════════════════════════════════════════════════ */
 function updateMentorAutoMsg(m){
-  const el=$("mentorAutoText");
-  if(!el)return;
+  const el=$("mentorAutoText"); if(!el)return;
   if(m.total===0){el.textContent="Aún no hay trades registrados. Empieza a cargar operaciones para ver el diagnóstico en tiempo real.";return;}
   const wr=m.winRate/100,edge=(wr*m.avgR)-(1-wr);
   let msg="";
@@ -2885,8 +3042,7 @@ function renderTable(){
       <td><span class="pill ${rc}">${row.result}</span></td>
       <td>${row.strategy||""}</td>
       <td title="${(row.notes||'').replace(/"/g,'&quot;')}">${(row.notes||"").slice(0,40)}</td>
-      <td><button onclick="removeTrade(${i})" style="font-size:12px;padding:6px 12px;color:var(--red);border-color:rgba(255,77,106,.2)">Eliminar</button></td>
-    `;
+      <td><button onclick="removeTrade(${i})" style="font-size:12px;padding:6px 12px;color:var(--red);border-color:rgba(255,77,106,.2)">Eliminar</button></td>`;
     tbody.appendChild(tr);
   });
 }
@@ -2904,8 +3060,7 @@ function drawLineChart(canvas,values){
   const x0=40,y0=16,plotW=W-56,plotH=H-32;
   const zeroY=y0+plotH-((0-min)/range)*plotH;
   ctx.strokeStyle="rgba(255,255,255,.12)";ctx.lineWidth=1;ctx.setLineDash([4,4]);
-  ctx.beginPath();ctx.moveTo(x0,zeroY);ctx.lineTo(x0+plotW,zeroY);ctx.stroke();
-  ctx.setLineDash([]);
+  ctx.beginPath();ctx.moveTo(x0,zeroY);ctx.lineTo(x0+plotW,zeroY);ctx.stroke();ctx.setLineDash([]);
   const grad=ctx.createLinearGradient(0,y0,0,y0+plotH);
   grad.addColorStop(0,"rgba(0,232,122,.18)");grad.addColorStop(1,"rgba(0,232,122,.0)");
   ctx.beginPath();
@@ -2952,18 +3107,23 @@ function renderCharts(){
 function renderAnalysis(){
   const rows=getComputedTrades();const m=computeMetrics(rows);
   const accountSize=getAccountSize();
+  const DAYS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
   const stats=[
     ["Total de operaciones",m.total],
     ["Ganancias brutas",money(m.grossProfit)],
     ["Pérdidas brutas",money(m.grossLossAbs)],
     ["Promedio ganancia",money(m.avgWin)],
     ["Promedio pérdida",money(m.avgLoss)],
+    ["Avg Win R",`${fmt(m.avgWinR,2)}R`],
+    ["Avg Loss R",`${fmt(m.avgLossR,2)}R`],
     ["Mejor racha",`${m.bestStreak} wins`],
     ["Peor racha",`${m.worstStreak} losses`],
     ["Expectancy",`${fmt(m.expectancy)}R`],
     ["R promedio",`${fmt(m.avgR)}R`],
     ["Profit Factor",m.pf===999?">10":fmt(m.pf)],
     ["Max Drawdown",`${money(m.maxDD)} (${pct(m.maxDDPct)})`],
+    ["Long WR",m.byDir.Long.n>0?`${fmt(m.byDir.Long.w/m.byDir.Long.n*100,1)}% (${m.byDir.Long.n} trades)`:"—"],
+    ["Short WR",m.byDir.Short.n>0?`${fmt(m.byDir.Short.w/m.byDir.Short.n*100,1)}% (${m.byDir.Short.n} trades)`:"—"],
   ];
   if(accountSize>0){
     stats.push(["Tamaño de cuenta",money(accountSize)]);
@@ -2972,6 +3132,19 @@ function renderAnalysis(){
     stats.push(["DD / Cuenta",`${fmt(m.maxDDPctAccount,2)}%`]);
     if(m.avgRiskPctAccount!==null)stats.push(["Riesgo prom/trade",`${fmt(m.avgRiskPctAccount,3)}%`]);
   }
+  // Mejor estrategia
+  const stratEntries=Object.entries(m.byStrat).filter(([,v])=>v.n>=2);
+  if(stratEntries.length>0){
+    const best=stratEntries.sort((a,b)=>b[1].pnl-a[1].pnl)[0];
+    stats.push(["Mejor estrategia",`${best[0]} (${money(best[1].pnl)})`]);
+  }
+  // Mejor día de semana
+  const wdEntries=Object.entries(m.byWeekday).filter(([,v])=>v.n>=2);
+  if(wdEntries.length>0){
+    const bestWd=wdEntries.sort((a,b)=>b[1].pnl-a[1].pnl)[0];
+    stats.push(["Mejor día",`${DAYS[bestWd[0]]} (${money(bestWd[1].pnl)})`]);
+  }
+
   $("analysisStats").innerHTML=stats.map(([k,v])=>`<div class="stat-row"><span>${k}</span><strong>${v}</strong></div>`).join("");
   $("sampleHintText").textContent=m.total<30
     ?"Muestra pequeña (< 30 trades). Las métricas son orientativas; necesitas más datos para conclusiones confiables."
@@ -2982,10 +3155,316 @@ function renderAnalysis(){
     text+=`Llevas ${m.total} operación(es). `;
     text+=m.winRate>=50?`Win Rate del ${fmt(m.winRate,1)}%, sólido por ahora. `:`Win Rate en ${fmt(m.winRate,1)}%, revisa si tu R compensa las pérdidas. `;
     text+=m.expectancy>0?`Expectancy positiva en ${fmt(m.expectancy)}R — ventaja estadística presente. `:`Expectancy en ${fmt(m.expectancy)}R — sin ventaja clara aún. `;
+    if(m.byDir.Long.n>=3&&m.byDir.Short.n>=3){
+      const lwr=m.byDir.Long.w/m.byDir.Long.n*100;
+      const swr=m.byDir.Short.w/m.byDir.Short.n*100;
+      text+=`Long WR: ${fmt(lwr,1)}% vs Short WR: ${fmt(swr,1)}%. `;
+    }
     if(accountSize>0){text+=`Cuenta: ${fmt(m.netPctAccount,2)}% de rentabilidad, DD máx ${fmt(m.maxDDPctAccount,2)}%.`;}
     else{text+=m.maxDD===0?"Sin drawdown relevante todavía.":`Drawdown máximo actual: ${money(m.maxDD)}.`;}
   }
   $("quickRead").textContent=text;
+}
+
+/* ════════════════════════════════════════════════════════════
+   ★ MT5 IMPORTER — Parser HTML y CSV
+════════════════════════════════════════════════════════════ */
+let mt5ParsedTrades = [];
+
+$("mt5ImportBtn").addEventListener("click", () => {
+  mt5ParsedTrades = [];
+  $("mt5Preview").classList.remove("visible");
+  $("mt5ConfirmBtn").disabled = true;
+  $("mt5FileInput").value = "";
+  $("modalMT5").style.display = "flex";
+});
+
+// Drag & drop
+const dropZone = $("mt5DropZone");
+dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("drag-over"); });
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
+dropZone.addEventListener("drop", e => {
+  e.preventDefault(); dropZone.classList.remove("drag-over");
+  const file = e.dataTransfer.files[0];
+  if (file) processMT5File(file);
+});
+
+$("mt5FileInput").addEventListener("change", e => {
+  const file = e.target.files[0];
+  if (file) processMT5File(file);
+});
+
+function processMT5File(file) {
+  const name = file.name.toLowerCase();
+  const reader = new FileReader();
+  reader.onload = () => {
+    const content = reader.result;
+    try {
+      if (name.endsWith(".csv")) {
+        mt5ParsedTrades = parseMT5CSV(content);
+      } else {
+        mt5ParsedTrades = parseMT5HTML(content);
+      }
+      if (mt5ParsedTrades.length === 0) {
+        showAlert("warning", "⚠️ Sin trades detectados", "El archivo no contiene operaciones reconocibles. Asegúrate de exportar el historial de trading completo.");
+        return;
+      }
+      renderMT5Preview(mt5ParsedTrades);
+      $("mt5ConfirmBtn").disabled = false;
+      showAlert("success", "✅ Archivo procesado", `${mt5ParsedTrades.length} trades detectados en ${file.name}`);
+    } catch(err) {
+      showAlert("danger", "❌ Error al procesar", "No se pudo parsear el archivo. Verifica el formato MT5.");
+      console.error("MT5 parse error:", err);
+    }
+  };
+  reader.readAsText(file, "utf-8");
+}
+
+/* ─── PARSER HTML de MT5 ─── */
+function parseMT5HTML(html) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+  const trades = [];
+  const rows = Array.from(doc.querySelectorAll("tr"));
+
+  /* MT5 HTML export tiene formato de tabla con columnas:
+     Ticket | Open Time | Type | Size | Symbol | Price | S/L | T/P | Close Time | Price | Commission | Swap | Profit
+  */
+  let headerFound = false;
+  let colMap = {};
+
+  for (const row of rows) {
+    const cells = Array.from(row.querySelectorAll("td, th")).map(c => c.textContent.trim());
+    if (!cells.length) continue;
+
+    // Detectar fila de encabezados
+    const cellsLower = cells.map(c => c.toLowerCase());
+    if (!headerFound && (cellsLower.some(c => c.includes("symbol") || c.includes("tipo") || c.includes("type")))) {
+      // Mapear columnas
+      cellsLower.forEach((c, i) => {
+        if (c.includes("ticket"))    colMap.ticket = i;
+        if (c.includes("open time") || c.includes("time open") || c.includes("hora de apertura") || c.includes("apertura")) colMap.openTime = i;
+        if (c.includes("close time") || c.includes("hora de cierre") || c.includes("cierre"))  colMap.closeTime = i;
+        if (c.includes("type") || c.includes("tipo"))    colMap.type = i;
+        if (c.includes("size") || c.includes("volumen") || c.includes("lots") || c.includes("lotes"))  colMap.size = i;
+        if (c.includes("symbol") || c.includes("símbolo")) colMap.symbol = i;
+        if (c === "price" || c === "precio" || c.includes("open price")) {
+          if (colMap.openPrice === undefined) colMap.openPrice = i;
+          else colMap.closePrice = i;
+        }
+        if (c.includes("s/l") || c.includes("stop")) colMap.sl = i;
+        if (c.includes("t/p") || c.includes("take"))  colMap.tp = i;
+        if (c.includes("commission") || c.includes("comisión")) colMap.commission = i;
+        if (c.includes("swap"))      colMap.swap = i;
+        if (c.includes("profit") || c.includes("beneficio") || c.includes("ganancia")) colMap.profit = i;
+      });
+      // Fallback para price (2 columnas price)
+      if (colMap.closePrice === undefined) {
+        const priceIdxs = [];
+        cellsLower.forEach((c, i) => { if (c === "price" || c === "precio") priceIdxs.push(i); });
+        if (priceIdxs.length >= 2) { colMap.openPrice = priceIdxs[0]; colMap.closePrice = priceIdxs[1]; }
+      }
+      headerFound = true;
+      continue;
+    }
+
+    if (!headerFound) continue;
+
+    // Filtrar filas vacías o de resumen
+    const typeRaw = (cells[colMap.type] || "").toLowerCase();
+    if (!typeRaw || typeRaw.includes("balance") || typeRaw.includes("total") || typeRaw.includes("subtotal")) continue;
+
+    const direction = (typeRaw.includes("buy") || typeRaw === "buy") ? "Long"
+                    : (typeRaw.includes("sell") || typeRaw === "sell") ? "Short"
+                    : null;
+    if (!direction) continue;
+
+    const openTimeRaw  = cells[colMap.openTime]  || "";
+    const closeTimeRaw = cells[colMap.closeTime] || "";
+    const dateStr = extractDate(openTimeRaw);
+    const symbol  = (cells[colMap.symbol] || "").toUpperCase();
+    const openPrice  = parseFloat((cells[colMap.openPrice]  || "0").replace(/[, ]/g, "")) || 0;
+    const closePrice = parseFloat((cells[colMap.closePrice] || "0").replace(/[, ]/g, "")) || 0;
+    const slRaw   = parseFloat((cells[colMap.sl]  || "0").replace(/[, ]/g, "")) || 0;
+    const tpRaw   = parseFloat((cells[colMap.tp]  || "0").replace(/[, ]/g, "")) || 0;
+    const sizeLot = parseFloat((cells[colMap.size] || "1").replace(/[, ]/g, "")) || 1;
+    const commRaw = parseFloat((cells[colMap.commission] || "0").replace(/[, ]/g, "")) || 0;
+    const swapRaw = parseFloat((cells[colMap.swap]       || "0").replace(/[, ]/g, "")) || 0;
+    const profitRaw = parseFloat((cells[colMap.profit]   || "0").replace(/[, ]/g, "")) || 0;
+
+    if (!symbol || !openPrice) continue;
+
+    const defaultCommission = parseFloat($("mt5DefaultCommission").value) || 0;
+    const totalCommission   = Math.abs(commRaw) || defaultCommission;
+
+    trades.push({
+      date:       dateStr || todayStr(),
+      asset:      symbol,
+      direction,
+      entry:      openPrice,
+      exit:       closePrice,
+      stop:       slRaw,
+      target:     tpRaw,
+      size:       sizeLot,
+      commission: totalCommission,
+      swap:       Math.abs(swapRaw),
+      strategy:   "",
+      notes:      `MT5 · ${typeRaw} · Profit MT5: ${profitRaw}`,
+      timeOpen:   extractHour(openTimeRaw),
+      source:     "MT5"
+    });
+  }
+
+  return trades;
+}
+
+/* ─── PARSER CSV de MT5 ─── */
+function parseMT5CSV(csv) {
+  const lines = csv.split(/\r?\n/).filter(l => l.trim());
+  if (!lines.length) return [];
+
+  // Detectar separador
+  const sep = lines[0].includes(";") ? ";" : ",";
+  const headers = lines[0].split(sep).map(h => h.trim().replace(/^"|"$/g, "").toLowerCase());
+
+  const colIdx = {};
+  headers.forEach((h, i) => {
+    if (h.includes("ticket"))     colIdx.ticket = i;
+    if (h.includes("open time") || h.includes("time") && i < 3) colIdx.openTime = i;
+    if (h.includes("close time"))  colIdx.closeTime = i;
+    if (h.includes("type") || h.includes("tipo")) colIdx.type = i;
+    if (h.includes("size") || h.includes("lots") || h.includes("volum")) colIdx.size = i;
+    if (h.includes("symbol") || h.includes("item")) colIdx.symbol = i;
+    if ((h === "price" || h === "open price") && colIdx.openPrice === undefined) colIdx.openPrice = i;
+    if ((h === "price" && colIdx.openPrice !== undefined) || h.includes("close price")) colIdx.closePrice = i;
+    if (h.includes("s/l") || h.includes("stop loss")) colIdx.sl = i;
+    if (h.includes("t/p") || h.includes("take profit")) colIdx.tp = i;
+    if (h.includes("commission")) colIdx.commission = i;
+    if (h.includes("swap")) colIdx.swap = i;
+    if (h.includes("profit")) colIdx.profit = i;
+  });
+
+  const trades = [];
+  for (let i = 1; i < lines.length; i++) {
+    const cells = parseCSVLine(lines[i], sep);
+    if (!cells.length) continue;
+
+    const typeRaw = (cells[colIdx.type] || "").toLowerCase().replace(/"/g, "");
+    if (!typeRaw || typeRaw.includes("balance") || typeRaw.includes("deposit") || typeRaw.includes("total")) continue;
+
+    const direction = typeRaw.includes("buy") ? "Long" : typeRaw.includes("sell") ? "Short" : null;
+    if (!direction) continue;
+
+    const symbol    = (cells[colIdx.symbol] || "").replace(/"/g, "").toUpperCase();
+    const openTime  = (cells[colIdx.openTime] || "").replace(/"/g, "");
+    const closePriceVal = parseFloat((cells[colIdx.closePrice] || "0").replace(/[,"]/g, "")) || 0;
+    const openPriceVal  = parseFloat((cells[colIdx.openPrice]  || "0").replace(/[,"]/g, "")) || 0;
+    const slVal   = parseFloat((cells[colIdx.sl] || "0").replace(/[,"]/g, "")) || 0;
+    const tpVal   = parseFloat((cells[colIdx.tp] || "0").replace(/[,"]/g, "")) || 0;
+    const sizeVal = parseFloat((cells[colIdx.size] || "1").replace(/[,"]/g, "")) || 1;
+    const commVal = parseFloat((cells[colIdx.commission] || "0").replace(/[,"]/g, "")) || 0;
+    const swapVal = parseFloat((cells[colIdx.swap] || "0").replace(/[,"]/g, "")) || 0;
+    const profitVal = parseFloat((cells[colIdx.profit] || "0").replace(/[,"]/g, "")) || 0;
+
+    if (!symbol) continue;
+
+    const defaultCommission = parseFloat($("mt5DefaultCommission").value) || 0;
+
+    trades.push({
+      date:       extractDate(openTime) || todayStr(),
+      asset:      symbol,
+      direction,
+      entry:      openPriceVal,
+      exit:       closePriceVal,
+      stop:       slVal,
+      target:     tpVal,
+      size:       sizeVal,
+      commission: Math.abs(commVal) || defaultCommission,
+      swap:       Math.abs(swapVal),
+      strategy:   "",
+      notes:      `MT5 CSV · Profit MT5: ${profitVal}`,
+      timeOpen:   extractHour(openTime),
+      source:     "MT5"
+    });
+  }
+
+  return trades;
+}
+
+function parseCSVLine(line, sep) {
+  const result = []; let current = ""; let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    if (line[i] === '"') { inQuotes = !inQuotes; }
+    else if (line[i] === sep && !inQuotes) { result.push(current.trim()); current = ""; }
+    else { current += line[i]; }
+  }
+  result.push(current.trim());
+  return result;
+}
+
+function extractDate(str) {
+  if (!str) return null;
+  // Formatos MT5: "2024.03.15 10:30:00" o "2024-03-15 10:30" o "03/15/2024"
+  const m1 = str.match(/(\d{4})[.\-\/](\d{1,2})[.\-\/](\d{1,2})/);
+  if (m1) return `${m1[1]}-${m1[2].padStart(2,'0')}-${m1[3].padStart(2,'0')}`;
+  const m2 = str.match(/(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})/);
+  if (m2) return `${m2[3]}-${m2[1].padStart(2,'0')}-${m2[2].padStart(2,'0')}`;
+  return null;
+}
+
+function extractHour(str) {
+  if (!str) return null;
+  const m = str.match(/(\d{1,2}):(\d{2})/);
+  return m ? parseInt(m[1]) : null;
+}
+
+function renderMT5Preview(trades) {
+  const preview = $("mt5Preview");
+  const list    = $("mt5PreviewList");
+  const count   = $("mt5PreviewCount");
+  preview.classList.add("visible");
+  count.textContent = `${trades.length} trade${trades.length !== 1 ? 's' : ''} detectados`;
+
+  const header = `<div class="mt5-preview-row">
+    <span class="col-head">Fecha</span>
+    <span class="col-head">Activo</span>
+    <span class="col-head">Dir.</span>
+    <span class="col-head">Entrada → Salida</span>
+    <span class="col-head">P&L aprox.</span>
+  </div>`;
+
+  const rows = trades.slice(0, 30).map(t => {
+    const c = calcTrade(t);
+    const pnlColor = c.pnl >= 0 ? 'var(--green)' : 'var(--red)';
+    return `<div class="mt5-preview-row">
+      <span>${t.date || '—'}</span>
+      <span>${t.asset}</span>
+      <span style="color:var(--blue)">${t.direction}</span>
+      <span>${fmt(t.entry, 4)} → ${fmt(t.exit, 4)}</span>
+      <span style="color:${pnlColor}">${money(c.pnl)}</span>
+    </div>`;
+  }).join('');
+
+  list.innerHTML = header + rows + (trades.length > 30 ? `<div style="padding:8px 14px;font-size:10px;color:var(--text-3);font-family:var(--mono)">... y ${trades.length - 30} más</div>` : '');
+  $("mt5PreviewTitle").textContent = `Vista previa — ${trades[0]?.date || ''} al ${trades[trades.length-1]?.date || ''}`;
+}
+
+function confirmMT5Import() {
+  if (!mt5ParsedTrades.length) return;
+  const mode = $("mt5ImportMode").value;
+  let current = getActiveTrades();
+
+  if (mode === "replace") {
+    current = mt5ParsedTrades;
+  } else {
+    current = [...current, ...mt5ParsedTrades];
+  }
+
+  setActiveTrades(current);
+  closeModal("modalMT5");
+  refreshAll();
+  showAlert("success", "✅ MT5 importado", `${mt5ParsedTrades.length} operaciones importadas en ${getActiveAccount()?.name}.`);
+  mt5ParsedTrades = [];
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -3011,7 +3490,6 @@ function resetForm(){
 $("addBtn").addEventListener("click",()=>{
   const acc = getActiveAccount();
   if (!acc) { showAlert("warning","⚠️ Sin cuenta","Crea una cuenta antes de registrar operaciones."); return; }
-
   const trade={
     date:$("date").value||todayStr(),asset:$("asset").value.trim(),
     direction:$("direction").value,
@@ -3022,12 +3500,9 @@ $("addBtn").addEventListener("click",()=>{
   };
   if(!trade.asset){alert("Pon el activo.");return;}
   if(!trade.entry||!trade.exit){alert("Pon entrada y salida.");return;}
-
-  // Guardar trade en la cuenta activa
   const currentTrades = getActiveTrades();
   currentTrades.push(trade);
   setActiveTrades(currentTrades);
-
   refreshAll();
   resetForm();
   checkSmartAlerts(trade);
@@ -3125,6 +3600,8 @@ function buildPrompt(rows,m){
     :"Cuenta: no configurada";
   const wr=m.winRate/100,edge=(wr*m.avgR)-(1-wr);
   const acc=getActiveAccount();
+  const longWR=m.byDir.Long.n>0?fmt(m.byDir.Long.w/m.byDir.Long.n*100,1):"N/A";
+  const shortWR=m.byDir.Short.n>0?fmt(m.byDir.Short.w/m.byDir.Short.n*100,1):"N/A";
   return `Eres Mentor33, mentor de trading profesional para Edge33. Sistema del trader: "Altos y Bajos de H4 confirmados con Q33".
 Cuenta analizada: ${acc?.name||'Sin nombre'} (${acc?.type||'Personal'})${acc?.broker?' · '+acc.broker:''}
 
@@ -3145,12 +3622,15 @@ DATOS DEL TRADER:
 Trades: ${m.total} | WR: ${fmt(m.winRate,1)}% | PF: ${m.pf===999?">10":fmt(m.pf)} | Expectancy: ${fmt(m.expectancy)}R | R avg: ${fmt(m.avgR)}R | DD máx: ${fmt(m.maxDDPct)}%
 Edge estadístico: ${fmt(edge,3)}R
 Wins: ${m.wins} | Losses: ${m.losses} | Mejor racha: ${m.bestStreak} | Peor racha: ${m.worstStreak}
+Long WR: ${longWR}% (${m.byDir.Long.n} trades) | Short WR: ${shortWR}% (${m.byDir.Short.n} trades)
 Promedio ganancia: ${money(m.avgWin)} | Promedio pérdida: ${money(m.avgLoss)}
+Avg Win R: ${fmt(m.avgWinR,2)} | Avg Loss R: ${fmt(m.avgLossR,2)}
+Riesgo inconsistente CV: ${fmt(m.riskCV,2)} | Pérdida tras pérdida: ${fmt(m.lossAfterLossRate*100,0)}%
 ${accountCtx}
 Por horario: ${hrTxt}
 Por estrategia: ${stTxt}
 
-Genera exactamente 4 insights relevantes y accionables. RESPONDE SOLO JSON, sin texto adicional.`;
+Genera exactamente 4 insights relevantes y accionables basados en los datos. RESPONDE SOLO JSON, sin texto adicional.`;
 }
 
 async function callClaude(prompt){
@@ -3218,6 +3698,8 @@ Datos actuales del trader:
 - Edge estadístico: ${fmt(edge,3)}R ${edge>0?'(positivo)':'(negativo)'}
 - Max Drawdown: ${fmt(m.maxDDPct)}%
 - Mejor racha: ${m.bestStreak} wins | Peor racha: ${m.worstStreak} losses
+- Long WR: ${m.byDir.Long.n>0?fmt(m.byDir.Long.w/m.byDir.Long.n*100,1)+'%':'N/A'} | Short WR: ${m.byDir.Short.n>0?fmt(m.byDir.Short.w/m.byDir.Short.n*100,1)+'%':'N/A'}
+- Revenge trading risk: ${fmt(m.lossAfterLossRate*100,0)}%
 - ${accountCtx}
 - Estrategias: ${Object.entries(m.byStrat).map(([k,v])=>`${k}(${v.n} trades)`).join(", ")||"sin datos"}
 
@@ -3256,13 +3738,20 @@ function addTyping(){
 ════════════════════════════════════════════════════════════ */
 function checkSmartAlerts(t){
   const todayTrades=getActiveTrades().filter(x=>x.date===t.date);
-  if(todayTrades.length>=3)showAlert("danger","🚨 Sobreoperación",`Llevas ${todayTrades.length} trades hoy. Revisa si estás siguiendo el plan.`);
+  if(todayTrades.length>=5)showAlert("danger","🚨 Overtrading",`Llevas ${todayTrades.length} trades hoy. Revisa si estás siguiendo el plan.`);
+  else if(todayTrades.length>=3)showAlert("warning","⚠️ Alta frecuencia",`${todayTrades.length} trades hoy — revisa el plan.`);
   if(!t.strategy)showAlert("warning","⚠️ Sin estrategia","Registrar el setup ayuda a Mentor33 a detectar tu edge con más precisión.");
   const accountSize=getAccountSize();
   if(accountSize>0){
     const computed=calcTrade(t);
     if(computed.riskPctAccount!==null&&computed.riskPctAccount>2)
       showAlert("warning","⚠️ Riesgo elevado",`Este trade arriesga ${fmt(computed.riskPctAccount,2)}% de tu cuenta. Considera mantenerlo bajo el 2%.`);
+  }
+  // Racha de pérdidas reciente
+  const recent=getActiveTrades().slice(-3);
+  if(recent.length>=3){
+    const allLoss=recent.every(x=>calcTrade(x).pnl<0);
+    if(allLoss)showAlert("danger","🔴 3 pérdidas seguidas","Considera pausar y revisar tu análisis antes de continuar.");
   }
 }
 
@@ -3493,3 +3982,6 @@ loadAutoCalculatorSettings();
 </script>
 </body>
 </html>
+HTMLEOF
+echo "File size: $(wc -c < /mnt/user-data/outputs/edge33-v2.html) bytes"
+echo "Done"
